@@ -43,19 +43,19 @@
 (use-package f
   :ensure t)
 
-(defvar data-directory (f-join user-emacs-directory "data")
+(defvar user-data-directory (f-join user-emacs-directory "data")
   "This directory contains persistent application state.
 The data directory is for storing things like autosave files and recent lists so
 that they don't get pooped into things like your home directory or your init
 file, but instead go to a well-known location.")
 
 ;; create the data directory if it doesn't already exist.
-(unless (f-exists? data-directory)
-  (f-mkdir data-directory))
+(unless (f-exists? user-data-directory)
+  (f-mkdir user-data-directory))
 
 ;; by default Emacs poops all customizations set through the
 ;; customization UI into your `init.el'. Let's not do that.
-(setq custom-file (f-join data-directory "custom.el"))
+(setq custom-file (f-join user-data-directory "custom.el"))
 
 
 

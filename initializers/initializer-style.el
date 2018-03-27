@@ -11,11 +11,13 @@
 ;;; Code:
 
 (use-package monokai-theme
-             :init (setq monokai-distinct-fringe-background t)
-             :config (load-theme 'monokai t))
+  :ensure t
+  :init (setq monokai-distinct-fringe-background t)
+  :config (load-theme 'monokai t))
 
 (use-package page-break-lines
-             :config (global-page-break-lines-mode))
+  :ensure t
+  :config (global-page-break-lines-mode))
 
 (provide 'initializer-style)
 ;;; initializer-style.el ends here

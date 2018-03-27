@@ -28,20 +28,15 @@
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
 
-;; TODO: use use-package to load exec-path-from-shell for mac?
-;; (use-package exec-path-from-shell
-;;   :if (memq window-system '(mac ns))
-;;   :ensure t
-;;   :config
-;;   (exec-path-from-shell-initialize))
-
 ;; OSX specific code
 (when (eq system-type 'darwin)
 
   ;; On OS X Emacs doesn't use the shell PATH if it's not started from
   ;; the shell. Let's fix that:
-  (require 'exec-path-from-shell)
-  (exec-path-from-shell-initialize)
+  (use-package exec-path-from-shell
+    :ensure t
+    :config
+    (exec-path-from-shell-initialize))
 
   ;; It's all in the Meta
   (setq ns-function-modifier 'hyper)

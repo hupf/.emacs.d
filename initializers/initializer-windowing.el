@@ -1,7 +1,4 @@
 ;; TODO
-;; (require 'hlinum)
-;; (require 'linum)
-
 ;; ;; Split horizontally when opening a new window from a command
 ;; ;; whenever possible.
 ;; (setq split-height-threshold nil)
@@ -36,24 +33,31 @@
 ;;   (switch-to-next-buffer))
 ;; (global-set-key (kbd "C-x 3") 'frontmacs/hsplit-last-buffer)
 
-;; ;; Line numbers
-;; ;; highlight the current line number
-;; (hlinum-activate)
-;; (setq linum-format " %3d ")
+;; Line numbers
+;; highlight the current line number
+(use-package hlinum
+  :ensure t
+  :config (hlinum-activate))
 
-;; ;; turn on line numbers in prog-mode
-;; (add-hook 'prog-mode-hook 'linum-mode)
+(use-package linum
+  :ensure t
+  :init (setq linum-format " %3d ")
+  :config (add-hook 'prog-mode-hook 'linum-mode))
+  ;; :hook prog-mode)
 
+; TODO
 ;; ;; disable window-system in terminal mode
 ;; (unless window-system
 ;;   (menu-bar-mode -1))
 
-;; ; disable startup screen
-;; (setq inhibit-startup-screen t)
+;; disable startup screen
+(setq inhibit-startup-screen t)
 
-;; ;; use super (cmd) + arrow keys to switch between visible buffers
-;; (require 'windmove)
-;; (windmove-default-keybindings 'super)
+;; use super (cmd) + arrow keys to switch between visible buffers
+(use-package windmove
+  :ensure t
+  :config
+  (windmove-default-keybindings 'super))
 
 ;; ;; War and scrollbars. what are they good for?
 ;; (require 'scroll-bar)
