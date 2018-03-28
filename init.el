@@ -75,15 +75,15 @@ file, but instead go to a well-known location.")
 (require 'initializer-vcs)
 (require 'initializer-windowing)
 (require 'initializer-editing)
-(require 'initializer-keys)
+;; (require 'initializer-keys)
 (require 'initializer-modeline)
 
 ;; different language modes
-(require 'initializer-web)
-(require 'initializer-javascript)
-(require 'initializer-css)
-(require 'initializer-ruby)
-(require 'initializer-yaml)
-(require 'initializer-markdown)
+;; (require 'initializer-web)
+;; (require 'initializer-javascript)
+;; (require 'initializer-css)
+;; (require 'initializer-ruby)
+;; (require 'initializer-yaml)
+;; (require 'initializer-markdown)
 
 ;;; init.el ends here

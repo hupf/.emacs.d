@@ -17,6 +17,7 @@
 
 (use-package page-break-lines
   :ensure t
+  :diminish page-break-lines-mode
   :config (global-page-break-lines-mode))
 
 (provide 'initializer-style)

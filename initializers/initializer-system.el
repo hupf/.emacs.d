@@ -15,7 +15,7 @@
 
 ;; forward function declarations eliminate warnings about whether a
 ;; function is defined.
-(declare-function exec-path-from-shell-initialize "exec-path-from-shell.el")
+;; (declare-function exec-path-from-shell-initialize "exec-path-from-shell.el")
 
 ;; reduce the frequency of garbage collection by making it happen on
 ;; each 50MB of allocated data (the default is on every 0.76MB)
@@ -33,10 +33,10 @@
 
   ;; On OS X Emacs doesn't use the shell PATH if it's not started from
   ;; the shell. Let's fix that:
-  (use-package exec-path-from-shell
-    :ensure t
-    :config
-    (exec-path-from-shell-initialize))
+  ;; (use-package exec-path-from-shell
+  ;;   :ensure t
+  ;;   :config
+  ;;   (exec-path-from-shell-initialize))
 
   ;; It's all in the Meta
   (setq ns-function-modifier 'hyper)

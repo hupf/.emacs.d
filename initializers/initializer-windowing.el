@@ -53,11 +53,23 @@
 ;; disable startup screen
 (setq inhibit-startup-screen t)
 
+;; disable scratch message
+(setq initial-scratch-message nil)
+
 ;; use super (cmd) + arrow keys to switch between visible buffers
 (use-package windmove
   :ensure t
   :config
   (windmove-default-keybindings 'super))
+
+(use-package buffer-move
+             :ensure t
+             :init (setq buffer-move-behavior 'move)
+             :bind
+             ("<C-S-up>" . buf-move-up)
+             ("<C-S-down>" . buf-move-down)
+             ("<C-S-left>" . buf-move-left)
+             ("<C-S-right>" . buf-move-right))
 
 ;; ;; War and scrollbars. what are they good for?
 ;; (require 'scroll-bar)

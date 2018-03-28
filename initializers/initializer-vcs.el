@@ -1,5 +1,7 @@
 (use-package magit
   :ensure t)
+;; TODO: needed?
+;; (global-magit-file-mode 1)
 
 ;; use diff-hl to add git difs in gutter
 (use-package diff-hl

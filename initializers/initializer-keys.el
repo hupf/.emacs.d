@@ -1,14 +1,13 @@
-;; TODO
-;; ;;; initializer-keys.el --- Frontmacs: key bindings
+;;; initializer-keys.el --- Frontmacs: key bindings
 
-;; ;; This file is not part of GNU Emacs.
+;; This file is not part of GNU Emacs.
 
-;; ;;; Commentary:
+;;; Commentary:
 
-;; ;; Emacs is all about the key bindings, and this is where we define
-;; ;; all keyboard related activities.
+;; Emacs is all about the key bindings, and this is where we define
+;; all keyboard related activities.
 
-;; ;;; Code:
+;;; Code:
 
 ;; (require 'key-chord)
 ;; (require 'crux)

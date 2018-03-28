@@ -1,60 +1,68 @@
+;;; initializer-editing.el --- What happens when I edit things?
+
+;; This file is not part of GNU Emacs.
+
+;;; Commentary:
+
+;; Behaviors for when you edit things.
+
+;;; Code:
+
+;; Death to the tabs indeed!
+;; https://github.com/bbatsov/prelude/blob/master/core/prelude-editor.el#L35-L44
+(setq-default indent-tabs-mode nil)   ;; don't use tabs to indent
+(setq-default tab-width 8)            ;; but maintain correct appearance
+
+
+;; smart tab behavior - indent or complete
+(setq tab-always-indent 'complete)
+
+;; always end files with newlines
+(setq require-final-newline t)
+
+;; setup smartparens to auto open and close pairs
+(use-package smartparens
+  :ensure t
+  :diminish smartparens-mode
+  :config (smartparens-global-mode 1))
+
+;; when you have a selection, typing text replaces it all.
+(delete-selection-mode t)
+
+;; nice scrolling
+(setq scroll-margin 0
+      scroll-conservatively 100000
+      scroll-preserve-screen-position 1
+      redisplay-dont-pause t)
+
+;; show matching paren
+(use-package paren
+  :ensure t
+  :init (setq show-paren-style 'parenthesis)
+  :config (show-paren-mode t))
+
+;; highlight current line
+(global-hl-line-mode t)
+
+;; visual feedback to some operations by highlighting portions
+;; relating to the operations.
+(use-package volatile-highlights
+  :ensure t
+  :diminish volatile-highlights-mode
+  :config (volatile-highlights-mode t))
+
+;; undo visual tree
+(use-package undo-tree
+  :ensure t
+  :diminish undo-tree-mode
+  :config (global-undo-tree-mode t))
+
+;; make the left fringe 2 pixels so the hl-diff indicators aren't so fat
+;; leave the right fringe width at the default 8 pixels
+(fringe-mode '(2 . 8))
+
 ;; TODO
-;; ;;; initializer-editing.el --- What happens when I edit things?
-
-;; ;; This file is not part of GNU Emacs.
-
-;; ;;; Commentary:
-
-;; ;; Behaviors for when you edit things.
-
-;; ;;; Code:
-
-;; ;; Death to the tabs indeed!
-;; ;; https://github.com/bbatsov/prelude/blob/master/core/prelude-editor.el#L35-L44
-;; (setq-default indent-tabs-mode nil)   ;; don't use tabs to indent
-;; (setq-default tab-width 8)            ;; but maintain correct appearance
-
-
-;; ;; smart tab behavior - indent or complete
-;; (setq tab-always-indent 'complete)
-
-;; ;; always end files with newlines
-;; (setq require-final-newline t)
-
-;; ;; setup smartparens to auto open and close pairs
-;; (require 'smartparens-config)
-;; (smartparens-global-mode 1)
-
-;; ;; when you have a selection, typing text replaces it all.
-;; (delete-selection-mode t)
-
-;; ;; nice scrolling
-;; (setq scroll-margin 0
-;;       scroll-conservatively 100000
-;;       scroll-preserve-screen-position 1)
-
-;; ;; show matching paren
-;; (require 'paren)
-;; (setq show-paren-style 'parenthesis)
-;; (show-paren-mode +1)
-
-;; ;; highlight current line
-;; (global-hl-line-mode +1)
-
-;; ;; visual feedback to some operations by highlighting portions
-;; ;; relating to the operations.
-;; (require 'volatile-highlights)
-;; (volatile-highlights-mode t)
-
-;; ;; undo visual tree
-;; (require 'undo-tree)
-;; (global-undo-tree-mode 1)
-
-;; ;; make the left fringe 2 pixels so the hl-diff indicators aren't so fat
-;; ;; leave the right fringe width at the default 8 pixels
-;; (fringe-mode '(2 . 8))
-
-;; ;; setup flycheck to show on the right side of the buffer
+;; setup flycheck to show on the right side of the buffer
 ;; (require 'flycheck)
 ;; (setq flycheck-indication-mode 'right-fringe)
 
@@ -66,47 +74,66 @@
 
 ;; (add-hook 'prog-mode-hook 'flycheck-mode)
 
-;; ;; show whitespace
-;; (require 'whitespace)
-;; (whitespace-mode +1)
+;; show whitespace
+(require 'whitespace)
 
-;;  ;; limit line length
-;; (setq whitespace-line-column 80)
-;; (setq whitespace-style '(face tabs empty trailing lines-tail))
+;; limit line length
+(setq whitespace-line-column 80)
+(setq whitespace-style '(face tabs empty trailing lines-tail))
+(setq global-whitespace-mode 1)
+(whitespace-mode t)
 
-;; ;; remove trailing whitespace when saving
-;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; remove trailing whitespace when saving
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; ;; backup and autosave files go into the tmp directory
-;; (setq backup-directory-alist
-;;       `((".*" . ,temporary-file-directory)))
-;; (setq auto-save-file-name-transforms
-;;       `((".*" ,temporary-file-directory t)))
+;; highlight tabs with same color as trailing whitespaces
+(add-hook 'font-lock-mode-hook (lambda ()
+  (font-lock-add-keywords nil
+    '(("\t" 0 'trailing-whitespace prepend)))))
 
-;; ;; revert buffers automatically when underlying files are changed externally
-;; (global-auto-revert-mode t)
+;; backup and autosave files go into the tmp directory
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
 
-;; ;; disable annoying blink-matching-paren
-;; (setq blink-matching-paren nil)
+;; revert buffers automatically when underlying files are changed externally
+(global-auto-revert-mode t)
 
-;; ;; disable the blinking cursor
-;; (blink-cursor-mode -1)
+;; disable annoying blink-matching-paren
+(setq blink-matching-paren nil)
+
+;; disable the blinking cursor
+(blink-cursor-mode nil)
 
 ;; ;; Drag stuff around.
-;; (require 'drag-stuff)
-;; (drag-stuff-global-mode)
-;; (drag-stuff-define-keys)
+(use-package drag-stuff
+  :ensure t
+  :diminish drag-stuff-mode
 
-;; ;; displays the key bindings following your
-;; ;; currently entered incomplete command (a prefix) in a popup
-;; (require 'which-key)
-;; (which-key-mode +1)
+  :bind
+  ("M-S-<up>" . drag-stuff-up)
+  ("M-S-<down>" . drag-stuff-down)
 
-;; ;; Yet another snippet library, which is awesome. Allows you to expand
-;; ;; commonly used code templates into your buffer. Use it everywhere!
-;; ;; see https://joaotavora.github.io/yasnippet/
-;; (require 'yasnippet)
-;; (yas-global-mode +1)
+  :config
+  (drag-stuff-global-mode)
+  (drag-stuff-define-keys))
+
+;; displays the key bindings following your
+;; currently entered incomplete command (a prefix) in a popup
+(use-package which-key
+  :ensure t
+  :diminish which-key-mode
+  :config (which-key-mode t))
+
+
+;; Yet another snippet library, which is awesome. Allows you to expand
+;; commonly used code templates into your buffer. Use it everywhere!
+;; see https://joaotavora.github.io/yasnippet/
+(use-package yasnippet
+  :ensure t
+  :diminish yas-minor-mode
+  :config (yas-global-mode t))
 
 ;; ;; Emacs creates lockfiles to recognize when someone else is already
 ;; ;; editing the same file as you.
@@ -122,9 +149,9 @@
 ;; ;; longer create these lock files.
 ;; (setq create-lockfiles nil)
 
-;; ;; enable y/n answers so you don't have to type 'yes' on 'no'
-;; ;; for everything
-;; (fset 'yes-or-no-p 'y-or-n-p)
+;; enable y/n answers so you don't have to type 'yes' on 'no'
+;; for everything
+(fset 'yes-or-no-p 'y-or-n-p)
 
 ;; ;; Autosave when switching buffers, windows, or frames.
 ;; ;; Note: Emacs has different concepts of buffers, windows and frames
