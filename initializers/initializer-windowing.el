@@ -56,23 +56,42 @@
 ;; disable scratch message
 (setq initial-scratch-message nil)
 
+;; ;; War and scrollbars. what are they good for?
+;; (require 'scroll-bar)
+;; (scroll-bar-mode -1)
+
 ;; use super (cmd) + arrow keys to switch between visible buffers
 (use-package windmove
   :ensure t
   :config
   (windmove-default-keybindings 'super))
 
+;; allow to move current buffer
 (use-package buffer-move
-             :ensure t
-             :init (setq buffer-move-behavior 'move)
-             :bind
-             ("<C-S-up>" . buf-move-up)
-             ("<C-S-down>" . buf-move-down)
-             ("<C-S-left>" . buf-move-left)
-             ("<C-S-right>" . buf-move-right))
+  :ensure t
+  :init (setq buffer-move-behavior 'move)
+  :bind
+  ("<C-S-up>" . buf-move-up)
+  ("<C-S-down>" . buf-move-down)
+  ("<C-S-left>" . buf-move-left)
+  ("<C-S-right>" . buf-move-right))
 
-;; ;; War and scrollbars. what are they good for?
-;; (require 'scroll-bar)
-;; (scroll-bar-mode -1)
+;; add directory to buffer names if files with same name are open
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+(setq uniquify-ignore-buffers-re "^\\*") ;; don't muck with special buffers
+
+(defun kill-this-buffer-unless-dedicated ()
+  (interactive)
+  (unless (window-dedicated-p (selected-window))
+    (kill-this-buffer)))
+(global-set-key (kbd "C-x k") 'kill-this-buffer-unless-dedicated)
+
+(defun kill-all-buffers ()
+  "Kills all buffers except internal ones with * (e.g. *scratch*)"
+  (interactive)
+  (require 'cl)
+  (mapc 'kill-buffer (remove-if (lambda (name) (string-match "^\*.*\*$" (string-trim name))) (mapcar (function buffer-name) (buffer-list)))))
+(global-set-key (kbd "C-x a k") 'kill-all-buffers)
 
 (provide 'initializer-windowing)

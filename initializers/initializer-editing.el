@@ -181,6 +181,29 @@
 ;; (crux-with-region-or-buffer indent-region)
 ;; (crux-with-region-or-buffer untabify)
 
+(defun comment-or-uncomment-region-or-line ()
+  "Comments or uncomments the region or the current line if there's no active region."
+  (interactive)
+  (let (beg end)
+    (if (region-active-p)
+        (setq beg (region-beginning) end (region-end))
+      (setq beg (line-beginning-position) end (line-end-position)))
+    (comment-or-uncomment-region beg end)))
+(global-set-key (kbd "C-/") 'comment-or-uncomment-region-or-line)
+
+(defun delete-word (arg)
+  "Delete (not kill) word forward"
+  (interactive "p")
+  (delete-region (point) (progn (forward-word arg) (point))))
+(global-set-key (kbd "C-<delete>") 'delete-word)
+(global-set-key (kbd "C-<kp-delete>") 'delete-word)
+
+(defun backward-delete-word (arg)
+  "Delete (not kill) word backward"
+  (interactive "p")
+  (delete-word (- arg)))
+(global-set-key (kbd "C-<backspace>") 'backward-delete-word)
+
 (provide 'initializer-editing)
 
 ;;; initializer-editing.el ends here

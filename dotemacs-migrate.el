@@ -27,10 +27,6 @@
 
 ;(setq debug-on-error t) ; enable for debugging
 
-; add directory to buffer names if files with same name are open
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-
 ; define code directory
 ;; (setq code-directory "~/projects")
 ;; (when (eq system-type 'darwin)
@@ -67,7 +63,7 @@
 ;; FONT
 (global-font-lock-mode 1) ;; enable syntax highlighting for all modes
 (when (eq window-system 'x)
-  (set-default-font "Monospace-10")
+  (set-default-font "Monospace-11")
 )
 (when (eq system-type 'darwin)
   (set-default-font "Menlo 14")
@@ -139,6 +135,8 @@
     rainbow-mode
     git-gutter
     grizzl ; for import-js
+    treemacs
+    treemacs-projectile
 
     ;; languages
     web-mode
@@ -330,6 +328,7 @@
 (setq js2-mode-show-strict-warnings nil)
 (setq js2-strict-missing-semi-warning nil)
 (setq js2-missing-semi-one-line-override t)
+(setq js2-indent-switch-body t)
 (setq js-switch-indent-offset 2)
 
 
@@ -349,15 +348,41 @@
   ;; company is an optional dependency. You have to
   ;; install it separately via package-install
   ;; `M-x package-install [ret] company`
-  (company-mode 1))
+  (company-mode 1)
+
+  (local-set-key (kbd "C-c C-r f") 'tide-fix)
+  (local-set-key (kbd "C-c C-r r s") 'tide-rename-symbol)
+  ;; (local-set-key (kbd "") 'tide-refactor)
+  ;; (local-set-key (kbd "") 'tide-jump-to-definition) -> M-.
+  ;; (local-set-key (kbd "") 'tide-jump-back) -> M-,
+  ;; (local-set-key (kbd "") 'tide-documentation-at-point)
+  )
+
+(defun typescript-fix-import-quotes ()
+  (interactive)
+  (goto-char (point-min))
+  (while (re-search-forward "\\(import\s+{[^}]+}\s+from\s+\\)\"\\([^\"]*\\)\"\\(;?\\)" nil t)
+    (replace-match "\\1'\\2'\\3" nil nil))
+  )
+
+(defun typescript-fix-angular-imports ()
+  (interactive)
+  (goto-char (point-min))
+  (while (re-search-forward "import {\\([^}]*\\)} from '@angular\\(/[^/']+\\)\\2';" nil t)
+    (replace-match "import {\\1} from '@angular\\2';" nil nil))
+  )
 
 ;; aligns annotation to the right hand side
 (setq company-tooltip-align-annotations t)
 
 ;; formats the buffer before saving
-(add-hook 'before-save-hook 'tide-format-before-save)
+;; (add-hook 'before-save-hook 'tide-format-before-save)
 
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
+(add-hook 'tide-post-code-edit-hook (lambda ()
+                                      (typescript-fix-import-quotes)
+                                      (typescript-fix-angular-imports)
+                                      ))
 
 (setq typescript-indent-level 2)
 ;; (setq tide-format-options '(:indentSize 2
@@ -532,36 +557,6 @@
 
 ;; KEYBINDINGS
 
-(defun delete-word (arg)
-  "function to delete (not kill) word forward"
-  (interactive "p")
-  (delete-region (point) (progn (forward-word arg) (point))))
-
-(defun backward-delete-word (arg)
-  "function to delete (not kill) word backward"
-  (interactive "p")
-  (delete-word (- arg)))
-
-(defun comment-or-uncomment-region-or-line ()
-  "Comments or uncomments the region or the current line if there's no active region."
-  (interactive)
-  (let (beg end)
-    (if (region-active-p)
-        (setq beg (region-beginning) end (region-end))
-      (setq beg (line-beginning-position) end (line-end-position)))
-    (comment-or-uncomment-region beg end)))
-
-(defun kill-this-buffer-unless-dedicated ()
-  (interactive)
-  (unless (window-dedicated-p (selected-window))
-    (kill-this-buffer)))
-
-(defun kill-all-buffers ()
-  "Kills all buffers except internal ones with * (e.g. *scratch*)"
-  (interactive)
-  (require 'cl)
-  (mapc 'kill-buffer (remove-if (lambda (name) (string-match "^\*.*\*$" (string-trim name))) (mapcar (function buffer-name) (buffer-list)))))
-
 (when (eq system-type 'darwin)
   ;; fix keys on mac os x
   (setq mac-control-modifier 'control)
@@ -570,19 +565,14 @@
   (define-key global-map [home] 'beginning-of-line)
   (define-key global-map [end] 'end-of-line)
 )
-(global-set-key (kbd "C-<delete>") 'delete-word)
-(global-set-key (kbd "C-<kp-delete>") 'delete-word)
-(global-set-key (kbd "C-<backspace>") 'backward-delete-word)
+
 (global-set-key (kbd "C-l") 'goto-line)
 (global-set-key (kbd "C-S-l") 'recenter-top-bottom)
-(global-set-key (kbd "C-/") 'comment-or-uncomment-region-or-line)
 (global-set-key (kbd "C-<tab>") 'indent-region)
 (global-set-key (kbd "C-S-<tab>") 'unindent-region)
 (global-set-key (kbd "C-S-<iso-lefttab>") 'unindent-region)
 (global-set-key (kbd "C-n") 'next-error)
 (global-set-key (kbd "C-p") 'previous-error)
-(global-set-key (kbd "C-x k") 'kill-this-buffer-unless-dedicated)
-(global-set-key (kbd "C-x a k") 'kill-all-buffers)
 (global-set-key (vector (list 'control mouse-wheel-down-event)) 'text-scale-increase)
 (global-set-key (vector (list 'control mouse-wheel-up-event))   'text-scale-decrease)
 
@@ -591,7 +581,6 @@
 (global-set-key (kbd "C-S-m") 'toggle-menu-bar-mode-from-frame)
 (global-set-key (kbd "C-S-t") 'projectile-find-file)
 (global-set-key (kbd "C-S-f") 'rgrep)
-(global-set-key (kbd "C-S-b") 'sr-speedbar-toggle)
 
 
 (custom-set-variables

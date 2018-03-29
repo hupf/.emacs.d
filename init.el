@@ -77,6 +77,7 @@ file, but instead go to a well-known location.")
 (require 'initializer-editing)
 ;; (require 'initializer-keys)
 (require 'initializer-modeline)
+(require 'initializer-treemacs)
 
 ;; different language modes
 ;; (require 'initializer-web)
