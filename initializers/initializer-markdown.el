@@ -1,9 +1,8 @@
-;; TODO
-;; (require 'markdown-mode)
-
-;; (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-;; (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-;; (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
-;; (add-hook 'markdown-mode-hook 'turn-on-auto-fill)
+(use-package markdown-mode
+  :ensure t
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.markdown\\'" . markdown-mode)
+         ("\\.md\\'" . markdown-mode))
+)
 
 (provide 'initializer-markdown)

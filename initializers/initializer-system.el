@@ -38,8 +38,12 @@
   ;;   :config
   ;;   (exec-path-from-shell-initialize))
 
-  ;; It's all in the Meta
-  (setq ns-function-modifier 'hyper)
+  ;; Fix keys
+  (setq mac-control-modifier 'control)
+  (setq mac-option-modifier 'none)
+  (setq mac-command-modifier 'meta)
+  (global-set-key (kbd "<home>") 'beginning-of-line)
+  (global-set-key (kbd "<end>") 'end-of-line)
 
   ;; proced-mode doesn't work on OS X so we use vkill instead
   (autoload 'vkill "vkill" nil t)

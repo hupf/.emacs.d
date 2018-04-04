@@ -59,27 +59,6 @@
 )
 
 
-
-;; FONT
-(global-font-lock-mode 1) ;; enable syntax highlighting for all modes
-(when (eq window-system 'x)
-  (set-default-font "Monospace-11")
-)
-(when (eq system-type 'darwin)
-  (set-default-font "Menlo 14")
-)
-
-
-;; COLORS
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(fringe ((t (:background "#20211d"))))
- '(git-gutter:unchanged ((t (:background "#20211d")))))
-
-
 ;; ENCODINGS
 (setq current-language-environment "UTF-8")
 (setq default-input-method "UTF-8")
@@ -132,20 +111,16 @@
     sr-speedbar
     ;; tabbar
     git-timemachine
-    rainbow-mode
     git-gutter
     grizzl ; for import-js
     treemacs
     treemacs-projectile
 
     ;; languages
-    web-mode
     php-mode
     sass-mode
     scss-mode
-    markdown-mode
     haml-mode
-    yaml-mode
     json-mode
 
     ;; javascript
@@ -245,23 +220,11 @@
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 
-(defun configure-auto-complete-for-scss ()
-  (add-to-list 'ac-sources 'ac-source-css-property))
-(add-hook 'scss-mode-hook 'configure-auto-complete-for-scss)
-(add-to-list 'ac-modes 'scss-mode)
-
 
 ;;autopair
 (autopair-global-mode)
 (add-hook 'minibuffer-setup-hook
           (lambda () (autopair-mode -1)))
-
-
-;; rainbow-mode
-(add-hook 'css-mode-hook 'enable-rainbow-mode)
-(add-hook 'scss-mode-hook 'enable-rainbow-mode)
-(defun enable-rainbow-mode ()
-  (rainbow-mode 1))
 
 
 ;; git-gutter
@@ -272,24 +235,6 @@
 (require 'nvm)
 (nvm-use-for) ; activate node version specified in ~/.nvmrc
 
-
-;; web
-(defun my-web-mode-hook ()
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2)
-  (setq web-mode-enable-auto-pairing t)
-
-  ; make sure the command binding is the same as for the other modes
-  (local-set-key (kbd "C-/") 'web-mode-comment-or-uncomment)
-  ;(local-set-key (kbd "C-c /") 'web-mode-element-close)
-)
-(add-hook 'web-mode-hook 'my-web-mode-hook)
-
-
-;; sass/css
-(setq css-indent-offset 2)
-(setq scss-compile-at-save nil) ;; don't auto compile sass files
 
 
 ;; js
@@ -410,18 +355,6 @@
 ;; correct mode for .emacs file
 (add-to-list 'auto-mode-alist '("\\.emacs$" . lisp-mode))
 (add-to-list 'auto-mode-alist '("dotemacs$" . lisp-mode))
-
-;; web-mode
-(add-to-list 'auto-mode-alist '("\\.html?$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.phtml$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.php$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.jsp$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml$" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
 
 (add-to-list 'auto-mode-alist '("\\.svg$" . xml-mode))
 
@@ -557,15 +490,6 @@
 
 ;; KEYBINDINGS
 
-(when (eq system-type 'darwin)
-  ;; fix keys on mac os x
-  (setq mac-control-modifier 'control)
-  (setq mac-option-modifier 'none)
-  (setq mac-command-modifier 'meta)
-  (define-key global-map [home] 'beginning-of-line)
-  (define-key global-map [end] 'end-of-line)
-)
-
 (global-set-key (kbd "C-l") 'goto-line)
 (global-set-key (kbd "C-S-l") 'recenter-top-bottom)
 (global-set-key (kbd "C-<tab>") 'indent-region)
@@ -577,7 +501,6 @@
 (global-set-key (vector (list 'control mouse-wheel-up-event))   'text-scale-decrease)
 
 ; various mode keybindings
-(windmove-default-keybindings 'meta) ;; switch windows using M-up, M-down, M-left and M-right
 (global-set-key (kbd "C-S-m") 'toggle-menu-bar-mode-from-frame)
 (global-set-key (kbd "C-S-t") 'projectile-find-file)
 (global-set-key (kbd "C-S-f") 'rgrep)

@@ -52,10 +52,11 @@
   :config (volatile-highlights-mode t))
 
 ;; undo visual tree
-(use-package undo-tree
-  :ensure t
-  :diminish undo-tree-mode
-  :config (global-undo-tree-mode t))
+;; (use-package undo-tree
+;;   :ensure t
+;;   :diminish undo-tree-mode
+;;   :config (global-undo-tree-mode t))
+;; TODO: C-/ is mapped
 
 ;; make the left fringe 2 pixels so the hl-diff indicators aren't so fat
 ;; leave the right fringe width at the default 8 pixels

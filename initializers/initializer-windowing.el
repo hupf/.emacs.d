@@ -35,15 +35,18 @@
 
 ;; Line numbers
 ;; highlight the current line number
-(use-package hlinum
+(use-package nlinum
   :ensure t
-  :config (hlinum-activate))
 
-(use-package linum
-  :ensure t
-  :init (setq linum-format " %3d ")
-  :config (add-hook 'prog-mode-hook 'linum-mode))
-  ;; :hook prog-mode)
+  :init
+  (setq nlinum-format "%3d ")
+  (setq nlinum-highlight-current-line t)
+
+  :hook (prog-mode . nlinum-mode)
+
+  :config (set-face-attribute 'linum nil
+            :background (face-background 'default))
+)
 
 ; TODO
 ;; ;; disable window-system in terminal mode
@@ -64,7 +67,7 @@
 (use-package windmove
   :ensure t
   :config
-  (windmove-default-keybindings 'super))
+  (windmove-default-keybindings 'meta))
 
 ;; allow to move current buffer
 (use-package buffer-move

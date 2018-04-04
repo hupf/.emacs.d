@@ -27,7 +27,8 @@
         ("MELPA" . 5)
         ("GNU" . 0))
       package-pinned-packages
-      '((js2-mode . "MELPA")))
+      '((js2-mode . "MELPA")
+        (use-package . "MELPA")))
 
 
 ;; Bootstrap `use-package'
@@ -77,14 +78,14 @@ file, but instead go to a well-known location.")
 (require 'initializer-editing)
 ;; (require 'initializer-keys)
 (require 'initializer-modeline)
-(require 'initializer-treemacs)
+;; (require 'initializer-treemacs)
 
 ;; different language modes
-;; (require 'initializer-web)
+(require 'initializer-web)
 ;; (require 'initializer-javascript)
-;; (require 'initializer-css)
+(require 'initializer-css)
 ;; (require 'initializer-ruby)
-;; (require 'initializer-yaml)
-;; (require 'initializer-markdown)
+(require 'initializer-yaml)
+(require 'initializer-markdown)
 
 ;;; init.el ends here
