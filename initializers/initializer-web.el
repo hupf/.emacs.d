@@ -18,7 +18,8 @@
          "\\.html?\\'"
          "\\.hbs\\'")
 
-  :bind ("C-/" . web-mode-comment-or-uncomment)
+  :bind (:map web-mode-map
+         ("C-/" . web-mode-comment-or-uncomment))
 )
 
 ;; Enable Emmet mode: http://emmet.io/

@@ -3,17 +3,17 @@
 ;; TODO: needed?
 ;; (global-magit-file-mode 1)
 
-;; use diff-hl to add git difs in gutter
+;; use diff-hl to add git diffs in gutter
 (use-package diff-hl
   :ensure t
-             
+
   :init
   (setq diff-hl-draw-borders nil)
 
   :bind
   (("C-x g" . magit-status)
    ("C-x M-g" . magit-dispatch-popup))
-  
+
   :config
   ;; needed for Magit 2.4 or newer
   ;; see: https://github.com/dgutov/diff-hl#magit
