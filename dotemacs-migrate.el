@@ -113,8 +113,6 @@
     git-timemachine
     git-gutter
     grizzl ; for import-js
-    treemacs
-    treemacs-projectile
 
     ;; languages
     php-mode
