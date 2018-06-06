@@ -122,12 +122,7 @@
     json-mode
 
     ;; javascript
-    js2-mode
-    coffee-mode
     ac-js2
-    import-js
-    nvm
-    add-node-modules-path
 
     ;; ruby
     ruby-mode
@@ -136,7 +131,6 @@
     robe
 
     ;; syntax checking/linting
-    flycheck
     rubocop
 
 ))
@@ -224,58 +218,6 @@
 (global-git-gutter-mode 1)
 
 
-;; nvm
-(require 'nvm)
-(nvm-use-for) ; activate node version specified in ~/.nvmrc
-
-
-
-;; js
-;; (add-hook 'js-mode-hook 'js2-minor-mode)
-(add-hook 'js2-mode-hook
-          '(lambda ()
-             (ac-js2-mode)
-             (nvm-use-for) ;; use project's node version
-             (add-node-modules-path) ;; allow to access project's eslint
-
-             ;; To workaround messages outputted by eslint on STDERR,
-             ;; use a wrapper script that ignore STDERR
-             (make-local-variable 'exec-path)
-             (add-to-list 'exec-path "~/bin")
-
-             ;; Put this script into ~/bin/eslint:
-             ;; #!/usr/bin/env bash
-             ;; PROJECT_ROOT=$(pwd -P 2>/dev/null || command pwd)
-             ;; while [ ! -e "$PROJECT_ROOT/node_modules" ]; do
-             ;; PROJECT_ROOT=${PROJECT_ROOT%/*}
-             ;; if [ "$PROJECT_ROOT" = "" ]; then break; fi
-             ;; done
-             ;; ESLINT=$PROJECT_ROOT/node_modules/.bin/eslint
-             ;; $ESLINT "$@" 2> /dev/null
-
-             ;; use eslint, not jshint checker
-             (setq flycheck-disabled-checkers '(javascript-jshint))
-             (flycheck-select-checker 'javascript-eslint)
-             (flycheck-mode 1)))
-
-
-(setq js-indent-level 2)
-(setq js2-basic-offset 2)
-(setq js2-highlight-level 3)
-(setq js2-mode-show-parse-errors nil)
-(setq js2-mode-show-strict-warnings nil)
-(setq js2-strict-missing-semi-warning nil)
-(setq js2-missing-semi-one-line-override t)
-(setq js2-indent-switch-body t)
-(setq js-switch-indent-offset 2)
-
-
-;; coffee
-(setq coffee-tab-width 2)
-(setq coffee-indent-tabs-mode nil)
-
-
-
 ;; (enh-)ruby-mode
 (add-hook 'ruby-mode-hook
           (lambda () (rvm-activate-corresponding-ruby)))
@@ -298,8 +240,6 @@
 (add-to-list 'auto-mode-alist '("dotemacs$" . lisp-mode))
 
 (add-to-list 'auto-mode-alist '("\\.svg$" . xml-mode))
-
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 ;; (enh-)ruby-mode
 (add-to-list 'auto-mode-alist
