@@ -62,18 +62,26 @@
 ;; leave the right fringe width at the default 8 pixels
 (fringe-mode '(2 . 8))
 
-;; TODO
-;; setup flycheck to show on the right side of the buffer
-;; (require 'flycheck)
-;; (setq flycheck-indication-mode 'right-fringe)
+(use-package flycheck
+  :ensure t
 
-;; ;; make the flycheck arrow look like an exclamation point.
-;; ;; but only do it when emacs runs in a window, not terminal
-;; (when window-system
-;;   (define-fringe-bitmap 'flycheck-fringe-bitmap-double-arrow
-;;     [0 24 24 24 24 24 24 0 0 24 24 0 0 0 0 0 0]))
+  :diminish flycheck-mode
 
-;; (add-hook 'prog-mode-hook 'flycheck-mode)
+  :init
+  (setq flycheck-check-syntax-automatically '(mode-enabled save idle-change))
+
+  ;; Setup flycheck to show on the right side of the buffer
+  (setq flycheck-indication-mode 'right-fringe)
+
+  :hook (prog-mode . flycheck-mode)
+
+  :config
+  ;; Make the flycheck arrow look like an exclamation point, but only
+  ;; do it when emacs runs in a window, not terminal
+  (when window-system
+    (define-fringe-bitmap 'flycheck-fringe-bitmap-double-arrow
+      [0 24 24 24 24 24 24 0 0 24 24 0 0 0 0 0 0]))
+  )
 
 ;; show whitespace
 (require 'whitespace)
@@ -107,7 +115,7 @@
 ;; disable the blinking cursor
 (blink-cursor-mode nil)
 
-;; ;; Drag stuff around.
+;; Drag stuff around.
 (use-package drag-stuff
   :ensure t
   :diminish drag-stuff-mode
@@ -117,8 +125,7 @@
   ("M-S-<down>" . drag-stuff-down)
 
   :config
-  (drag-stuff-global-mode)
-  (drag-stuff-define-keys))
+  (drag-stuff-global-mode))
 
 ;; displays the key bindings following your
 ;; currently entered incomplete command (a prefix) in a popup

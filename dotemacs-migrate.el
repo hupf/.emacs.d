@@ -125,7 +125,6 @@
     js2-mode
     coffee-mode
     ac-js2
-    tide ; typescript
     import-js
     nvm
     add-node-modules-path
@@ -200,10 +199,6 @@
 
 
 ;; flycheck
-(add-hook 'after-init-hook #'global-flycheck-mode)
-;; (setq flycheck-check-syntax-automatically nil)
-(setq flycheck-check-syntax-automatically '(mode-enabled save idle-change))
-
 (add-hook 'ruby-mode-hook
           '(lambda ()
              ; disable other ruby checkers since only setting flycheck-checker
@@ -279,58 +274,6 @@
 (setq coffee-tab-width 2)
 (setq coffee-indent-tabs-mode nil)
 
-
-;; typescript
-(defun setup-tide-mode ()
-  (interactive)
-  (tide-setup)
-  (flycheck-mode 1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (eldoc-mode +1)
-  (tide-hl-identifier-mode 1)
-  ;; company is an optional dependency. You have to
-  ;; install it separately via package-install
-  ;; `M-x package-install [ret] company`
-  (company-mode 1)
-
-  (local-set-key (kbd "C-c C-r f") 'tide-fix)
-  (local-set-key (kbd "C-c C-r r s") 'tide-rename-symbol)
-  ;; (local-set-key (kbd "") 'tide-refactor)
-  ;; (local-set-key (kbd "") 'tide-jump-to-definition) -> M-.
-  ;; (local-set-key (kbd "") 'tide-jump-back) -> M-,
-  ;; (local-set-key (kbd "") 'tide-documentation-at-point)
-  )
-
-(defun typescript-fix-import-quotes ()
-  (interactive)
-  (goto-char (point-min))
-  (while (re-search-forward "\\(import\s+{[^}]+}\s+from\s+\\)\"\\([^\"]*\\)\"\\(;?\\)" nil t)
-    (replace-match "\\1'\\2'\\3" nil nil))
-  )
-
-(defun typescript-fix-angular-imports ()
-  (interactive)
-  (goto-char (point-min))
-  (while (re-search-forward "import {\\([^}]*\\)} from '@angular\\(/[^/']+\\)\\2';" nil t)
-    (replace-match "import {\\1} from '@angular\\2';" nil nil))
-  )
-
-;; aligns annotation to the right hand side
-(setq company-tooltip-align-annotations t)
-
-;; formats the buffer before saving
-;; (add-hook 'before-save-hook 'tide-format-before-save)
-
-(add-hook 'typescript-mode-hook #'setup-tide-mode)
-(add-hook 'tide-post-code-edit-hook (lambda ()
-                                      (typescript-fix-import-quotes)
-                                      (typescript-fix-angular-imports)
-                                      ))
-
-(setq typescript-indent-level 2)
-;; (setq tide-format-options '(:indentSize 2
-;;                             :tabSize 2
-;;                             ))
 
 
 ;; (enh-)ruby-mode

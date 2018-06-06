@@ -83,6 +83,7 @@ file, but instead go to a well-known location.")
 ;; different language modes
 (require 'initializer-web)
 ;; (require 'initializer-javascript)
+(require 'initializer-typescript)
 (require 'initializer-css)
 ;; (require 'initializer-ruby)
 (require 'initializer-yaml)
