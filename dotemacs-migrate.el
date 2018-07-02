@@ -124,15 +124,6 @@
     ;; javascript
     ac-js2
 
-    ;; ruby
-    ruby-mode
-    enh-ruby-mode
-    rvm
-    robe
-
-    ;; syntax checking/linting
-    rubocop
-
 ))
 
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
@@ -192,17 +183,6 @@
 ;; (setq 'tabbar-use-images nil)
 
 
-;; flycheck
-(add-hook 'ruby-mode-hook
-          '(lambda ()
-             ; disable other ruby checkers since only setting flycheck-checker
-             ; somehow doesn work
-             (setq flycheck-disabled-checkers '(ruby-rubylint ruby ruby-jruby))
-
-             (setq flycheck-checker 'ruby-rubocop)
-             (flycheck-mode 1)))
-
-
 ;; autocomplete
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
@@ -218,20 +198,6 @@
 (global-git-gutter-mode 1)
 
 
-;; (enh-)ruby-mode
-(add-hook 'ruby-mode-hook
-          (lambda () (rvm-activate-corresponding-ruby)))
-(add-hook 'enh-ruby-mode-hook
-          (lambda () (rvm-activate-corresponding-ruby)))
-(setq ruby-insert-encoding-magic-comment nil)
-
-
-;; robe
-(add-hook 'ruby-mode-hook 'robe-mode)
-(defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
-  (rvm-activate-corresponding-ruby))
-
-
 ;; MODE ASSOCIATIONS
 (setq default-major-mode 'text-mode) ;; default mode is text-mode
 
@@ -240,12 +206,6 @@
 (add-to-list 'auto-mode-alist '("dotemacs$" . lisp-mode))
 
 (add-to-list 'auto-mode-alist '("\\.svg$" . xml-mode))
-
-;; (enh-)ruby-mode
-(add-to-list 'auto-mode-alist
-             '("\\.\\(?:gemspec\\|irbrc\\|gemrc\\|rake\\|rb\\|ru\\|thor\\)$" . ruby-mode))
-(add-to-list 'auto-mode-alist
-             '("\\(Capfile\\|Gemfile\\(?:\\.[a-zA-Z0-9._-]+\\)?\\|[rR]akefile\\)$" . ruby-mode))
 
 ;; rgrep
 (defun delete-grep-header ()

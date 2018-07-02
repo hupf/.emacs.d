@@ -85,7 +85,7 @@ file, but instead go to a well-known location.")
 (require 'initializer-javascript)
 (require 'initializer-typescript)
 (require 'initializer-css)
-;; (require 'initializer-ruby)
+(require 'initializer-ruby)
 (require 'initializer-yaml)
 (require 'initializer-markdown)
 

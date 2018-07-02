@@ -1,48 +1,91 @@
-;; TODO
-;; ;; Rake files are ruby, too, as are gemspecs, rackup files, and gemfiles.
-;; (add-to-list 'auto-mode-alist '("\\.rake\\'" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("Rakefile\\'" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("\\.gemspec\\'" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("\\.ru\\'" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("Gemfile\\'" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("Guardfile\\'" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("Capfile\\'" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("\\.cap\\'" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("\\.thor\\'" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("\\.rabl\\'" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("Thorfile\\'" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("Vagrantfile\\'" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("\\.jbuilder\\'" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("Podfile\\'" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("\\.podspec\\'" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("Puppetfile\\'" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("Berksfile\\'" . ruby-mode))
-;; (add-to-list 'auto-mode-alist '("Appraisals\\'" . ruby-mode))
+;; RVM
+(use-package rvm
+  :ensure t
+  :config
+  (rvm-use-default))
 
-;; ;; We never want to edit Rubinius bytecode
-;; (add-to-list 'completion-ignored-extensions ".rbc")
+;; Enhanced Ruby Mode (uses Ruby's Ripper class instead of regular
+;; expressions to parse source files)
+(use-package enh-ruby-mode
+  :ensure t
+
+  :init
+  ;; We never want to edit Rubinius bytecode
+  (add-to-list 'completion-ignored-extensions ".rbc")
+
+  ;; TODO: needed?
+  (setq ruby-insert-encoding-magic-comment nil)
+
+  :mode ("\\.rb\\'"
+         "\\.rake\\'"
+         "Rakefile\\'"
+         "\\.gemspec\\'"
+         "\\.ru\\'"
+         "Gemfile\\(?:\\.[a-zA-Z0-9._-]+\\)?\\'"
+         "Guardfile\\'"
+         "Capfile\\'"
+         "\\.cap\\'"
+         "\\.thor\\'"
+         "\\.rabl\\'"
+         "Thorfile\\'"
+         "Vagrantfile\\'"
+         "\\.jbuilder\\'"
+         "Podfile\\'"
+         "\\.podspec\\'"
+         "Puppetfile\\'"
+         "Berksfile\\'"
+         "Appraisals\\'")
+
+  :hook ((enh-ruby-mode . setup-enh-ruby))
+
+  )
+
+(defun setup-enh-ruby ()
+  ;; TODO: what's the benefit?
+  ;; enable a REPL process loaded with your
+  ;; ruby project that provides lots of code insight.
+  ;; https://github.com/nonsequitur/inf-ruby
+  ;; (inf-ruby-minor-mode +1)
+
+  ;; CamelCase aware editing operations
+  (subword-mode +1)
+  )
+
+
+;; Robe
+(use-package robe
+  :ensure t
+
+  :config
+  (defadvice inf-ruby-console-auto
+    (before activate-rvm-for-robe activate)
+    (rvm-activate-corresponding-ruby))
+
+  :hook ((enh-ruby-mode . robe-mode))
+
+  )
+
+
+;; Rubocop
+(use-package rubocop
+  :ensure t
+  :defer t
+  :hook ((enh-ruby-mode . rubocop-mode)))
+
+;; TODO: flycheck
+;; (add-hook 'ruby-mode-hook
+;;           '(lambda ()
+;;              ; disable other ruby checkers since only setting flycheck-checker
+;;              ; somehow doesn work
+;;              (setq flycheck-disabled-checkers '(ruby-rubylint ruby ruby-jruby))
+
+;;              (setq flycheck-checker 'ruby-rubocop)
+;;              (flycheck-mode 1)))
 
 
 ;; ;; Look up symbols in ruby `ri' to using yari.
 ;; (define-key 'help-command (kbd "R") 'yari)
 
-
-;; ;; setup ruby buffers
-;; (defun frontmacs-ruby-mode-hook ()
-
-;;   ;; enable a REPL process loaded with your
-;;   ;; ruby project that provides lots of code insight.
-;;   ;; https://github.com/nonsequitur/inf-ruby
-;;   (inf-ruby-minor-mode +1)
-
-;;   ;; enable handy ruby tools.
-;;   ;; https://github.com/rejeep/ruby-tools.el
-;;   (ruby-tools-mode +1)
-
-;;   ;; CamelCase aware editing operations
-;;   (subword-mode +1))
-
-;; (add-hook 'ruby-mode-hook 'frontmacs-ruby-mode-hook)
 
 ;; ;; load snippets for writing tests in rspec whenever rspec-mode
 ;; ;; is in effect
