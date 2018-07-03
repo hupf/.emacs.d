@@ -81,13 +81,6 @@
   (interactive)
   (set-buffer-file-coding-system 'unix 't))
 
-(defun beautify-json ()
-  (interactive)
-  (let ((b (if mark-active (min (point) (mark)) (point-min)))
-        (e (if mark-active (max (point) (mark)) (point-max))))
-    (shell-command-on-region b e
-      "python -mjson.tool" (current-buffer) t)))
-
 (defun linum-off ()
   "Allow to disable 'linum-mode', once enabled in a buffer or globally"
   (interactive)

@@ -51,12 +51,29 @@
   :diminish volatile-highlights-mode
   :config (volatile-highlights-mode t))
 
-;; undo visual tree
-;; (use-package undo-tree
-;;   :ensure t
-;;   :diminish undo-tree-mode
-;;   :config (global-undo-tree-mode t))
-;; TODO: C-/ is mapped
+;; Visual undo tree
+(use-package undo-tree
+  :ensure t
+  :diminish undo-tree-mode
+
+  :config (global-undo-tree-mode t)
+
+  :bind
+  (:map undo-tree-map
+        ("C-/" . nil))) ;; Remove mapping
+
+;; Choose and yank one of the last killed texts
+(use-package browse-kill-ring
+  :ensure t
+  :bind ("M-y" . browse-kill-ring))
+
+(use-package multiple-cursors
+  :ensure t
+  ;; TODO: useful bindings
+  ;; :bind ("C->" . mc/mark-next-like-this)
+  ;;       ("C-<" . mc/mark-previous-like-this)
+  ;;       ("C-c C-<" . mc/mark-all-like-this)
+        )
 
 ;; make the left fringe 2 pixels so the hl-diff indicators aren't so fat
 ;; leave the right fringe width at the default 8 pixels
@@ -126,6 +143,16 @@
 
   :config
   (drag-stuff-global-mode))
+
+
+;; Increase selected region by semantic units
+(use-package expand-region
+  :ensure t
+  :commands er/expand-region
+
+  :bind
+  ("C-=" . er/expand-region))
+
 
 ;; displays the key bindings following your
 ;; currently entered incomplete command (a prefix) in a popup
