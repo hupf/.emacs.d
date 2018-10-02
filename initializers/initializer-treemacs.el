@@ -3,6 +3,7 @@
   :defer t
 
   :init
+  (setq treemacs-persist-file (f-join user-data-directory "treemacs.cache"))
   (setq treemacs-show-hidden-files nil) ;; Hide dot files
   (setq treemacs-follow-after-init t) ;; Open folder & select file of selected buffer
   (setq treemacs-silent-refresh t) ;; No message after manual refresh
