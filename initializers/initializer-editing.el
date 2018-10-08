@@ -170,6 +170,25 @@
   :diminish yas-minor-mode
   :config (yas-global-mode t))
 
+
+;; Prettier
+
+(use-package prettier-js
+  :ensure t
+  :diminish prettier-js-mode
+
+  :hook ((js2-mode . init-prettier)
+         (typescript-mode . init-prettier))
+  )
+
+(defun init-prettier ()
+  ;; Use project-local prettier command -- make sure, prettier is not
+  ;; installed globally, so it is only active in projects with
+  ;; prettier installed.
+  (add-node-modules-path)
+  (prettier-js-mode)
+  )
+
 ;; ;; Emacs creates lockfiles to recognize when someone else is already
 ;; ;; editing the same file as you.
 ;; ;;
