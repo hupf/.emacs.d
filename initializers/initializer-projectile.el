@@ -9,7 +9,9 @@
   (setq projectile-known-projects-file (f-join user-data-directory "projectile-bookmarks.eld"))
   ;; (setq projectile-indexing-method 'git)
 
-  :config (projectile-global-mode t))
+  :config
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (projectile-mode +1))
 
 ;; TODO: remove?
 ;; go to project dir when selecting project
