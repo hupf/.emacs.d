@@ -1,13 +1,8 @@
 ;; GENERAL
-(setq frame-title-format "%b - Emacs") ;; filename in title bar
-
 (if (functionp 'tool-bar-mode) (tool-bar-mode -1)) ;; no toolbar
 (if (functionp 'menu-bar-mode) (menu-bar-mode -1)) ;; no menubar
 
 (setq case-fold-search t) ;; search insensitive
-
-(setq visible-bell 'top-bottom) ;; only visible bell
-;(setq ring-bell-function 'ignore) ;; switch bell off completely
 
 ;(setq make-backup-files 0) ;; disable backup~ files
 (setq backup-by-copying t ; don't clobber symlinks
@@ -193,11 +188,6 @@
 
 ;; MODE ASSOCIATIONS
 (setq default-major-mode 'text-mode) ;; default mode is text-mode
-
-;; correct mode for .emacs file
-(add-to-list 'auto-mode-alist '("\\.emacs$" . lisp-mode))
-(add-to-list 'auto-mode-alist '("dotemacs$" . lisp-mode))
-
 (add-to-list 'auto-mode-alist '("\\.svg$" . xml-mode))
 
 ;; rgrep
@@ -209,83 +199,6 @@
 
 (defadvice grep (after delete-grep-header activate) (delete-grep-header))
 (defadvice rgrep (after delete-grep-header activate) (delete-grep-header))
-
-
-;; sr-speedbar
-
-(setq speedbar-hide-button-brackets-flag t
-      speedbar-show-unknown-files t
-      speedbar-smart-directory-expand-flag t
-      speedbar-directory-button-trim-method 'trim
-      speedbar-use-images nil
-      speedbar-indentation-width 1
-      speedbar-use-imenu-flag t
-      speedbar-file-unshown-regexp "flycheck-.*"
-      sr-speedbar-width 35
-      sr-speedbar-width-x 35
-      sr-speedbar-max-width 35
-      sr-speedbar-auto-refresh nil
-      sr-speedbar-skip-other-window-p t
-      sr-speedbar-right-side nil)
-
-(if (eq system-type 'darwin) (setq sr-speedbar-width 25
-                                   sr-speedbar-width-x 25
-                                   sr-speedbar-max-width 25))
-
-(add-hook 'speedbar-mode-hook
-          '(lambda ()
-             (hl-line-mode 1)
-             (visual-line-mode -1)
-             (setq automatic-hscrolling nil)
-             (let ((speedbar-display-table (make-display-table)))
-               (set-display-table-slot speedbar-display-table 0 8230)
-               (setq buffer-display-table speedbar-display-table))))
-
-;; More familiar keymap settings.
-(add-hook 'speedbar-reconfigure-keymaps-hook
-          '(lambda ()
-             (define-key speedbar-mode-map [S-up] 'speedbar-up-directory)
-             (define-key speedbar-mode-map [right] 'speedbar-flush-expand-line)
-             (define-key speedbar-mode-map [left] 'speedbar-contract-line)))
-
-;; Always use the last selected window for loading files from speedbar.
-(defvar last-selected-window
-  (if (not (eq (selected-window) sr-speedbar-window))
-      (selected-window)
-    (other-window 1)))
-
-(defadvice select-window (after remember-selected-window activate)
-  "Remember the last selected window."
-  (unless (or (eq (selected-window) sr-speedbar-window)
-              (not (window-live-p (selected-window))))
-    (setq last-selected-window (selected-window))))
-
-(defun sr-speedbar-before-visiting-file-hook ()
-  "Function that hooks `speedbar-before-visiting-file-hook'."
-  (select-window last-selected-window))
-
-(defun sr-speedbar-before-visiting-tag-hook ()
-  "Function that hooks `speedbar-before-visiting-tag-hook'."
-  (select-window last-selected-window))
-
-(defun sr-speedbar-visiting-file-hook ()
-  "Function that hooks `speedbar-visiting-file-hook'."
-  (select-window last-selected-window))
-
-(defun sr-speedbar-visiting-tag-hook ()
-  "Function that hooks `speedbar-visiting-tag-hook'."
-  (select-window last-selected-window))
-
-(dolist (face (list 'speedbar-button-face
-                    'speedbar-file-face
-                    'speedbar-directory-face
-                    'speedbar-tag-face
-                    'speedbar-selected-face
-                    'speedbar-highlight-face))
-  (if (eq window-system 'x)
-      (set-face-font face "Monospace-9")
-    (if (eq system-type 'darwin)
-        (set-face-font face "Menlo 12"))))
 
 
 ;; BUFFER LAYOUT
@@ -300,27 +213,6 @@
   (let ((window (selected-window)))
     (toggle-window-dedication window))
   )
-
-;; (defun ide ()
-;;   (interactive)
-;;   (delete-other-windows)
-
-;;   (split-window-horizontally)
-
-;;   (dired-single-magic-buffer code-directory)
-;;   (let* ((window (selected-window))
-;;          (w (window-width window))
-;;          (delta (- 30 w)))
-;;     (select-window window)
-;;     (enlarge-window-horizontally delta)
-;;     (setq window-size-fixed 'width)
-;;     (toggle-window-dedication window))
-
-;;   (other-window 1)
-;;   (split-window-horizontally)
-
-;; )
-
 
 ;; KEYBINDINGS
 

@@ -32,8 +32,7 @@
 ;; nice scrolling
 (setq scroll-margin 0
       scroll-conservatively 100000
-      scroll-preserve-screen-position 1
-      redisplay-dont-pause t)
+      scroll-preserve-screen-position 1)
 
 ;; show matching paren
 (use-package paren

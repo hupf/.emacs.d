@@ -8,9 +8,6 @@
 ;;; already.
 ;;; Code:
 
-;;; Startup without .emacs:
-;;; emacs --no-init-file --load=.emacs.d/init.el
-
 
 ;; Configure `package'
 (require 'package)
