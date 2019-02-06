@@ -2,6 +2,14 @@
   :ensure t
   :commands (nvm-use nvm-use-for))
 
+(defun nvm-use-for-buffer ()
+  "Activate Node based on an .nvmrc for the current file.
+If buffer is not visiting a file, do nothing."
+  (when buffer-file-name
+    (condition-case err
+        (nvm-use-for buffer-file-name)
+      (error (message "%s" err)))))
+
 (use-package add-node-modules-path
   :ensure t
   :commands (add-node-modules-path))
@@ -31,7 +39,7 @@
 
 (defun setup-js2 ()
   ;; Use project's node version
-  (nvm-use-for)
+  (nvm-use-for-buffer)
 
   ;; Allow to access project's eslint
   (add-node-modules-path)

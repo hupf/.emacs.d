@@ -28,6 +28,12 @@
         (use-package . "MELPA")))
 
 
+;; Ensure diminish to be present to have use-package supporting it
+(unless (package-installed-p 'diminish)
+  (package-refresh-contents)
+  (package-install 'diminish))
+
+
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
