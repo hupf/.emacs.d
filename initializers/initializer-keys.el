@@ -9,6 +9,20 @@
 
 ;;; Code:
 
+(global-set-key (kbd "C-l") 'goto-line)
+(global-set-key (kbd "C-S-l") 'recenter-top-bottom)
+(global-set-key (kbd "C-<tab>") 'indent-region)
+(global-set-key (kbd "C-S-<tab>") 'unindent-region)
+(global-set-key (kbd "C-S-<iso-lefttab>") 'unindent-region)
+
+(global-set-key (kbd "C-n") 'next-error)
+(global-set-key (kbd "C-p") 'previous-error)
+
+(global-set-key (kbd "C-S-t") 'projectile-find-file)
+(global-set-key (kbd "C-S-f") 'rgrep)
+
+
+
 ;; (require 'crux)
 ;; (require 'ace-window)
 ;; (require 'counsel)

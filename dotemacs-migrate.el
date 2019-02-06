@@ -216,21 +216,8 @@
 
 ;; KEYBINDINGS
 
-(global-set-key (kbd "C-l") 'goto-line)
-(global-set-key (kbd "C-S-l") 'recenter-top-bottom)
-(global-set-key (kbd "C-<tab>") 'indent-region)
-(global-set-key (kbd "C-S-<tab>") 'unindent-region)
-(global-set-key (kbd "C-S-<iso-lefttab>") 'unindent-region)
-(global-set-key (kbd "C-n") 'next-error)
-(global-set-key (kbd "C-p") 'previous-error)
 (global-set-key (vector (list 'control mouse-wheel-down-event)) 'text-scale-increase)
 (global-set-key (vector (list 'control mouse-wheel-up-event))   'text-scale-decrease)
-
-; various mode keybindings
-(global-set-key (kbd "C-S-m") 'toggle-menu-bar-mode-from-frame)
-(global-set-key (kbd "C-S-t") 'projectile-find-file)
-(global-set-key (kbd "C-S-f") 'rgrep)
-
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

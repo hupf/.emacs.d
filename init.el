@@ -73,7 +73,7 @@ file, but instead go to a well-known location.")
 (require 'initializer-vcs)
 (require 'initializer-windowing)
 (require 'initializer-editing)
-;; (require 'initializer-keys)
+(require 'initializer-keys)
 (require 'initializer-modeline)
 (require 'initializer-treemacs)
 
