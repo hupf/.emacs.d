@@ -99,6 +99,82 @@
       [0 24 24 24 24 24 24 0 0 24 24 0 0 0 0 0 0]))
   )
 
+;; Git Gutter Use git-gutter-fringe if not in TTY, since it is
+;; compatible with nlinum
+(use-package git-gutter
+  :ensure t
+
+  :config
+  (setq git-gutter-fr:side 'right-fringe)
+  (fringe-helper-define 'git-gutter-fr:added nil
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXX.XXX"
+    "XXX.XXX"
+    "X.....X"
+    "XXX.XXX"
+    "XXX.XXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    )
+  (fringe-helper-define 'git-gutter-fr:deleted nil
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "X.....X"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    )
+  (fringe-helper-define 'git-gutter-fr:modified nil
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    "XXXXXXX"
+    )
+  :init
+  (when (display-graphic-p)
+    (use-package git-gutter-fringe
+      :ensure t))
+  (global-git-gutter-mode))
+
 ;; show whitespace
 (require 'whitespace)
 
@@ -256,6 +332,18 @@
   (interactive "p")
   (delete-word (- arg)))
 (global-set-key (kbd "C-<backspace>") 'backward-delete-word)
+
+
+;; rgrep
+(defun delete-grep-header ()
+  (save-excursion
+    (with-current-buffer grep-last-buffer
+      (goto-line 5)
+      (narrow-to-region (point) (point-max)))))
+
+(defadvice grep (after delete-grep-header activate) (delete-grep-header))
+(defadvice rgrep (after delete-grep-header activate) (delete-grep-header))
+
 
 (provide 'initializer-editing)
 

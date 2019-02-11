@@ -2,50 +2,10 @@
 (if (functionp 'tool-bar-mode) (tool-bar-mode -1)) ;; no toolbar
 (if (functionp 'menu-bar-mode) (menu-bar-mode -1)) ;; no menubar
 
-(setq case-fold-search t) ;; search insensitive
-
-;(setq make-backup-files 0) ;; disable backup~ files
-(setq backup-by-copying t ; don't clobber symlinks
-      backup-directory-alist '(("." . "~/.emacs.d/backups")) ; don't litter my fs tree
-      delete-old-versions t
-      kept-new-versions 6
-      kept-old-versions 2
-      version-control t ; use versioned backups
-)
-
-;(global-linum-mode 1) ; display line numbers in all files
-
-;; show columns and line numbers at the bottom
-;(column-number-mode 1)
-
-;(global-visual-line-mode t) ; proper word wrapping
-
-;(setq debug-on-error t) ; enable for debugging
-
-; define code directory
-;; (setq code-directory "~/projects")
-;; (when (eq system-type 'darwin)
-;;   (setq code-directory "~/Development")
-;; )
-
-
 ;; SCROLLING
 (when (eq window-system 'x)
     (set-scroll-bar-mode 'right) ;; scrollbar right
 )
-
-;; enable smooth scrolling with mouse wheel
-;; TODO scroll buffer where mouse pointer is
-;; (defun smooth-scroll (number-lines increment)
-;;   (if (= 0 number-lines)
-;;       t
-;;     (progn
-;;       (sit-for 0.02)
-;;       (scroll-up increment)
-;;       (smooth-scroll (- number-lines 1) increment))))
-;; (global-set-key [(mouse-5)] '(lambda () (interactive) (smooth-scroll 5 1)))
-;; (global-set-key [(mouse-4)] '(lambda () (interactive) (smooth-scroll 5 -1)))
-
 
 ;; Enable Copy & Paste to/from Emacs in X11
 (when (eq window-system 'x)
@@ -96,10 +56,7 @@
     autopair
     editorconfig ;; dependency: apt-get install editorconfig
     dired-details+
-    sr-speedbar
-    ;; tabbar
     git-timemachine
-    git-gutter
     grizzl ; for import-js
 
     ;; languages
@@ -114,92 +71,16 @@
 
 ))
 
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                         ("marmalade" . "https://marmalade-repo.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")))
-
-; activate all the packages (in particular autoloads)
-(package-initialize)
-
-; fetch the list of packages available
-(when (not package-archive-contents)
-  (package-refresh-contents))
-
-; install the missing packages
-(dolist (package package-list)
-  (when (not (package-installed-p package))
-    (package-install package)))
-
-;; require packages needed for configuration
-(require 'dired)
-(require 'auto-complete-config)
-(require 'sr-speedbar)
-
 ;; MODE OPTIONS
 
 ;; dired
 (add-hook 'dired-mode-hook 'auto-revert-mode)
 (put 'dired-find-alternate-file 'disabled nil)
 
-;(setq-default dired-omit-mode t)
-;(setq-default dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\.")
-;(add-to-list 'dired-omit-extension ".example")
-;(delete 'dired-omit-extension ".example")
-
-;(add-to-list 'load-path (concat code-directory "/dired-single"))
-;(require 'dired-single)
-;(setq dired-single-open-files-in-other-window 1)
-
-;(define-key dired-mode-map (kbd "RET") 'dired-single-buffer)
-;(define-key dired-mode-map [down-mouse-1] 'dired-single-buffer-mouse)
-;(define-key dired-mode-map "."
-;  (function
-;   (lambda nil (interactive) (dired-single-buffer ".."))))
-
-;; tabbar
-;; (add-to-list 'load-path (concat code-directory "/tabbar"))
-;; (require 'tabbar)
-;; (setq tabbar-buffer-groups-function
-;;       (lambda ()
-;;         (list "All")))
-;; (setq tabbar-buffer-list-function
-;;       (lambda ()
-;;         (remove-if
-;;          (lambda(buffer)
-;;            (find (aref (buffer-name buffer) 0) " *"))
-;;          (buffer-list))))
-;; (setq 'tabbar-use-images nil)
-
 
 ;; autocomplete
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
-
-
-;;autopair
-(autopair-global-mode)
-(add-hook 'minibuffer-setup-hook
-          (lambda () (autopair-mode -1)))
-
-
-;; git-gutter
-(global-git-gutter-mode 1)
-
-
-;; MODE ASSOCIATIONS
-(setq default-major-mode 'text-mode) ;; default mode is text-mode
-(add-to-list 'auto-mode-alist '("\\.svg$" . xml-mode))
-
-;; rgrep
-(defun delete-grep-header ()
-  (save-excursion
-    (with-current-buffer grep-last-buffer
-      (goto-line 5)
-      (narrow-to-region (point) (point-max)))))
-
-(defadvice grep (after delete-grep-header activate) (delete-grep-header))
-(defadvice rgrep (after delete-grep-header activate) (delete-grep-header))
-
 
 ;; BUFFER LAYOUT
 (defun toggle-window-dedication (window)
