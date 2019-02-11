@@ -54,7 +54,6 @@
     ;; editor features
     auto-complete
     autopair
-    editorconfig ;; dependency: apt-get install editorconfig
     dired-details+
     git-timemachine
     grizzl ; for import-js
@@ -99,15 +98,6 @@
 
 (global-set-key (vector (list 'control mouse-wheel-down-event)) 'text-scale-increase)
 (global-set-key (vector (list 'control mouse-wheel-up-event))   'text-scale-decrease)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (import-js tide yasnippet yaml-mode web-mode typescript-mode sublimity sr-speedbar smex scss-mode sass-mode rvm rubocop robe rainbow-mode projectile php-mode nvm monokai-theme markdown-mode magit json-mode ido-vertical-mode grizzl git-timemachine git-gutter fringe-helper flycheck flx-ido enh-ruby-mode editorconfig drag-stuff dired-details+ company coffee-mode buffer-move autopair auto-complete anything-git-files ac-js2))))
 
 
 (put 'upcase-region 'disabled nil)

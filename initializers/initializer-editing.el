@@ -104,6 +104,9 @@
 (use-package git-gutter
   :ensure t
 
+  :diminish
+  git-gutter-mode
+
   :config
   (setq git-gutter-fr:side 'right-fringe)
   (fringe-helper-define 'git-gutter-fr:added nil
@@ -244,6 +247,16 @@
   :ensure t
   :diminish yas-minor-mode
   :config (yas-global-mode t))
+
+
+;; Editorconfig
+;; (make sure to `apt install editorconfig` or `brew install editorconfig`)
+
+(use-package editorconfig
+  :ensure t
+  :diminish editorconfig-mode
+  :config
+  (editorconfig-mode 1))
 
 
 ;; Prettier
