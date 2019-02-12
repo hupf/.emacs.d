@@ -1,3 +1,11 @@
+;;; initializer-web.el --- Web modes and configs
+
+;;; Commentary:
+
+;;; Configurations of modes for HTML editing
+
+;;; Code:
+
 (use-package web-mode
   :ensure t
 
@@ -29,4 +37,13 @@
   :init (setq emmet-indentation 2)
   :hook (web-mode sgml-mode))
 
+(use-package haml-mode
+  :ensure t
+  :mode "\\.haml\\'")
+
+(use-package php-mode
+  :ensure t
+  :mode "\\.php\\'")
+
 (provide 'initializer-web)
+;;; initializer-web.el ends here

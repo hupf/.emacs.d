@@ -1,3 +1,11 @@
+;;; initializer-css.el --- CSS editing
+
+;;; Commentary:
+
+;;; Configurations and modes for CSS and SCSS development.
+
+;;; Code:
+
 ;; Color highlighting
 (use-package rainbow-mode
   :ensure t
@@ -7,17 +15,16 @@
 (use-package css-mode
   :ensure t
   :init (setq css-indent-offset 2)
-  :mode ("\\.css\\'"
-         "\\.scss\\'"
+  :mode "\\.css\\'")
+
+(use-package scss-mode
+  :ensure t
+  :mode ("\\.scss\\'"
          "\\.sass\\'")
-)
 
-;; TODO: scss-mode?
-;; (defun configure-auto-complete-for-scss ()
-;;   (add-to-list 'ac-sources 'ac-source-css-property))
-;; (add-hook 'scss-mode-hook 'configure-auto-complete-for-scss)
-;; (add-to-list 'ac-modes 'scss-mode)
-
-;; (setq scss-compile-at-save nil) ;; don't auto compile sass files
+  :init
+  (setq scss-compile-at-save nil) ;; Don't auto compile SASS files
+  )
 
 (provide 'initializer-css)
+;;; initializer-css.el ends here

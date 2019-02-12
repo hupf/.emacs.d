@@ -26,21 +26,6 @@
 
 
 ;; FUNCTIONS
-(defun disable-final-newline ()
-  "Allow to disable adding of final newline, in a certain buffer."
-  (interactive)
-  (set (make-local-variable 'require-final-newline) nil))
-
-(defun dos2unix ()
-  "Convert DOS carriage returns to Unix linefeeds"
-  (interactive)
-  (set-buffer-file-coding-system 'unix 't))
-
-(defun linum-off ()
-  "Allow to disable 'linum-mode', once enabled in a buffer or globally"
-  (interactive)
-  (global-linum-mode 0)
-  (linum-mode 0))
 
 (defun get-project-root (buf repo-type)
   (vc-find-root (expand-file-name (buffer-file-name buf)) repo-type))
@@ -53,17 +38,7 @@
 
     ;; editor features
     auto-complete
-    autopair
-    dired-details+
     git-timemachine
-    grizzl ; for import-js
-
-    ;; languages
-    php-mode
-    sass-mode
-    scss-mode
-    haml-mode
-    json-mode
 
     ;; javascript
     ac-js2

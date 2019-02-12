@@ -1,3 +1,11 @@
+;;; initializer-javascript.el --- JavaScript editing
+
+;;; Commentary:
+
+;;; Configurations and modes for JavaScript and TypeScript development
+
+;;; Code:
+
 (use-package nvm
   :ensure t
   :commands (nvm-use nvm-use-for))
@@ -101,11 +109,15 @@ If buffer is not visiting a file, do nothing."
 (use-package coffee-mode
   :ensure t
 
-  :mode "\\.coffee\'"
+  :mode "\\.coffee\\'"
 
   :init
   (setq coffee-tab-width 2)
   (setq coffee-indent-tabs-mode nil))
+
+(use-package json-mode
+  :ensure t
+  :mode "\\.json\\'")
 
 (provide 'initializer-javascript)
 ;;; initializer-javascript.el ends here

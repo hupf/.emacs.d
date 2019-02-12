@@ -346,6 +346,16 @@
   (delete-word (- arg)))
 (global-set-key (kbd "C-<backspace>") 'backward-delete-word)
 
+(defun disable-final-newline ()
+  "Disable adding of final newline when saving current buffer."
+  (interactive)
+  (set (make-local-variable 'require-final-newline) nil))
+
+(defun dos2unix ()
+  "Convert DOS CRs to Unix LFs."
+  (interactive)
+  (set-buffer-file-coding-system 'unix 't))
+
 
 ;; rgrep
 (defun delete-grep-header ()
