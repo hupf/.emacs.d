@@ -1,3 +1,11 @@
+;;; initializer-windowing.el --- Windowing
+
+;;; Commentary:
+
+;; Window and menu bar settings, window/buffer navigation
+
+;;; Code:
+
 ;; TODO
 ;; ;; Split horizontally when opening a new window from a command
 ;; ;; whenever possible.
@@ -48,28 +56,27 @@
             :background (face-background 'default))
 )
 
-; TODO
-;; ;; disable window-system in terminal mode
-;; (unless window-system
-;;   (menu-bar-mode -1))
+;; Disable menu bar in terminal mode
+(unless window-system
+  (menu-bar-mode -1))
 
-;; disable startup screen
+;; Disable startup screen
 (setq inhibit-startup-screen t)
 
-;; disable scratch message
+;; Disable scratch message
 (setq initial-scratch-message nil)
 
 ;; ;; War and scrollbars. what are they good for?
 ;; (require 'scroll-bar)
 ;; (scroll-bar-mode -1)
 
-;; use super (cmd) + arrow keys to switch between visible buffers
+;; Use super (cmd) + arrow keys to switch between visible buffers
 (use-package windmove
   :ensure t
   :config
   (windmove-default-keybindings 'meta))
 
-;; allow to move current buffer
+;; Allow to move current buffer
 (use-package buffer-move
   :ensure t
   :init (setq buffer-move-behavior 'move)
@@ -79,22 +86,24 @@
   ("<C-S-left>" . buf-move-left)
   ("<C-S-right>" . buf-move-right))
 
-;; add directory to buffer names if files with same name are open
+;; Add directory to buffer names if files with same name are open
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
-(setq uniquify-ignore-buffers-re "^\\*") ;; don't muck with special buffers
+(setq uniquify-ignore-buffers-re "^\\*") ;; Don't muck with special buffers
 
 (defun kill-this-buffer-unless-dedicated ()
+  "Kill current buffer, but only if not dedicated."
   (interactive)
   (unless (window-dedicated-p (selected-window))
     (kill-this-buffer)))
 (global-set-key (kbd "C-x k") 'kill-this-buffer-unless-dedicated)
 
 (defun kill-all-buffers ()
-  "Kills all buffers except internal ones with * (e.g. *scratch*)"
+  "Kill all buffers except internal ones with * (e.g. *scratch*)."
   (interactive)
   (require 'cl)
   (mapc 'kill-buffer (remove-if (lambda (name) (string-match "^\*.*\*$" (string-trim name))) (mapcar (function buffer-name) (buffer-list)))))
 (global-set-key (kbd "C-x a k") 'kill-all-buffers)
 
 (provide 'initializer-windowing)
+;;; initializer-windowing.el ends here

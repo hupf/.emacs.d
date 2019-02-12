@@ -68,10 +68,9 @@
 
 (use-package multiple-cursors
   :ensure t
-  ;; TODO: useful bindings
-  ;; :bind ("C->" . mc/mark-next-like-this)
-  ;;       ("C-<" . mc/mark-previous-like-this)
-  ;;       ("C-c C-<" . mc/mark-all-like-this)
+  :bind ("C->" . mc/mark-next-like-this)
+        ("C-<" . mc/mark-previous-like-this)
+        ("C-c C-<" . mc/mark-all-like-this)
         )
 
 ;; make the left fringe 2 pixels so the hl-diff indicators aren't so fat
@@ -109,69 +108,70 @@
 
   :config
   (setq git-gutter-fr:side 'right-fringe)
-  (fringe-helper-define 'git-gutter-fr:added nil
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXX.XXX"
-    "XXX.XXX"
-    "X.....X"
-    "XXX.XXX"
-    "XXX.XXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    )
-  (fringe-helper-define 'git-gutter-fr:deleted nil
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "X.....X"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    )
-  (fringe-helper-define 'git-gutter-fr:modified nil
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    "XXXXXXX"
-    )
+  (when (display-graphic-p)
+    (fringe-helper-define 'git-gutter-fr:added nil
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXX.XXX"
+      "XXX.XXX"
+      "X.....X"
+      "XXX.XXX"
+      "XXX.XXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      )
+    (fringe-helper-define 'git-gutter-fr:deleted nil
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "X.....X"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      )
+    (fringe-helper-define 'git-gutter-fr:modified nil
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "X.....X"
+      "XXXXXXX"
+      "X.....X"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      "XXXXXXX"
+      ))
   :init
   (when (display-graphic-p)
     (use-package git-gutter-fringe

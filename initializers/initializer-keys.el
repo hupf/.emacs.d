@@ -1,4 +1,4 @@
-;;; initializer-keys.el --- Frontmacs: key bindings
+;;; initializer-keys.el --- Global key bindings
 
 ;; This file is not part of GNU Emacs.
 
