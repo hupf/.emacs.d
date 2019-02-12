@@ -178,22 +178,27 @@
       :ensure t))
   (global-git-gutter-mode))
 
-;; show whitespace
-(require 'whitespace)
 
-;; limit line length
+;; Show whitespace
+(use-package whitespace
+:ensure t
+:diminish whitespace-mode
+
+:init
+(dolist (hook '(prog-mode-hook text-mode-hook))
+    (add-hook hook #'whitespace-mode))
+(add-hook 'before-save-hook #'whitespace-cleanup)
+
+:config
 (setq whitespace-line-column 80)
 (setq whitespace-style '(face tabs empty trailing lines-tail))
-(setq global-whitespace-mode 1)
-(whitespace-mode t)
+)
 
-;; remove trailing whitespace when saving
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-;; highlight tabs with same color as trailing whitespaces
+;; Highlight tabs with same color as trailing whitespaces
 (add-hook 'font-lock-mode-hook (lambda ()
   (font-lock-add-keywords nil
     '(("\t" 0 'trailing-whitespace prepend)))))
+
 
 ;; backup and autosave files go into the tmp directory
 (setq backup-directory-alist
