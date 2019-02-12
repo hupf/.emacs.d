@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: jasmine beforeEach()
+# key: bef
+# --
+beforeEach(() => {
+  $0
+});

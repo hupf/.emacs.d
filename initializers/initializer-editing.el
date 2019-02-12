@@ -245,8 +245,15 @@
 ;; see https://joaotavora.github.io/yasnippet/
 (use-package yasnippet
   :ensure t
+
   :diminish yas-minor-mode
-  :config (yas-global-mode t))
+
+  :config
+  (setq yas-verbosity 1) ; No need to be so verbose
+  (setq yas-wrap-around-region t)
+  (use-package yasnippet-snippets
+:ensure t)
+  (yas-global-mode t))
 
 
 ;; Editorconfig

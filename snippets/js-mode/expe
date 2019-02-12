@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: jasmine expect()
+# key: expe
+# --
+expect($1).to$2($0);
