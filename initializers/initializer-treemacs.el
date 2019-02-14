@@ -1,3 +1,11 @@
+;;; initializer-treemacs.el --- Setup Treemacs
+;;;
+;;; Commentary:
+;;;
+;;; Configuration of the Treemacs project explorer.
+;;;
+;;; Code:
+
 (use-package treemacs
   :ensure t
   :defer t
@@ -59,3 +67,4 @@
        (call-process-shell-command command nil nil nil (treemacs--prop-at-point :path))))
 
 (provide 'initializer-treemacs)
+;;; initializer-treemacs.el ends here

@@ -1,9 +1,9 @@
-;;; initializer-javascript.el --- JavaScript editing
-
+;;; initializer-javascript.el --- Setup JavaScript editing
+;;;
 ;;; Commentary:
-
-;;; Configurations and modes for JavaScript and TypeScript development
-
+;;;
+;;; Modes and configurations for JavaScript editing.
+;;;
 ;;; Code:
 
 (use-package nvm

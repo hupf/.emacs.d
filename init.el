@@ -2,10 +2,11 @@
 ;;;
 ;;; Commentary:
 ;;;
-;;; Loads all of the elisp files in .emacs.d/initializers
+;;; Loads all of the elisp files in .emacs.d/initializers.
 ;;;
 ;;; .emacs.d/initalizers/ will be created for you if it doesn't exist
 ;;; already.
+;;;
 ;;; Code:
 
 
@@ -71,7 +72,6 @@ file, but instead go to a well-known location.")
 ;; load all of the files in the `initializers/' directory.
 ;; (eval '(mapc 'load (directory-files initializers-directory 't "^[^#.].*el$")))
 
-;; (require 'frontmacs-config)
 (require 'initializer-style)
 (require 'initializer-system)
 (require 'initializer-projectile)

@@ -1,9 +1,9 @@
-;;; initializer-web.el --- Web modes and configs
-
+;;; initializer-web.el --- Setup HTML editing
+;;;
 ;;; Commentary:
-
-;;; Configurations of modes for HTML editing
-
+;;;
+;;; Modes and configurations for HTML/HAML editing
+;;;
 ;;; Code:
 
 (use-package web-mode

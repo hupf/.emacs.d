@@ -1,3 +1,11 @@
+;;; initializer-ruby.el --- Setup Ruby editing
+;;;
+;;; Commentary:
+;;;
+;;; Modes and configurations for Ruby editing.
+;;;
+;;; Code:
+
 ;; RVM
 (use-package rvm
   :ensure t

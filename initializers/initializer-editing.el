@@ -1,11 +1,9 @@
 ;;; initializer-editing.el --- What happens when I edit things?
-
-;; This file is not part of GNU Emacs.
-
+;;;
 ;;; Commentary:
-
-;; Behaviors for when you edit things.
-
+;;;
+;;; Behaviors for when you edit things.
+;;;
 ;;; Code:
 
 ;; Death to the tabs indeed!

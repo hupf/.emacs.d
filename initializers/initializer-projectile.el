@@ -1,3 +1,11 @@
+;;; initializer-projectile.el --- Setup Projectile
+;;;
+;;; Commentary:
+;;;
+;;; Configuration of the Projectile project interaction library.
+;;;
+;;; Code:
+
 (use-package projectile
   :ensure t
 
@@ -19,3 +27,4 @@
 ;;  '(projectile-switch-project-action (quote projectile-dired)))
 
 (provide 'initializer-projectile)
+;;; initializer-projectile.el ends here

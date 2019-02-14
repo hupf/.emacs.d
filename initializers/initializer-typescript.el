@@ -1,3 +1,11 @@
+;;; initializer-typescript.el --- Setup TypeScript
+;;;
+;;; Commentary:
+;;;
+;;; Modes and configurations for TypeScript editing.
+;;;
+;;; Code:
+
 (use-package tide
   :ensure t
 
@@ -51,3 +59,4 @@
   )
 
 (provide 'initializer-typescript)
+;;; initializer-typescript.el ends here

@@ -1,12 +1,10 @@
 ;;; initializer-keys.el --- Global key bindings
-
-;; This file is not part of GNU Emacs.
-
+;;;
 ;;; Commentary:
-
-;; Emacs is all about the key bindings, and this is where we define
-;; all keyboard related activities.
-
+;;;
+;;; Emacs is all about the key bindings, and this is where we define
+;;; all keyboard related activities.
+;;;
 ;;; Code:
 
 (global-set-key (kbd "C-l") 'goto-line)

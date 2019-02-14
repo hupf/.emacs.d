@@ -1,9 +1,9 @@
-;;; initializer-css.el --- CSS editing
-
+;;; initializer-css.el --- Setup CSS editing
+;;;
 ;;; Commentary:
-
-;;; Configurations and modes for CSS and SCSS development.
-
+;;;
+;;; Modes and configurations for CSS/SCSS editing.
+;;;
 ;;; Code:
 
 ;; Color highlighting

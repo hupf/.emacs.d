@@ -1,9 +1,9 @@
 ;;; initializer-windowing.el --- Windowing
-
+;;;
 ;;; Commentary:
-
-;; Window and menu bar settings, window/buffer navigation
-
+;;;
+;;; Window and menu bar settings, window/buffer navigation
+;;;
 ;;; Code:
 
 ;; TODO
