@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: Angular Component
+# key: ngcomp
+# --
+import { Component } from '@angular/core';
+
+@Component({
+  selector: '$1',
+  templateUrl: './${1:$(substring yas/text (min 3 (length yas/text)))}.component.html'
+})
+export class ${1:$(camelize-kebab (substring yas/text (min 3 (length yas/text))))}Component$2 {
+  $0
+}

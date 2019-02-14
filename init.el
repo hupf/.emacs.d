@@ -72,6 +72,7 @@ file, but instead go to a well-known location.")
 ;; load all of the files in the `initializers/' directory.
 ;; (eval '(mapc 'load (directory-files initializers-directory 't "^[^#.].*el$")))
 
+(require 'initializer-helpers)
 (require 'initializer-style)
 (require 'initializer-system)
 (require 'initializer-projectile)

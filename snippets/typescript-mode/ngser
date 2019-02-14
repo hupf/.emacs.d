@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: Angular Service
+# key: ngser
+# --
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class $1 {
+  $0
+}
