@@ -19,7 +19,17 @@
 (global-set-key (kbd "C-S-t") 'projectile-find-file)
 (global-set-key (kbd "C-S-f") 'rgrep)
 
+;; Joins the folloing line onto the current one (somehow, but not
+;; really the opposite of M-j)
+(global-set-key (kbd "C-M-j")
+                (lambda ()
+                  (interactive)
+                  (join-line -1)))
 
+(use-package crux
+  :ensure t
+  :bind (("C-c D" . crux-delete-file-and-buffer)
+         ("C-c r" . crux-rename-buffer-and-file)))
 
 ;; (require 'crux)
 ;; (require 'ace-window)
