@@ -26,6 +26,11 @@
           treemacs-icon-fallback-text (propertize "  " 'face 'treemacs-file-face))
   )
 
+  ;; Redefine the following constant after treemacs-persistence.el has
+  ;; been evaluated
+  (with-eval-after-load "treemacs-persistence"
+    (setq treemacs--last-error-persist-file (f-join user-data-directory "treemacs.last-error")))
+
   :custom-face
   ;; TODO: bigger font for mac, smaller for linux?
   ;; (treemacs-directory-face ((t (:inherit font-lock-type-face :height 90))))
