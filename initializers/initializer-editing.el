@@ -288,7 +288,8 @@
   :diminish prettier-js-mode
 
   :hook ((js2-mode . init-prettier)
-         (typescript-mode . init-prettier))
+         (typescript-mode . init-prettier)
+         (json-mode . init-prettier))
   )
 
 (defun init-prettier ()
