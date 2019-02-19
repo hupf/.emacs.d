@@ -21,6 +21,8 @@
 ;; Fonts
 (when (eq window-system 'x)
   (set-default-font "Monospace-11")
+  ;;(set-default-font "IBM Plex Mono 11")
+
 )
 (when (eq system-type 'darwin)
   ;; (set-default-font "Menlo 14")

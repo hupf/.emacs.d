@@ -2,18 +2,6 @@
 (if (functionp 'tool-bar-mode) (tool-bar-mode -1)) ;; no toolbar
 (if (functionp 'menu-bar-mode) (menu-bar-mode -1)) ;; no menubar
 
-;; SCROLLING
-(when (eq window-system 'x)
-    (set-scroll-bar-mode 'right) ;; scrollbar right
-)
-
-;; Enable Copy & Paste to/from Emacs in X11
-(when (eq window-system 'x)
-    (setq x-select-enable-clipboard t)
-    (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
-)
-
-
 ;; ENCODINGS
 (setq current-language-environment "UTF-8")
 (setq default-input-method "UTF-8")

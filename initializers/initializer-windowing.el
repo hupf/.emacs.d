@@ -56,9 +56,8 @@
             :background (face-background 'default))
 )
 
-;; Disable menu bar in terminal mode
-(unless window-system
-  (menu-bar-mode -1))
+;; Disable menu bar
+(menu-bar-mode -1)
 
 ;; Disable startup screen
 (setq inhibit-startup-screen t)

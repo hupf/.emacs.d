@@ -80,16 +80,6 @@
   :defer t
   :hook ((enh-ruby-mode . rubocop-mode)))
 
-;; TODO: flycheck
-;; (add-hook 'ruby-mode-hook
-;;           '(lambda ()
-;;              ; disable other ruby checkers since only setting flycheck-checker
-;;              ; somehow doesn work
-;;              (setq flycheck-disabled-checkers '(ruby-rubylint ruby ruby-jruby))
-
-;;              (setq flycheck-checker 'ruby-rubocop)
-;;              (flycheck-mode 1)))
-
 
 ;; ;; Look up symbols in ruby `ri' to using yari.
 ;; (define-key 'help-command (kbd "R") 'yari)
