@@ -2,6 +2,6 @@
 # name: jasmine it()
 # key: it
 # --
-it(() => {
+it('$1', () => {
   $0
 });
