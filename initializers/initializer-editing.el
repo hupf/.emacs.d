@@ -78,10 +78,15 @@
 
 (use-package multiple-cursors
   :ensure t
-  :bind ("C->" . mc/mark-next-like-this)
-        ("C-<" . mc/mark-previous-like-this)
-        ("C-c C-<" . mc/mark-all-like-this)
-        )
+
+  :init
+  (setq mc/list-file (f-join user-data-directory "mc-lists.el"))
+
+  :bind
+  ("C->" . mc/mark-next-like-this)
+  ("C-<" . mc/mark-previous-like-this)
+  ("C-c C-<" . mc/mark-all-like-this)
+  ("C-S-<mouse-1>" . mc/add-cursor-on-click))
 
 ;; make the left fringe 2 pixels so the hl-diff indicators aren't so fat
 ;; leave the right fringe width at the default 8 pixels
