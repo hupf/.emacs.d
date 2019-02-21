@@ -21,8 +21,8 @@
   ;; We never want to edit Rubinius bytecode
   (add-to-list 'completion-ignored-extensions ".rbc")
 
-  ;; TODO: needed?
-  (setq ruby-insert-encoding-magic-comment nil)
+  ;; Don't add utf-8 comment
+  (setq enh-ruby-add-encoding-comment-on-save nil)
 
   :mode ("\\.rb\\'"
          "\\.rake\\'"

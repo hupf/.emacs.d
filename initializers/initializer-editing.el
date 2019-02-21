@@ -200,8 +200,9 @@
 (add-hook 'before-save-hook #'whitespace-cleanup)
 
 :config
-(setq whitespace-line-column 80)
 (setq whitespace-style '(face tabs empty trailing lines-tail))
+(setq whitespace-line-column 80)
+(setq whitespace-line nil) ;; Don't style long lines
 )
 
 ;; Highlight tabs with same color as trailing whitespaces
