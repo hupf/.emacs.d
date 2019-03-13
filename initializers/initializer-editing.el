@@ -295,14 +295,28 @@
 
   :hook ((js2-mode . init-prettier)
          (typescript-mode . init-prettier)
-         (json-mode . init-prettier))
+         (json-mode . init-prettier)
+         (web-mode . init-prettier)
+         (css-mode . init-prettier)
+         (scss-mode . init-prettier)
+         (markdown-mode . init-prettier)
+         (yaml-mode . init-prettier))
   )
 
 (defun init-prettier ()
-  ;; Use project-local prettier command -- make sure, prettier is not
-  ;; installed globally, so it is only active in projects with
-  ;; prettier installed.
+  "Initialize Prettier mode, making sure the project-local version is used."
+
+  ;; Don't install Prettier globally. Install a pinned Prettier
+  ;; version in the projects you'd like formatting to be enabled.
+
+  ;; Activate the project's Node version (you may want to add a .npmrc
+  ;; file with the desired Node version to your project directory)
+  (nvm-use-for-buffer)
+
+  ;; Make sure the project-local ./node_modules/.bin/prettier is found
   (add-node-modules-path)
+
+  ;; Enable formatting on save
   (prettier-js-mode)
   )
 
