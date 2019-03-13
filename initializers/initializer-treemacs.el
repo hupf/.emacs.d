@@ -16,14 +16,17 @@
   (setq treemacs-follow-after-init t) ;; Open folder & select file of selected buffer
   (setq treemacs-silent-refresh t) ;; No message after manual refresh
   (setq treemacs-silent-filewatch t) ;; No message after refresh in watch mode
-  (setq treemacs-no-png-images t) ;; Use text-only icons, no images
+  ;; (setq treemacs-no-png-images t) ;; Use text-only icons, no images
+  (setq treemacs-indentation-string " ")
+
+  (treemacs-resize-icons 16)
 
   ;; Use unicode characters as directory & file icons
   ;; TODO: slows down treemacs toggle and displays no icons on mac
   (if (not (eq system-type 'darwin))
     (setq treemacs-icon-open-text (propertize "📂 " 'face 'treemacs-directory-face)
           treemacs-icon-closed-text (propertize "📁 " 'face 'treemacs-directory-face)
-          treemacs-icon-fallback-text (propertize "  " 'face 'treemacs-file-face))
+          treemacs-icon-fallback-text (propertize "" 'face 'treemacs-file-face))
   )
 
   ;; Redefine the following constant after treemacs-persistence.el has
@@ -55,6 +58,7 @@
     ("C-<return>" . treemacs-natively-open-path-at-point))
 
   :config
+  (treemacs-follow-mode -1) ;; Allow to scroll freely
   (treemacs-filewatch-mode)
   (treemacs-git-mode 'simple)
 )
