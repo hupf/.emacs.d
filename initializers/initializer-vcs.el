@@ -22,8 +22,4 @@
   (global-diff-hl-mode t)
   (diff-hl-flydiff-mode))
 
-;; TODO
-;; ;; Open github links in the browser
-;; (setq git-link-open-in-browser t)
-
 (provide 'initializer-vcs)

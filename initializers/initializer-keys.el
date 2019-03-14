@@ -76,9 +76,6 @@
 ;; ;; to left.
 ;; (global-set-key (kbd "C-c s") 'crux-swap-windows)
 
-;; ;; Open current line or region in Github
-;; (global-set-key (kbd "C-x v b") #'git-link)
-
 ;; ;; Fire up the git time machine
 ;; ;; https://github.com/pidu/git-timemachine
 ;; (global-set-key (kbd "C-x v t") 'git-timemachine)
