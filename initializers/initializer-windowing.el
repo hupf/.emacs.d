@@ -101,9 +101,11 @@
 (use-package zoom-frm
   :ensure t
   :bind (("C-+" . zoom-frm-in)
-         ("<C-mouse-4>" . zoom-frm-in) ; wheel-up for mac/windows?
+         ("<C-mouse-4>" . zoom-frm-in) ;; Linux
+         ("<C-wheel-up>" . zoom-frm-in) ;; Mac/Windows
          ("C--" . zoom-frm-out)
-         ("<C-mouse-5>" . zoom-frm-out) ; wheel-down for mac/windows?
+         ("<C-mouse-5>" . zoom-frm-out) ;; Linux
+         ("<C-wheel-down>" . zoom-frm-out) ;; Mac/Windows
          ("C-0" . zoom-frm-unzoom))
   :quelpa (zoom-frm :fetcher github :repo "emacsmirror/zoom-frm"))
 
