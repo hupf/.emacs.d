@@ -56,12 +56,3 @@
   (let ((window (selected-window)))
     (toggle-window-dedication window))
   )
-
-;; KEYBINDINGS
-
-(global-set-key (vector (list 'control mouse-wheel-down-event)) 'text-scale-increase)
-(global-set-key (vector (list 'control mouse-wheel-up-event))   'text-scale-decrease)
-
-
-(put 'upcase-region 'disabled nil)
-(put 'downcase-region 'disabled nil)

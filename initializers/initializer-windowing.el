@@ -90,6 +90,24 @@
 (setq uniquify-buffer-name-style 'forward)
 (setq uniquify-ignore-buffers-re "^\\*") ;; Don't muck with special buffers
 
+
+;; Zoom Frames allows you to change the font-size of the current frame up or down.
+(use-package frame-fns
+  :ensure t
+  :quelpa (frame-fns :fetcher github :repo "emacsmirror/frame-fns"))
+(use-package frame-cmds
+  :ensure t
+  :quelpa (frame-cmds :fetcher github :repo "emacsmirror/frame-cmds"))
+(use-package zoom-frm
+  :ensure t
+  :bind (("C-+" . zoom-frm-in)
+         ("<C-mouse-4>" . zoom-frm-in) ; wheel-up for mac/windows?
+         ("C--" . zoom-frm-out)
+         ("<C-mouse-5>" . zoom-frm-out) ; wheel-down for mac/windows?
+         ("C-0" . zoom-frm-unzoom))
+  :quelpa (zoom-frm :fetcher github :repo "emacsmirror/zoom-frm"))
+
+
 (defun kill-this-buffer-unless-dedicated ()
   "Kill current buffer, but only if not dedicated."
   (interactive)

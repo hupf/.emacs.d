@@ -9,6 +9,15 @@
 ;;;
 ;;; Code:
 
+;; time the loading of the .emacs
+;; keep this on top of your .emacs
+(defvar *emacs-load-start* (current-time))
+(defun anarcat/time-to-ms (time)
+  (+ (* (+ (* (car time) (expt 2 16)) (car (cdr time))) 1000000) (car (cdr (cdr time)))))
+(defun anarcat/display-timing ()
+  (message ".emacs loaded in %fms" (/ (- (anarcat/time-to-ms (current-time)) (anarcat/time-to-ms *emacs-load-start*)) 1000000.0)))
+(add-hook 'after-init-hook 'anarcat/display-timing t)
+
 
 ;; Configure `package'
 (require 'package)
@@ -42,6 +51,11 @@
 
 (eval-when-compile
   (require 'use-package))
+
+
+;; Bootstrap `quelpa'
+(use-package quelpa-use-package
+  :ensure t)
 
 
 ;; Setup directories and load initializers
