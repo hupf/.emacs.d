@@ -7,8 +7,6 @@
 ;;;
 ;;; Code:
 
-(global-set-key (kbd "C-l") 'goto-line)
-(global-set-key (kbd "C-S-l") 'recenter-top-bottom)
 (global-set-key (kbd "C-<tab>") 'indent-region)
 (global-set-key (kbd "C-S-<tab>") 'unindent-region)
 (global-set-key (kbd "C-S-<iso-lefttab>") 'unindent-region)
