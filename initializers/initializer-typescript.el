@@ -12,6 +12,7 @@
   :after (typescript-mode company flycheck)
 
   :init
+  (setq tide-sync-request-timeout 5)
   (setq typescript-indent-level 2)
 
   ;; Setup formatting options, see:
@@ -29,7 +30,8 @@
   :bind
   (:map typescript-mode-map
         ("C-c C-r f" . tide-fix)
-        ("C-c C-r r s" . tide-rename-symbol))
+        ("C-c C-r r s" . tide-rename-symbol)
+        ("C-c C-r r f" . tide-rename-file))
         ;; ("" . tide-refactor)
         ;; ("" . tide-jump-to-definition) -> M-.
         ;; ("" . tide-jump-back) -> M-,
