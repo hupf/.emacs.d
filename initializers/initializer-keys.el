@@ -15,7 +15,6 @@
 (global-set-key (kbd "C-p") 'previous-error)
 
 (global-set-key (kbd "C-S-t") 'projectile-find-file)
-(global-set-key (kbd "C-S-f") 'rgrep)
 
 ;; Joins the folloing line onto the current one (somehow, but not
 ;; really the opposite of M-j)

@@ -411,6 +411,20 @@
 (defadvice rgrep (after delete-grep-header activate) (delete-grep-header))
 
 
+;; ripgrep search (install `cargo install ripgrep`)
+(use-package rg
+  :ensure t
+
+  :init
+  (setq rg-executable "/usr/local/bin/rg")
+  (setq rg-show-header nil)
+
+  :bind
+  ("C-S-f" . rg)
+
+  :commands (rg rg-literal rg-project))
+
+
 (provide 'initializer-editing)
 
 ;;; initializer-editing.el ends here
