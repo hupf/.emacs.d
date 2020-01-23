@@ -91,23 +91,23 @@
 (setq uniquify-ignore-buffers-re "^\\*") ;; Don't muck with special buffers
 
 
-;; Zoom Frames allows you to change the font-size of the current frame up or down.
-(use-package frame-fns
-  :ensure t
-  :quelpa (frame-fns :fetcher github :repo "emacsmirror/frame-fns"))
-(use-package frame-cmds
-  :ensure t
-  :quelpa (frame-cmds :fetcher github :repo "emacsmirror/frame-cmds"))
-(use-package zoom-frm
-  :ensure t
-  :bind (("C-+" . zoom-frm-in)
-         ("<C-mouse-4>" . zoom-frm-in) ;; Linux
-         ("<C-wheel-up>" . zoom-frm-in) ;; Mac/Windows
-         ("C--" . zoom-frm-out)
-         ("<C-mouse-5>" . zoom-frm-out) ;; Linux
-         ("<C-wheel-down>" . zoom-frm-out) ;; Mac/Windows
-         ("C-0" . zoom-frm-unzoom))
-  :quelpa (zoom-frm :fetcher github :repo "emacsmirror/zoom-frm"))
+;; Initialize Zoom Frames to allow to change the font-size of the current frame up or down.
+;; (use-package frame-fns
+;;   :ensure t
+;;   :quelpa (frame-fns :fetcher github :repo "emacsmirror/frame-fns"))
+;; (use-package frame-cmds
+;;   :ensure t
+;;   :quelpa (frame-cmds :fetcher github :repo "emacsmirror/frame-cmds"))
+;; (use-package zoom-frm
+;;   :ensure t
+;;   :bind (("C-+" . zoom-frm-in)
+;;          ("<C-mouse-4>" . zoom-frm-in) ;; Linux
+;;          ("<C-wheel-up>" . zoom-frm-in) ;; Mac/Windows
+;;          ("C--" . zoom-frm-out)
+;;          ("<C-mouse-5>" . zoom-frm-out) ;; Linux
+;;          ("<C-wheel-down>" . zoom-frm-out) ;; Mac/Windows
+;;          ("C-0" . zoom-frm-unzoom))
+;;   :quelpa (zoom-frm :fetcher github :repo "emacsmirror/zoom-frm"))
 
 
 (defun kill-this-buffer-unless-dedicated ()

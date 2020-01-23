@@ -46,9 +46,9 @@
 (eval-when-compile
   (require 'use-package))
 
-;; Bootstrap `quelpa'
-(use-package quelpa-use-package
-  :ensure t)
+;; Bootstrap `quelpa' for zoom-frm
+;; (use-package quelpa-use-package
+;;   :ensure t)
 
 ;; Setup directories and load initializers
 (use-package f
