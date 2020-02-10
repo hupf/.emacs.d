@@ -1,0 +1,48 @@
+Learnings from Mastering Emacs
+
+Universal arguments:
+C-u <number> Digit argument
+C-- or M-- or C-M-- Negative argument
+
+Frame management:
+C-x 5 2   Create a new frame
+C-x 5 0   Delete active frame
+C-x 5 1   Delete other frames
+
+Moving by S-expressions:
+C-M-f     Move forward by s-expression
+C-M-b     Move backward by s-expression
+M-a       Move to beginning of sentence
+M-e       Move to end of sentence
+M-g M-g   Go to line
+C-l       Re-center the point to the middle
+
+Isearch:
+C-w       add word at point to search string (repeat to add subsequent words)
+
+Occur:
+M-s o     Occur mode (grep-like for current buffer)
+e         Edit text in-line in the occur buffer, commit with C-c C-c
+
+Killing and yanking text:
+C-M-k     Kill s-expression
+M-y       Cycle through kill ring, replacing yanked text
+C-M-w     Append next kill command to kill ring
+
+Transposing text:
+C-t       Transpose characters
+M-t       Transpose words
+C-M-t     Transpose s-expressions
+C-x C-t   Transposee lines
+
+Filling:
+M-q       Refills paragraph point is in
+C-x f     Sets fill column width
+
+Comments:
+M-;       Comment or uncomment
+M-j       Insert new line with comment on new line
+
+Joining/Splitting:
+C-o       Inserts a blank line after point
+C-x C-o   Deletes all blank lines after point
