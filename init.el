@@ -99,5 +99,6 @@ file, but instead go to a well-known location.")
 (require 'initializer-ruby)
 (require 'initializer-yaml)
 (require 'initializer-markdown)
+(require 'initializer-asciidoc)
 
 ;;; init.el ends here
