@@ -68,8 +68,6 @@ file, but instead go to a well-known location.")
 ;; customization UI into your `init.el'. Let's not do that.
 (setq custom-file (f-join user-data-directory "custom.el"))
 
-
-
 (defvar initializers-directory (f-join user-emacs-directory "initializers")
   "All .el files in this directory will be run.")
 

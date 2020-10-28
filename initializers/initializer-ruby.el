@@ -49,6 +49,8 @@
   )
 
 (defun setup-enh-ruby ()
+  (rvm-activate-corresponding-ruby)
+
   ;; TODO: what's the benefit?
   ;; enable a REPL process loaded with your
   ;; ruby project that provides lots of code insight.
@@ -78,6 +80,10 @@
 (use-package rubocop
   :ensure t
   :defer t
+
+  :init
+  (setq rubocop-autocorrect-on-save 1)
+
   :hook ((enh-ruby-mode . rubocop-mode)))
 
 
