@@ -20,13 +20,13 @@
 
 ;; Fonts
 (when (eq window-system 'x)
-  (set-default-font "Monospace-11")
+  (set-frame-font "Monospace-11")
   ;;(set-default-font "IBM Plex Mono 11")
 
 )
 (when (eq system-type 'darwin)
   ;; (set-default-font "Menlo 14")
-  (set-default-font "IBM Plex Mono Light 14")
+  (set-frame-font "IBM Plex Mono Light 14")
   ;; (set-default-font "IBM Plex Mono 14")
   )
 
