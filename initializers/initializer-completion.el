@@ -60,9 +60,14 @@
    (setq company-tooltip-flip-when-above t)
 
    ;; Align annotations to the right tooltip border
-  (setq company-tooltip-align-annotations t)
+   (setq company-tooltip-align-annotations t)
 
    :config
    (global-company-mode 1))
+
+(use-package company-box
+  :ensure t
+  :diminish
+  :hook (company-mode . company-box-mode))
 
 (provide 'initializer-completion)
