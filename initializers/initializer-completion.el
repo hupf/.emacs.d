@@ -65,6 +65,7 @@
    :config
    (global-company-mode 1))
 
+;; Fancy company dialog with icons
 (use-package company-box
   :ensure t
   :diminish

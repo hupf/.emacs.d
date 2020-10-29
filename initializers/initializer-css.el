@@ -15,12 +15,14 @@
 (use-package css-mode
   :ensure t
   :init (setq css-indent-offset 2)
-  :mode "\\.css\\'")
+  :mode "\\.css\\'"
+  :hook (css-mode . lsp-deferred))
 
 (use-package scss-mode
   :ensure t
   :mode ("\\.scss\\'"
          "\\.sass\\'")
+  :hook (scss-mode . lsp-deferred)
 
   :init
   (setq scss-compile-at-save nil) ;; Don't auto compile SASS files

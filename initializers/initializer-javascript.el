@@ -42,7 +42,8 @@ If buffer is not visiting a file, do nothing."
   ;; Disable JSHint
   (setq flycheck-disabled-checkers '(javascript-jshint))
 
-  :hook ((js2-mode . setup-js2))
+  :hook ((js2-mode . setup-js2)
+         (js2-mode . lsp-deferred))
   )
 
 (defun setup-js2 ()
