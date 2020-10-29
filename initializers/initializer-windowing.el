@@ -86,24 +86,20 @@
 (setq uniquify-ignore-buffers-re "^\\*") ;; Don't muck with special buffers
 
 
-;; Initialize Zoom Frames to allow to change the font-size of the current frame up or down.
-;; (use-package frame-fns
-;;   :ensure t
-;;   :quelpa (frame-fns :fetcher github :repo "emacsmirror/frame-fns"))
-;; (use-package frame-cmds
-;;   :ensure t
-;;   :quelpa (frame-cmds :fetcher github :repo "emacsmirror/frame-cmds"))
-;; (use-package zoom-frm
-;;   :ensure t
-;;   :bind (("C-+" . zoom-frm-in)
-;;          ("<C-mouse-4>" . zoom-frm-in) ;; Linux
-;;          ("<C-wheel-up>" . zoom-frm-in) ;; Mac/Windows
-;;          ("C--" . zoom-frm-out)
-;;          ("<C-mouse-5>" . zoom-frm-out) ;; Linux
-;;          ("<C-wheel-down>" . zoom-frm-out) ;; Mac/Windows
-;;          ("C-0" . zoom-frm-unzoom))
-;;   :quelpa (zoom-frm :fetcher github :repo "emacsmirror/zoom-frm"))
+;; Allow to globally change the font-size
+(use-package default-text-scale
+  :ensure t
 
+    :config
+    (setq default-text-scale-amount 8)
+
+    :bind (("C-+" . default-text-scale-increase)
+           ("<C-mouse-4>" . default-text-scale-increase) ;; Linux
+           ("<C-wheel-up>" . default-text-scale-increase) ;; Mac/Windows
+           ("C--" . default-text-scale-decrease)
+           ("<C-mouse-5>" . default-text-scale-decrease) ;; Linux
+           ("<C-wheel-down>" . default-text-scale-decrease) ;; Mac/Windows
+           ("C-0" . default-text-scale-reset)))
 
 (defun kill-this-buffer-unless-dedicated ()
   "Kill current buffer, but only if not dedicated."

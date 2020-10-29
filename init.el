@@ -20,18 +20,19 @@
 (package-initialize)
 
 (setq package-archives
-      '(("MELPA Stable" . "https://stable.melpa.org/packages/")
-        ("MELPA" . "https://melpa.org/packages/")
-        ("GNU" . "http://elpa.gnu.org/packages/"))
+      '(("melpa-stable" . "https://stable.melpa.org/packages/")
+        ("melpa" . "https://melpa.org/packages/")
+        ("gnu" . "http://elpa.gnu.org/packages/"))
       package-archive-priorities
-      '(("MELPA Stable" . 10)
-        ("MELPA" . 5)
-        ("GNU" . 0))
+      '(("melpa-stable" . 10)
+        ("melpa" . 5)
+        ("gnu" . 0))
       package-pinned-packages
-      '((flycheck . "MELPA")
-        (js2-mode . "MELPA")
-        (nvm . "MELPA")
-        (use-package . "MELPA")))
+      '((default-text-scale . "melpa")
+        (flycheck . "melpa")
+        (js2-mode . "melpa")
+        (nvm . "melpa")
+        (use-package . "melpa")))
 
 
 ;; Ensure diminish to be present to have use-package supporting it
@@ -47,10 +48,6 @@
 
 (eval-when-compile
   (require 'use-package))
-
-;; Bootstrap `quelpa' for zoom-frm
-;; (use-package quelpa-use-package
-;;   :ensure t)
 
 ;; Setup directories and load initializers
 (use-package f
@@ -91,10 +88,10 @@ file, but instead go to a well-known location.")
 (require 'initializer-treemacs)
 
 ;; different language modes
+(require 'initializer-lsp)
 (require 'initializer-web)
 (require 'initializer-javascript)
 ;; (require 'initializer-typescript)
-(require 'initializer-lsp)
 (require 'initializer-css)
 (require 'initializer-ruby)
 (require 'initializer-yaml)
