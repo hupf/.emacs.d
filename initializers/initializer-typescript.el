@@ -6,6 +6,11 @@
 ;;;
 ;;; Code:
 
+(use-package typescript-mode
+  :ensure t
+  :mode ("\\.ts\\'" "\\.tsx\\'")
+)
+
 (use-package tide
   :ensure t
 

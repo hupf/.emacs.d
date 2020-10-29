@@ -31,6 +31,11 @@
 ;; Store network security manager's settings file in data directory
 (setq nsm-settings-file (f-join user-data-directory "network-security.data"))
 
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (exec-path-from-shell-copy-env "GEM_PATH"))
+
 ;; OSX specific code
 (when (eq system-type 'darwin)
 
