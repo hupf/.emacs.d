@@ -42,19 +42,14 @@
 ;; (global-set-key (kbd "C-x 3") 'frontmacs/hsplit-last-buffer)
 
 ;; Line numbers
-;; highlight the current line number
-(use-package nlinum
+(use-package display-line-numbers
   :ensure t
 
-  :init
-  (setq nlinum-format "%3d ")
-  (setq nlinum-highlight-current-line t)
+  :hook (prog-mode . display-line-numbers-mode)
 
-  :hook (prog-mode . nlinum-mode)
-
-  :config (set-face-attribute 'linum nil
-            :background (face-background 'default))
-)
+  :config (set-face-background 'line-number (face-background 'default))
+  (set-face-background 'line-number-current-line (face-background 'default))
+  )
 
 ;; Disable menu bar
 (menu-bar-mode -1)
