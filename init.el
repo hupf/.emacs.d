@@ -29,6 +29,7 @@
         ("gnu" . 0))
       package-pinned-packages
       '((default-text-scale . "melpa")
+        (centaur-tabs . "melpa")
         (flycheck . "melpa")
         (js2-mode . "melpa")
         (nvm . "melpa")

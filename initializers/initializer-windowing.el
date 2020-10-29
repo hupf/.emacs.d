@@ -85,7 +85,6 @@
 (setq uniquify-buffer-name-style 'forward)
 (setq uniquify-ignore-buffers-re "^\\*") ;; Don't muck with special buffers
 
-
 ;; Allow to globally change the font-size
 (use-package default-text-scale
   :ensure t
@@ -100,6 +99,22 @@
            ("<C-mouse-5>" . default-text-scale-decrease) ;; Linux
            ("<C-wheel-down>" . default-text-scale-decrease) ;; Mac/Windows
            ("C-0" . default-text-scale-reset)))
+
+;; Tabs
+;; (use-package centaur-tabs
+;;   :ensure t
+
+;;   :config
+;;   (centaur-tabs-mode t)
+;;   (setq centaur-tabs-style "wave")
+;;   (setq centaur-tabs-set-icons t)
+;;   (setq centaur-tabs-set-bar 'over)
+;;   (setq centaur-tabs-set-modified-marker t)
+;;   (centaur-tabs-change-fonts "Helvetica" 120)
+
+;;   :bind
+;;   ("C-<prior>" . centaur-tabs-backward)
+;;   ("C-<next>" . centaur-tabs-forward))
 
 (defun kill-this-buffer-unless-dedicated ()
   "Kill current buffer, but only if not dedicated."
