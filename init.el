@@ -28,9 +28,10 @@
         ("MELPA" . 5)
         ("GNU" . 0))
       package-pinned-packages
-      '((js2-mode . "MELPA")
-        (use-package . "MELPA")
-        (flycheck . "MELPA")))
+      '((flycheck . "MELPA")
+        (js2-mode . "MELPA")
+        (nvm . "MELPA")
+        (use-package . "MELPA")))
 
 
 ;; Ensure diminish to be present to have use-package supporting it
