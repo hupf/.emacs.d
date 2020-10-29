@@ -61,7 +61,13 @@
   (treemacs-follow-mode -1) ;; Allow to scroll freely
   (treemacs-filewatch-mode)
   (treemacs-git-mode 'simple)
-)
+  )
+
+;; Execute M-x all-the-icons-install-fonts to download the fonts
+;; (use-package treemacs-all-the-icons
+;;   :ensure t
+;;   :after treemacs
+;;   :config (treemacs-load-theme 'all-the-icons))
 
 (use-package treemacs-projectile
   :ensure t
