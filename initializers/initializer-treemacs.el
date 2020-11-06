@@ -34,19 +34,22 @@
   (with-eval-after-load "treemacs-persistence"
     (setq treemacs--last-error-persist-file (f-join user-data-directory "treemacs.last-error")))
 
-  :custom-face
-  ;; TODO: bigger font for mac, smaller for linux?
-  ;; (treemacs-directory-face ((t (:inherit font-lock-type-face :height 90))))
-  ;; (treemacs-header-face ((t (:inherit font-lock-comment-face))))
-  ;; (treemacs-file-face ((t (:inherit default :height 90))))
-  ;; (treemacs-term-node-face ((t (:inherit font-lock-string-face :height 90))))
-  ;; (treemacs-git-modified-face ((t (:inherit font-lock-variable-name-face :height 90))))
-  ;; (treemacs-git-renamed-face ((t (:inherit font-lock-doc-face :height 90))))
-  ;; (treemacs-git-ignored-face ((t (:inherit font-lock-comment-face :height 90))))
-  ;; (treemacs-git-untracked-face ((t (:inherit font-lock-string-face :height 90))))
-  ;; (treemacs-git-added-face ((t (:inherit font-lock-type-face :height 90))))
-  ;; (treemacs-git-conflict-face ((t (:inherit error :height 90))))
-  ;; (treemacs-tags-face ((t (:inherit font-lock-builtin-fac :height 90))))
+  ;; Use custom-set-faces instead of use-package's :custom-face since
+  ;; backquote expressions are working here
+  (defvar treemacs-font "IBM Plex Sans Light 14")
+  (defvar treemacs-foreground "#9B9E94") ;; monokai-background with brightness 60
+  ;(defvar treemacs-foreground "#B4B6AF") ;; monokai-background with brightness 70
+  (custom-set-faces
+   `(treemacs-root-face ((t (:inherit default :font ,treemacs-font :height 1.2 :weight demibold :foreground ,treemacs-foreground))))
+   `(treemacs-file-face ((t (:inherit default :font ,treemacs-font :foreground ,treemacs-foreground))))
+   `(treemacs-directory-face ((t (:inherit default :font ,treemacs-font :foreground ,treemacs-foreground))))
+   `(treemacs-git-modified-face ((t (:inherit default :font ,treemacs-font :foreground ,monokai-yellow))))
+   `(treemacs-git-renamed-face ((t (:inherit default :font ,treemacs-font :foreground ,monokai-cyan))))
+   `(treemacs-git-ignored-face ((t (:inherit default :font ,treemacs-font :foreground ,monokai-gray))))
+   `(treemacs-git-untracked-face ((t (:inherit default :font ,treemacs-font :foreground ,monokai-orange))))
+   `(treemacs-git-added-face ((t (:inherit default :font ,treemacs-font :foreground ,monokai-green))))
+   `(treemacs-git-conflict-face ((t (:inherit default :font ,treemacs-font :foreground ,monokai-red))))
+   `(treemacs-tags-face ((t (:inherit default :font ,treemacs-font :foreground ,monokai-violet)))))
 
   :bind
   ("C-S-b" . treemacs)
