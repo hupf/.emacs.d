@@ -64,6 +64,10 @@
 ;; (require 'scroll-bar)
 ;; (scroll-bar-mode -1)
 
+;; Minimize scroll bar margin
+(when (eq window-system 'x)
+  (add-to-list 'default-frame-alist '(scroll-bar-width  . 9)))
+
 ;; Use super (cmd) + arrow keys to switch between visible buffers
 (use-package windmove
   :ensure t
