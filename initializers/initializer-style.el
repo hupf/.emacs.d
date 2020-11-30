@@ -14,28 +14,29 @@
 ;; Theme
 (use-package monokai-theme
   :ensure t
-  :init (setq monokai-distinct-fringe-background t)
-  :config (load-theme 'monokai t))
+
+  :init
+  (setq custom--inhibit-theme-enable nil) ;; Required for Emacs 27 to be able to customize theme faces below
+
+  :config
+  (load-theme 'monokai t)
+  (custom-theme-set-faces
+     'monokai
+     `(font-lock-comment-face ((t (:slant italic :foreground ,monokai-comments)))))
+  )
 
 
 ;; Fonts
 (when (eq window-system 'x)
-  (set-frame-font "Monospace-11")
-  ;;(set-default-font "IBM Plex Mono 11")
-
+  ;; (set-frame-font "Monospace-11")
+  ;; (set-frame-font "IBM Plex Mono 11")
+  (set-frame-font "Victor Mono Light 12")
 )
 (when (eq system-type 'darwin)
-  ;; (set-default-font "Menlo 14")
+  ;; (set-frame-font "Menlo 14")
   (set-frame-font "IBM Plex Mono Light 14")
-  ;; (set-default-font "IBM Plex Mono 14")
+  ;; (set-frame-font "IBM Plex Mono 14")
   )
-
-(set-face-attribute 'fringe nil
-  :background (face-background 'default))
-
-;; (custom-set-faces
-;;  '(fringe ((t (:background "#20211d"))))
-;;  '(git-gutter:unchanged ((t (:background "#20211d")))))
 
 (use-package page-break-lines
   :ensure t
