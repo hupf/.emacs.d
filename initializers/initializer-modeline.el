@@ -23,10 +23,11 @@
                mode-line-inactive)))
   (mapc
    (lambda (face)
-     (set-face-attribute face nil :font modeline-font :background "#20211c" :box '(:line-width 8 :color "#20211c") :overline nil :underline nil)
+     (set-face-attribute face nil :font modeline-font)
    )
    faces))
-(set-face-attribute 'mode-line-inactive nil  :background "#252620" :box '(:line-width 8 :color "#252620"))
+(set-face-attribute 'mode-line nil :background "#21211d" :box '(:line-width 8 :color "#21211d") :overline nil :underline nil)
+(set-face-attribute 'mode-line-inactive nil :background "#252520" :box '(:line-width 8 :color "#252520"))
 
 (provide 'initializer-modeline)
 ;;; initializer-modeline.el ends here
