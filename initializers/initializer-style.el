@@ -20,23 +20,30 @@
 
   :config
   (load-theme 'monokai t)
+
+  ;; Make comments italic
   (custom-theme-set-faces
      'monokai
-     `(font-lock-comment-face ((t (:slant italic :foreground ,monokai-comments)))))
-  )
+     `(font-lock-comment-face ((t (:slant italic :foreground ,monokai-comments))))
+     ))
 
 
 ;; Fonts
-(when (eq window-system 'x)
-  ;; (set-frame-font "Monospace-11")
-  ;; (set-frame-font "IBM Plex Mono 11")
-  (set-frame-font "Victor Mono Light 12")
-)
-(when (eq system-type 'darwin)
-  ;; (set-frame-font "Menlo 14")
-  (set-frame-font "IBM Plex Mono Light 14")
-  ;; (set-frame-font "IBM Plex Mono 14")
-  )
+(setq frame-font-name "Victor Mono Light")
+(setq frame-font-size (if (eq window-system 'x)
+    12 ; Smaller font on Linux
+    14))
+
+(setq treemacs-font-name "IBM Plex Sans Light")
+(setq treemacs-font-size (if (eq window-system 'x)
+    (- frame-font-size 1) ; Smaller font on Linux
+    frame-font-size))
+
+(setq modeline-font-name "IBM Plex Sans")
+(setq modeline-font-size (+ frame-font-size 2))
+
+(set-frame-font (concat frame-font-name " " (number-to-string frame-font-size)))
+
 
 (use-package page-break-lines
   :ensure t

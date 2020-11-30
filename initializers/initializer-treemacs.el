@@ -26,9 +26,8 @@
 
   ;; Font and colors
   (defvar treemacs-font-size (if (eq window-system 'x)
-      11 ; Smaller font on linux
-    14))
-  (defvar treemacs-font-name "IBM Plex Sans Light")
+      (- default-font-size 1) ; Even a little bit smaller on Linux
+    default-font-size))
   (defvar treemacs-font (concat treemacs-font-name " " (number-to-string treemacs-font-size)))
   (defvar treemacs-foreground "#9B9E94") ;; monokai-background with brightness 60
   ;(defvar treemacs-foreground "#B4B6AF") ;; monokai-background with brightness 70
