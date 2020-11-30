@@ -19,26 +19,22 @@
   ;; (setq treemacs-no-png-images t) ;; Use text-only icons, no images
   (setq treemacs-indentation-string " ")
 
-  (treemacs-resize-icons 16)
-
-  ;; Use unicode characters as directory & file icons
-  ;; TODO: slows down treemacs toggle and displays no icons on mac
-  (if (not (eq system-type 'darwin))
-    (setq treemacs-icon-open-text (propertize "📂 " 'face 'treemacs-directory-face)
-          treemacs-icon-closed-text (propertize "📁 " 'face 'treemacs-directory-face)
-          treemacs-icon-fallback-text (propertize "" 'face 'treemacs-file-face))
-  )
-
   ;; Redefine the following constant after treemacs-persistence.el has
   ;; been evaluated
   (with-eval-after-load "treemacs-persistence"
     (setq treemacs--last-error-persist-file (f-join user-data-directory "treemacs.last-error")))
 
-  ;; Use custom-set-faces instead of use-package's :custom-face since
-  ;; backquote expressions are working here
-  (defvar treemacs-font "IBM Plex Sans Light 14")
+  ;; Font and colors
+  (defvar treemacs-font-size (if (eq window-system 'x)
+      11 ; Smaller font on linux
+    14))
+  (defvar treemacs-font-name "IBM Plex Sans Light")
+  (defvar treemacs-font (concat treemacs-font-name " " (number-to-string treemacs-font-size)))
   (defvar treemacs-foreground "#9B9E94") ;; monokai-background with brightness 60
   ;(defvar treemacs-foreground "#B4B6AF") ;; monokai-background with brightness 70
+
+  ;; Use custom-set-faces instead of use-package's :custom-face since
+  ;; backquote expressions are working here
   (custom-set-faces
    `(treemacs-root-face ((t (:inherit default :font ,treemacs-font :height 1.2 :weight demibold :foreground ,treemacs-foreground))))
    `(treemacs-file-face ((t (:inherit default :font ,treemacs-font :foreground ,treemacs-foreground))))
@@ -64,13 +60,22 @@
   (treemacs-follow-mode -1) ;; Allow to scroll freely
   (treemacs-filewatch-mode)
   (treemacs-git-mode 'simple)
-  )
 
-;; Execute M-x all-the-icons-install-fonts to download the fonts
-;; (use-package treemacs-all-the-icons
-;;   :ensure t
-;;   :after treemacs
-;;   :config (treemacs-load-theme 'all-the-icons))
+  ;; Theme/icons
+  (treemacs-resize-icons 16)
+  (treemacs-modify-theme "Default"
+    :icon-directory (f-join user-emacs-directory "icons")
+    :config
+    (progn
+      ;; These icons have been taken from:
+      ;; https://github.com/microsoft/vscode-icons/tree/master/icons/dark
+      ;; They have been cropped (to elminate margin), resized to 16x16 and color adjusted to #9B9E94
+      (treemacs-create-icon :file "root-folder-lg.png" :extensions (root) :fallback "")
+      (treemacs-create-icon :file "folder.png"    :extensions (dir-closed) :fallback (propertize "+ " 'face 'treemacs-term-node-face))
+      (treemacs-create-icon :file "folder-opened.png" :extensions (dir-open) :fallback (propertize "- " 'face 'treemacs-term-node-face))
+      (treemacs-create-icon :file "file.png" :extensions (fallback))
+      (treemacs-create-icon :file "file-media.png" :extensions ("jpg" "jpeg" "bmp" "svg" "png" "xpm" "gif"))))
+  )
 
 (use-package treemacs-projectile
   :ensure t
@@ -82,7 +87,7 @@
   (interactive)
   ;; TODO: use "gio open" instead of "gnome-open"
   (let ((command (if (eq system-type 'darwin) "open" "gnome-open")))
-       (call-process-shell-command command nil nil nil (treemacs--prop-at-point :path))))
+    (call-process-shell-command command nil nil nil (treemacs--prop-at-point :path))))
 
 (provide 'initializer-treemacs)
 ;;; initializer-treemacs.el ends here
