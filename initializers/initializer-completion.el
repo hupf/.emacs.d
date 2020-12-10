@@ -10,43 +10,30 @@
 ;; to them as Ivy from here on out, even though it might technically
 ;; refer to a sub-part.
 
-;; Ivy will use flx for fuzzy matching and sorting if it's installed.
-(use-package flx
-  :ensure t)
-
-;; Ivy will use smex for the counsel-M-x (it's replacement for M-x) if
-;; it is installed.
-(use-package smex
-  :ensure t)
-
-;; use Ivy mode for completion
-(use-package ivy
+;; Minibuffer completion (ivy/ido alternative)
+(use-package selectrum
   :ensure t
-  :diminish ivy-mode
+  :config (selectrum-mode +1))
 
-  :init
-  (setq projectile-completion-system 'ivy)
-  (setq magit-completing-read-function 'ivy-completing-read)
-  ;; Make the default completion mechanism a fuzzy search. However, you
-  ;; don't really want to use fuzzy matching on lists that have content
-  ;; with (and ) lot of spaces (like documents), so disable for swiper.
-  (setq ivy-re-builders-alist
-        '((swiper . ivy--regex-plus)
-          (t . ivy--regex-fuzzy)))
-  (setq ivy-count-format "")
+;; Better selectrum sorting/filtering
+(use-package selectrum-prescient
+  :after selectrum
+  :defer 1
 
-  :after (flx smex)
   :config
-  (ivy-mode 1))
+  ;; to make sorting and filtering more intelligent
+  (selectrum-prescient-mode +1)
 
-(use-package swiper
-  :ensure t)
+  ;; to save your command history on disk, so the sorting gets more
+  ;; intelligent over time
+  (prescient-persist-mode +1))
 
-(use-package counsel-projectile
+;; Improved search (swiper alternative)
+(use-package ctrlf
   :ensure t
-  :config (counsel-projectile-mode))
+  :config (ctrlf-mode +1))
 
-;; setup company mode for autocomplete
+;; Autocomplete
 (use-package company
    :ensure t
    :diminish company-mode

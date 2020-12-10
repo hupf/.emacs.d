@@ -37,9 +37,6 @@
   (setq lsp-ui-doc-position 'bottom)
   )
 
-(use-package lsp-ivy
-  :ensure t)
-
 ;; TODO: Auto install `npm i -g typescript-language-server` if not present?
 (use-package typescript-mode
   :ensure t
