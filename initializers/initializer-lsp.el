@@ -6,26 +6,20 @@
 ;;;
 ;;; Code:
 
-;; TODO: Activate project's node version via nvm.el?
-(setq exec-path (append exec-path '("~/.nvm/versions/node/v14.15.0/bin")))
-
 (use-package lsp-mode
   :ensure t
   :commands (lsp lsp-deferred)
 
   ;; :hook
   ;; (prog-mode . lsp-deferred))
-  ;; (prog-mode . setup-lsp)
+  ;; (prog-mode . setup-node-lsp)
 
   :init
   (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+  (setq lsp-session-file (f-join user-data-directory "lsp-session-v1"))
 
   :config
   (lsp-enable-which-key-integration t))
-
-;; (defun setup-lsp ()
-;;   (nvm-use-for-buffer)
-;;   (lsp-deferred))
 
 (use-package lsp-ui
   :ensure t
@@ -34,22 +28,18 @@
   (lsp-mode . lsp-ui-mode)
 
   :config
-  (setq lsp-ui-doc-position 'bottom)
-  )
+  (setq lsp-ui-doc-position 'bottom))
 
-;; TODO: Auto install `npm i -g typescript-language-server` if not present?
-(use-package typescript-mode
-  :ensure t
-  :mode ("\\.ts\\'" "\\.tsx\\'")
-  :hook (typescript-mode . lsp-deferred)
-  :config
-  (setq typescript-indent-level 2))
+(defun setup-node-lsp ()
+  "Initialize LSP after enabling local Node.js version."
+  ;; Use project's node version
+  (nvm-use-for-buffer)
 
-;; css/scss
-;; TODO: Auto install `npm install -g vscode-css-languageserver-bin` if not present?
+  ;; Allow to access project's eslint
+  (add-node-modules-path)
 
-;; html
-;; TODO: Auto install `npm install -g vscode-html-languageserver-bin` if not present?
+  ;; Enable lsp-mode once buffer is visible
+  (lsp-deferred))
 
 ;; angular
 ;; TODO: Auto install `npm install -g @angular/language-service@next typescript @angular/language-server` if not present?

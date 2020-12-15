@@ -6,6 +6,7 @@
 ;;;
 ;;; Code:
 
+;; Node version management
 (use-package nvm
   :ensure t
   :commands (nvm-use nvm-use-for))
@@ -22,6 +23,8 @@ If buffer is not visiting a file, do nothing."
   :ensure t
   :commands (add-node-modules-path))
 
+
+;; JavaScript
 (use-package rjsx-mode
   :ensure t
 
@@ -43,7 +46,7 @@ If buffer is not visiting a file, do nothing."
   (setq flycheck-disabled-checkers '(javascript-jshint))
 
   :hook ((js2-mode . setup-js2)
-         (js2-mode . lsp-deferred))
+         (js2-mode . setup-node-lsp))
   )
 
 (defun setup-js2 ()
@@ -107,6 +110,18 @@ If buffer is not visiting a file, do nothing."
 ;; (add-to-list 'compilation-error-regexp-alist-alist
 ;;              '(node "^[[:blank:]]*at \\(.*(\\|\\)\\(.+?\\):\\([[:digit:]]+\\):\\([[:digit:]]+\\)" 2 3 4))
 
+;; TypeScript
+(use-package typescript-mode
+  :ensure t
+
+  :mode ("\\.ts\\'" "\\.tsx\\'")
+
+  :hook (typescript-mode . setup-node-lsp)
+
+  :config
+  (setq typescript-indent-level 2))
+
+;; CoffeeScript
 (use-package coffee-mode
   :ensure t
 
@@ -116,6 +131,7 @@ If buffer is not visiting a file, do nothing."
   (setq coffee-tab-width 2)
   (setq coffee-indent-tabs-mode nil))
 
+;; JSON
 (use-package json-mode
   :ensure t
   :mode "\\.json\\'")

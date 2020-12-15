@@ -26,7 +26,7 @@
          "\\.html?\\'"
          "\\.hbs\\'")
 
-  :hook (web-mode . lsp-deferred)
+  :hook (web-mode . setup-node-lsp)
 
   :bind (:map web-mode-map
          ("C-/" . web-mode-comment-or-uncomment))
