@@ -13,8 +13,12 @@
 
 ;; Improved selectrum sorting/filtering
 (use-package selectrum-prescient
+  :ensure t
   :after selectrum
-  :defer 1
+
+  :custom
+  ;; Enable fuzzy matching as well
+  (prescient-filter-method '(literal regexp initialism fuzzy))
 
   :config
   ;; To make sorting and filtering more intelligent
