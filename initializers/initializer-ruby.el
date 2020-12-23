@@ -49,6 +49,7 @@
   )
 
 (defun setup-enh-ruby ()
+  ;; Active correct Ruby version for current buffer
   (rvm-activate-corresponding-ruby)
 
   ;; TODO: what's the benefit?
@@ -59,8 +60,37 @@
 
   ;; CamelCase aware editing operations
   (subword-mode +1)
-  )
 
+  ;; Hint: If the Gem for Rubocop or Standard cannot be found, execute `M-! bundle`
+
+  ;; Activate the Rubocop linter/formatter
+  (when (buffer-file-has-ancestor ".rubocop.yml")
+    ;; Enable mode for autocorrecting on save and keybindings
+    (rubocop-mode)
+
+    ;; Enforce selecting of the ruby-rubocop checker
+    (setq-local flycheck-disabled-checkers '(ruby)) ;; Don't fall back to ruby checker
+    (setq-local flycheck-checker 'ruby-rubocop))
+
+  ;; Activate the Standard linter/formatter
+  (when (buffer-file-has-ancestor ".standard.yml")
+    ;; Fetch from GitHub repo (not a MELPA package)
+    (straight-use-package '(flycheck-standardrb :type git :host github :repo "julianrubisch/flycheck-standardrb"))
+
+    ;; Enforce selecting of the ruby-standard checker
+    (setq-local flycheck-disabled-checkers '(ruby)) ;; Don't fall back to ruby checker
+    (setq-local flycheck-checker 'ruby-standard)))
+
+;; Rubocop
+(use-package rubocop
+  :ensure t
+  :defer t
+
+  :init
+  (setq rubocop-autocorrect-on-save 1)
+
+  ;; :hook ((enh-ruby-mode . rubocop-mode)))
+  :commands (rubocop-mode))
 
 ;; Robe
 (use-package robe
@@ -74,18 +104,6 @@
   :hook ((enh-ruby-mode . robe-mode))
 
   )
-
-
-;; Rubocop
-(use-package rubocop
-  :ensure t
-  :defer t
-
-  :init
-  (setq rubocop-autocorrect-on-save 1)
-
-  :hook ((enh-ruby-mode . rubocop-mode)))
-
 
 ;; ;; Look up symbols in ruby `ri' to using yari.
 ;; (define-key 'help-command (kbd "R") 'yari)
