@@ -28,9 +28,14 @@
   ;; intelligent over time
   (prescient-persist-mode +1))
 
-;; Improved search (swiper alternative)
+;; Improved C-s search (swiper alternative)
 (use-package ctrlf
   :ensure t
+
+  :custom
+  ;; Don't show match count within content on current line
+  (ctrlf-show-match-count-at-eol nil)
+
   :config (ctrlf-mode +1))
 
 ;; Autocomplete
