@@ -11,18 +11,12 @@
   :defer t
 
   :init
-  (setq treemacs-persist-file (f-join user-data-directory "treemacs.cache"))
   (setq treemacs-show-hidden-files nil) ;; Hide dot files
   (setq treemacs-follow-after-init t) ;; Open folder & select file of selected buffer
   (setq treemacs-silent-refresh t) ;; No message after manual refresh
   (setq treemacs-silent-filewatch t) ;; No message after refresh in watch mode
   ;; (setq treemacs-no-png-images t) ;; Use text-only icons, no images
   (setq treemacs-indentation-string " ")
-
-  ;; Redefine the following constant after treemacs-persistence.el has
-  ;; been evaluated
-  (with-eval-after-load "treemacs-persistence"
-    (setq treemacs--last-error-persist-file (f-join user-data-directory "treemacs.last-error")))
 
   ;; Font and colors
   (defvar treemacs-font-size (if (eq window-system 'x)

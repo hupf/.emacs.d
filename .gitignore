@@ -1,5 +1,4 @@
-/data
 /elpa
-/quelpa
 /straight
-/session.*
+/var
+/etc

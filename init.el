@@ -64,23 +64,19 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
+;; Keep ~/.emacs.d clean, by putting config files into ~/.emacs.d/etc
+;; and temporary files (including backup and auto-save files) into
+;; ~/.emacs.d/var
+(use-package no-littering
+  :ensure t)
+
+;; By default Emacs poops all customizations set through the
+;; customization UI into your `init.el'. Let's not do that.
+(setq custom-file (no-littering-expand-etc-file-name "custom.el"))
+
 ;; Setup directories and load initializers
 (use-package f
   :ensure t)
-
-(defvar user-data-directory (f-join user-emacs-directory "data")
-  "This directory contains persistent application state.
-The data directory is for storing things like autosave files and recent lists so
-that they don't get pooped into things like your home directory or your init
-file, but instead go to a well-known location.")
-
-;; create the data directory if it doesn't already exist.
-(unless (f-exists? user-data-directory)
-  (f-mkdir user-data-directory))
-
-;; by default Emacs poops all customizations set through the
-;; customization UI into your `init.el'. Let's not do that.
-(setq custom-file (f-join user-data-directory "custom.el"))
 
 (defvar initializers-directory (f-join user-emacs-directory "initializers")
   "All .el files in this directory will be run.")

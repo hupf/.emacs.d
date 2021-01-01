@@ -28,9 +28,6 @@
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
 
-;; Store network security manager's settings file in data directory
-(setq nsm-settings-file (f-join user-data-directory "network-security.data"))
-
 (use-package exec-path-from-shell
   :ensure t
   :config
