@@ -40,7 +40,9 @@
     frame-font-size))
 
 (setq modeline-font-name "IBM Plex Sans")
-(setq modeline-font-size (+ frame-font-size 2))
+(setq modeline-font-size (if (eq window-system 'x)
+    (+ frame-font-size 1) ; Smaller font on Linux
+    (+ frame-font-size 2)))
 
 (set-frame-font (concat frame-font-name " " (number-to-string frame-font-size)))
 
