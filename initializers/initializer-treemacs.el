@@ -41,9 +41,9 @@
    `(treemacs-tags-face ((t (:inherit default :font ,treemacs-font :foreground ,monokai-violet)))))
 
   :bind
-  ("C-S-b" . treemacs)
+  ("C-c t" . treemacs)
   (:map treemacs-mode-map
-    ;; Mouse click on file opens it
+    ;; Mouse click on file opens it in buffer
     ("<mouse-1>" . treemacs-single-click-expand-action)
 
     ;; Open with OS native browser/application
@@ -76,11 +76,11 @@
 )
 
 (defun treemacs-natively-open-path-at-point ()
-  "Open path at point with native browser/application"
+  "Open path at point with native browser/application."
   (interactive)
-  ;; TODO: use "gio open" instead of "gnome-open"
-  (let ((command (if (eq system-type 'darwin) "open" "gnome-open")))
-    (call-process-shell-command command nil nil nil (treemacs--prop-at-point :path))))
+  (let ((command (if (eq system-type 'darwin) "open" "gio open"))
+        (file (treemacs--prop-at-point :path)))
+    (call-process-shell-command (concat command " " file) nil nil nil)))
 
 (provide 'initializer-treemacs)
 ;;; initializer-treemacs.el ends here
