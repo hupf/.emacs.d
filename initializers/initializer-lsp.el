@@ -38,7 +38,12 @@
   (add-node-modules-path)
 
   ;; Enable lsp-mode once buffer is visible
-  (lsp-deferred))
+  ;; (lsp-deferred)
+
+  ;; Instead of the above deferred variant, enable it directly for
+  ;; now, to fix the enabling of the ESLint checker in
+  ;; `initializer-javascript`
+  (lsp))
 
 ;; angular
 ;; TODO: Auto install `npm install -g @angular/language-service@next typescript @angular/language-server` if not present?

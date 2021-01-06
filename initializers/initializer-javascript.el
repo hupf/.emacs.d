@@ -2,7 +2,7 @@
 ;;;
 ;;; Commentary:
 ;;;
-;;; Modes and configurations for JavaScript editing.
+;;; Modes and configurations for JavaScript and TypeScript editing.
 ;;;
 ;;; Code:
 
@@ -31,12 +31,10 @@ If buffer is not visiting a file, do nothing."
   :init
   (setq js-indent-level 2)
   (setq js-switch-indent-offset 2)
+  (setq flycheck-disabled-checkers '(javascript-jshint)) ;; Disable JSHint
 
-  ;; Disable JSHint
-  (setq flycheck-disabled-checkers '(javascript-jshint))
-
-  :hook ((js-mode . setup-node-lsp))
-  )
+  :hook
+  (js-mode . setup-javascript-lsp))
 
 ;; (use-package rjsx-mode
 ;;   :ensure t
@@ -127,12 +125,26 @@ If buffer is not visiting a file, do nothing."
 (use-package typescript-mode
   :ensure t
 
-  :mode ("\\.ts\\'" "\\.tsx\\'")
+  :mode
+  ("\\.ts\\'" "\\.tsx\\'")
 
-  :hook (typescript-mode . setup-node-lsp)
+  :hook
+  (typescript-mode . setup-javascript-lsp)
 
   :config
   (setq typescript-indent-level 2))
+
+(defun setup-javascript-lsp ()
+  "Initialize LSP and enable the ESLint checker."
+  (setup-node-lsp)
+
+  ;; Make sure the ESLint checker is executed in chain with the LSP
+  ;; checker. Use this hacky timer solution for now, since it somehow
+  ;; doesn't work inline, even when used after calling `lsp`, not
+  ;; `lsp-deferred` in the above `setup-node-lsp` function.
+  (run-with-timer 2 nil (lambda ()
+                          (when (member 'lsp flycheck-checkers)
+                              (flycheck-add-next-checker 'lsp 'javascript-eslint)))))
 
 ;; CoffeeScript
 (use-package coffee-mode
