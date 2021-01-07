@@ -289,7 +289,7 @@
   :ensure t
   :diminish prettier-js-mode
 
-  :hook ((js2-mode . init-prettier)
+  :hook ((js-mode . init-prettier)
          (typescript-mode . init-prettier)
          (json-mode . init-prettier)
          (web-mode . init-prettier)
