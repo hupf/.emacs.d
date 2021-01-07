@@ -68,7 +68,12 @@
 ;; and temporary files (including backup and auto-save files) into
 ;; ~/.emacs.d/var
 (use-package no-littering
-  :ensure t)
+  :ensure t
+
+  :config
+  ;; No-littering does not change auto saves directory, change it to var directory
+  (setq auto-save-file-name-transforms
+      `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
 ;; By default Emacs poops all customizations set through the
 ;; customization UI into your `init.el'. Let's not do that.
