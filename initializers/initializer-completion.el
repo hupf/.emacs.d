@@ -36,7 +36,22 @@
   ;; Don't show match count within content on current line
   (ctrlf-show-match-count-at-eol nil)
 
-  :config (ctrlf-mode +1))
+  :config
+  ;; kill-whole-line should kill line in buffer, not minibuffer
+  (add-to-list
+   'ctrlf-minibuffer-bindings
+   '("<C-S-backspace>" . ctrlf-exit-and-kill-whole-line) t)
+
+  (ctrlf-mode t))
+
+(defun ctrlf-exit-and-kill-whole-line ()
+  "Kill whole line of buffer after exiting ctrlf session."
+  (interactive)
+  ;; Schedule (kill-whole-line) to command loop to be able to execute
+  ;; it after the minibuffer has been closed, more details:
+  ;; https://oremacs.com/2015/07/16/callback-quit/
+  (run-at-time nil nil 'kill-whole-line)
+  (exit-minibuffer))
 
 ;; Autocomplete
 (use-package company
