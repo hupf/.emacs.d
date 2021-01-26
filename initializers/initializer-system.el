@@ -18,8 +18,12 @@
 ;; (declare-function exec-path-from-shell-initialize "exec-path-from-shell.el")
 
 ;; reduce the frequency of garbage collection by making it happen on
-;; each 50MB of allocated data (the default is on every 0.76MB)
-(setq gc-cons-threshold 50000000)
+;; each 100MB of allocated data (the default is on every 0.76MB)
+(setq gc-cons-threshold 100000000)
+
+;; Increase the amount of data which Emacs reads from a process
+;; (useful for LSP)
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
 
 ;; warn when opening files bigger than 100MB
 (setq large-file-warning-threshold 100000000)
