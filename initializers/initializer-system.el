@@ -33,7 +33,9 @@
   (tool-bar-mode -1))
 
 (use-package exec-path-from-shell
-  :ensure t
+  :init
+  (setq exec-path-from-shell-arguments '("-l")) ;; Improve performance by not using interactive shell
+
   :config
   (exec-path-from-shell-copy-env "GEM_PATH"))
 

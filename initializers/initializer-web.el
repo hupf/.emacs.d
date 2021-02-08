@@ -7,14 +7,12 @@
 ;;; Code:
 
 (use-package web-mode
-  :ensure t
-
   :init
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2)
-  (setq web-mode-enable-auto-quoting nil)
-  (setq web-mode-enable-auto-pairing t)
+  (setq web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2
+        web-mode-enable-auto-quoting nil
+        web-mode-enable-auto-pairing t)
 
   :mode ("\\.phtml\\'"
          "\\.tpl\\.php\\'"
@@ -35,16 +33,13 @@
 ;; Enable Emmet mode: http://emmet.io/
 ;; Emmet is a plugin for many popular text editors which greatly improves HTML & CSS workflow
 (use-package emmet-mode
-  :ensure t
   :init (setq emmet-indentation 2)
   :hook (web-mode sgml-mode))
 
 (use-package haml-mode
-  :ensure t
   :mode "\\.haml\\'")
 
 (use-package php-mode
-  :ensure t
   :mode "\\.php\\'")
 
 (provide 'initializer-web)

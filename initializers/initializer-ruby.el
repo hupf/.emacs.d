@@ -8,15 +8,11 @@
 
 ;; RVM
 (use-package rvm
-  :ensure t
-  :config
-  (rvm-use-default))
+  :commands (rvm-use rvm-use-default rvm-activate-corresponding-ruby))
 
 ;; Enhanced Ruby Mode (uses Ruby's Ripper class instead of regular
 ;; expressions to parse source files)
 (use-package enh-ruby-mode
-  :ensure t
-
   :init
   ;; We never want to edit Rubinius bytecode
   (add-to-list 'completion-ignored-extensions ".rbc")
@@ -44,9 +40,7 @@
          "Berksfile\\'"
          "Appraisals\\'")
 
-  :hook ((enh-ruby-mode . setup-enh-ruby))
-
-  )
+  :hook ((enh-ruby-mode . setup-enh-ruby)))
 
 (defun setup-enh-ruby ()
   ;; Active correct Ruby version for current buffer
@@ -83,27 +77,19 @@
 
 ;; Rubocop
 (use-package rubocop
-  :ensure t
-  :defer t
+  :commands (rubocop-mode)
 
   :init
-  (setq rubocop-autocorrect-on-save 1)
-
-  ;; :hook ((enh-ruby-mode . rubocop-mode)))
-  :commands (rubocop-mode))
+  (setq rubocop-autocorrect-on-save 1))
 
 ;; Robe
 (use-package robe
-  :ensure t
-
   :config
   (defadvice inf-ruby-console-auto
     (before activate-rvm-for-robe activate)
     (rvm-activate-corresponding-ruby))
 
-  :hook ((enh-ruby-mode . robe-mode))
-
-  )
+  :hook ((enh-ruby-mode . robe-mode)))
 
 ;; ;; Look up symbols in ruby `ri' to using yari.
 ;; (define-key 'help-command (kbd "R") 'yari)

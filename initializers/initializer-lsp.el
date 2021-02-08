@@ -7,7 +7,6 @@
 ;;; Code:
 
 (use-package lsp-mode
-  :ensure t
   :commands (lsp lsp-deferred)
 
   ;; :hook
@@ -21,8 +20,6 @@
   (lsp-enable-which-key-integration t))
 
 (use-package lsp-ui
-  :ensure t
-
   :hook
   (lsp-mode . lsp-ui-mode)
 

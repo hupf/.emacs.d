@@ -7,16 +7,13 @@
 ;;; Code:
 
 (use-package treemacs
-  :ensure t
-  :defer t
-
   :init
-  (setq treemacs-show-hidden-files nil) ;; Hide dot files
-  (setq treemacs-follow-after-init t) ;; Open folder & select file of selected buffer
-  (setq treemacs-silent-refresh t) ;; No message after manual refresh
-  (setq treemacs-silent-filewatch t) ;; No message after refresh in watch mode
-  ;; (setq treemacs-no-png-images t) ;; Use text-only icons, no images
-  (setq treemacs-indentation-string " ")
+  (setq treemacs-show-hidden-files nil ;; Hide dot files
+        treemacs-follow-after-init t ;; Open folder & select file of selected buffer
+        treemacs-silent-refresh t ;; No message after manual refresh
+        treemacs-silent-filewatch t ;; No message after refresh in watch mode
+        ;; treemacs-no-png-images t ;; Use text-only icons, no images
+        treemacs-indentation-string " ")
 
   ;; Font and colors
   (defvar treemacs-font-size (if (eq window-system 'x)
@@ -50,7 +47,7 @@
     ("C-<return>" . treemacs-natively-open-path-at-point))
 
   :config
-  (treemacs-follow-mode -1) ;; Allow to scroll freely
+  (treemacs-follow-mode nil) ;; Allow to scroll freely
   (treemacs-filewatch-mode)
   (treemacs-git-mode 'simple)
 
@@ -71,9 +68,7 @@
   )
 
 (use-package treemacs-projectile
-  :ensure t
-  :defer t
-)
+  :after treemacs)
 
 (defun treemacs-natively-open-path-at-point ()
   "Open path at point with native browser/application."

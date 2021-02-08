@@ -8,7 +8,6 @@
 
 ;; Node version management
 (use-package nvm
-  :ensure t
   :commands (nvm-use nvm-use-for))
 
 (defun nvm-use-for-buffer ()
@@ -20,12 +19,12 @@ If buffer is not visiting a file, do nothing."
       (error (message "%s" err)))))
 
 (use-package add-node-modules-path
-  :ensure t
   :commands (add-node-modules-path))
 
 
 ;; JavaScript
 (use-package js-mode
+  :ensure nil
   :mode ("\\.js\\'" "\\.mjs\\'" "\\.jsx\\'")
 
   :init
@@ -123,15 +122,13 @@ If buffer is not visiting a file, do nothing."
 
 ;; TypeScript
 (use-package typescript-mode
-  :ensure t
-
   :mode
   ("\\.ts\\'" "\\.tsx\\'")
 
   :hook
   (typescript-mode . setup-javascript-lsp)
 
-  :config
+  :init
   (setq typescript-indent-level 2))
 
 (defun setup-javascript-lsp ()
@@ -148,8 +145,6 @@ If buffer is not visiting a file, do nothing."
 
 ;; CoffeeScript
 (use-package coffee-mode
-  :ensure t
-
   :mode "\\.coffee\\'"
 
   :init
@@ -158,7 +153,6 @@ If buffer is not visiting a file, do nothing."
 
 ;; JSON
 (use-package json-mode
-  :ensure t
   :mode "\\.json\\'")
 
 (provide 'initializer-javascript)

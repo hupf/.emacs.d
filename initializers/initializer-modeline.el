@@ -11,7 +11,6 @@
 
 ;; Replace the annoying bell ring with modeline flash
 (use-package mode-line-bell
-  :ensure t
   :config (mode-line-bell-mode))
 
 ;; Fonts & colors

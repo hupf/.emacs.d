@@ -7,8 +7,6 @@
 ;;; Code:
 
 (use-package projectile
-  :ensure t
-
   :diminish projectile-mode
 
   :init
@@ -19,7 +17,7 @@
 
   :config
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  (projectile-mode +1))
+  (projectile-mode t))
 
 ;; TODO: remove?
 ;; go to project dir when selecting project

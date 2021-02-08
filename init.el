@@ -9,9 +9,14 @@
 ;;;
 ;;; Code:
 
+;; Startup performance
+(defun display-startup-time ()
+  (message "⌛️ Emacs loaded in %s with %d garbage collections"
+           (format "%.2f seconds"
+                   (float-time (time-subtract after-init-time before-init-time)))
+           gcs-done))
+(add-hook 'emacs-startup-hook #'display-startup-time)
 
-;; To measure Emacs startup time, execute:
-;; $ time emacs -l init.el -batch --eval '(message "Hello, world!")'
 
 ;; Configure `package'
 (require 'package)
@@ -46,6 +51,8 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+(setq use-package-always-ensure t)
+;; (setq use-package-verbose t) ;; Debug package loading
 
 (eval-when-compile
   (require 'use-package))
@@ -110,7 +117,6 @@
 (require 'initializer-css)
 (require 'initializer-ruby)
 (require 'initializer-yaml)
-(require 'initializer-markdown)
-(require 'initializer-asciidoc)
+(require 'initializer-doc)
 
 ;;; init.el ends here

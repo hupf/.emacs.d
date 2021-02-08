@@ -8,12 +8,11 @@
 
 ;; Minibuffer completion (ivy/ido alternative)
 (use-package selectrum
-  :ensure t
-  :config (selectrum-mode +1))
+  :defer 0
+  :config (selectrum-mode t))
 
 ;; Improved selectrum sorting/filtering
 (use-package selectrum-prescient
-  :ensure t
   :after selectrum
 
   :custom
@@ -22,16 +21,15 @@
 
   :config
   ;; To make sorting and filtering more intelligent
-  (selectrum-prescient-mode +1)
+  (selectrum-prescient-mode t)
 
   ;; To save command history on disk, so the sorting gets more
   ;; intelligent over time
-  (prescient-persist-mode +1))
+  (prescient-persist-mode t))
 
 ;; Improved C-s search (swiper alternative)
 (use-package ctrlf
-  :ensure t
-
+  :defer 0
   :custom
   ;; Don't show match count within content on current line
   (ctrlf-show-match-count-at-eol nil)
@@ -55,26 +53,26 @@
 
 ;; Autocomplete
 (use-package company
-   :ensure t
-   :diminish company-mode
+  :defer 0
+  :diminish company-mode
 
-   :init
-   (setq company-idle-delay 0.2)
-   (setq company-tooltip-limit 10)
-   (setq company-minimum-prefix-length 2)
-   ;; invert the navigation direction if the the completion popup-isearch-match
-   ;; is displayed on top (happens near the bottom of windows)
-   (setq company-tooltip-flip-when-above t)
+  :init
+  (setq company-idle-delay 0.2
+        company-tooltip-limit 10
+        company-minimum-prefix-length 2
+        ;; invert the navigation direction if the the completion
+        ;; popup-isearch-match is displayed on top (happens near the
+        ;; bottom of windows)
+        company-tooltip-flip-when-above t
 
-   ;; Align annotations to the right tooltip border
-   (setq company-tooltip-align-annotations t)
+        ;; Align annotations to the right tooltip border
+        company-tooltip-align-annotations t)
 
-   :config
-   (global-company-mode +1))
+  :config
+  (global-company-mode t))
 
 ;; Fancy company dialog with icons
 (use-package company-box
-  :ensure t
   :diminish
   :hook (company-mode . company-box-mode))
 

@@ -13,8 +13,6 @@
 
 ;; Theme
 (use-package monokai-theme
-  :ensure t
-
   :init
   (setq custom--inhibit-theme-enable nil) ;; Required for Emacs 27 to be able to customize theme faces below
 
@@ -24,8 +22,7 @@
   ;; Make comments italic
   (custom-theme-set-faces
      'monokai
-     `(font-lock-comment-face ((t (:slant italic :foreground ,monokai-comments))))
-     ))
+     `(font-lock-comment-face ((t (:slant italic :foreground ,monokai-comments))))))
 
 
 ;; Fonts
@@ -45,12 +42,6 @@
     (+ frame-font-size 2)))
 
 (set-frame-font (concat frame-font-name " " (number-to-string frame-font-size)))
-
-
-(use-package page-break-lines
-  :ensure t
-  :diminish page-break-lines-mode
-  :config (global-page-break-lines-mode))
 
 (provide 'initializer-style)
 ;;; initializer-style.el ends here

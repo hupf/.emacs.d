@@ -1,18 +1,18 @@
 (use-package magit
-  :ensure t)
+  :defer 0
+
 ;; TODO: needed?
 ;; (global-magit-file-mode 1)
 
-;; use diff-hl to add git diffs in gutter
-(use-package diff-hl
-  :ensure t
-
-  :init
-  (setq diff-hl-draw-borders nil)
-
   :bind
   (("C-x g" . magit-status)
-   ("C-x M-g" . magit-dispatch-popup))
+   ("C-x M-g" . magit-dispatch-popup)))
+
+;; use diff-hl to add git diffs in gutter
+(use-package diff-hl
+  :defer 0
+  :init
+  (setq diff-hl-draw-borders nil)
 
   :config
   ;; needed for Magit 2.4 or newer

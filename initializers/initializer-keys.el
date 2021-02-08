@@ -24,7 +24,6 @@
                   (join-line -1)))
 
 (use-package crux
-  :ensure t
   :bind (("C-c D" . crux-delete-file-and-buffer)
          ("C-c r" . crux-rename-buffer-and-file)))
 

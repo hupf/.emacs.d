@@ -43,16 +43,13 @@
 
 ;; Line numbers
 (use-package display-line-numbers
-  :ensure t
-
   :hook (prog-mode . display-line-numbers-mode)
 
   :config (set-face-background 'line-number (face-background 'default))
-  (set-face-background 'line-number-current-line (face-background 'default))
-  )
+  (set-face-background 'line-number-current-line (face-background 'default)))
 
 ;; Disable menu bar
-(menu-bar-mode -1)
+(menu-bar-mode nil)
 
 ;; Disable startup screen
 (setq inhibit-startup-screen t)
@@ -70,13 +67,11 @@
 
 ;; Use super (cmd) + arrow keys to switch between visible buffers
 (use-package windmove
-  :ensure t
   :config
   (windmove-default-keybindings 'meta))
 
 ;; Allow to move current buffer
 (use-package buffer-move
-  :ensure t
   :init (setq buffer-move-behavior 'move)
   :bind
   ("<C-S-up>" . buf-move-up)
@@ -91,18 +86,16 @@
 
 ;; Allow to globally change the font-size
 (use-package default-text-scale
-  :ensure t
+  :config
+  (setq default-text-scale-amount 8)
 
-    :config
-    (setq default-text-scale-amount 8)
-
-    :bind (("C-+" . default-text-scale-increase)
-           ("<C-mouse-4>" . default-text-scale-increase) ;; Linux
-           ("<C-wheel-up>" . default-text-scale-increase) ;; Mac/Windows
-           ("C--" . default-text-scale-decrease)
-           ("<C-mouse-5>" . default-text-scale-decrease) ;; Linux
-           ("<C-wheel-down>" . default-text-scale-decrease) ;; Mac/Windows
-           ("C-0" . default-text-scale-reset)))
+  :bind (("C-+" . default-text-scale-increase)
+         ("<C-mouse-4>" . default-text-scale-increase) ;; Linux
+         ("<C-wheel-up>" . default-text-scale-increase) ;; Mac/Windows
+         ("C--" . default-text-scale-decrease)
+         ("<C-mouse-5>" . default-text-scale-decrease) ;; Linux
+         ("<C-wheel-down>" . default-text-scale-decrease) ;; Mac/Windows
+         ("C-0" . default-text-scale-reset)))
 
 ;; Tabs
 ;; (use-package centaur-tabs

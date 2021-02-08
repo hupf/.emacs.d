@@ -20,9 +20,8 @@
 
 ;; setup smartparens to auto open and close pairs
 (use-package smartparens
-  :ensure t
   :diminish smartparens-mode
-  :config (smartparens-global-mode 1))
+  :config (smartparens-global-mode t))
 
 ;; when you have a selection, typing text replaces it all.
 (delete-selection-mode t)
@@ -34,7 +33,7 @@
 
 ;; show matching paren
 (use-package paren
-  :ensure t
+  :defer 0
   :init (setq show-paren-style 'parenthesis)
   :config (show-paren-mode t))
 
@@ -44,13 +43,13 @@
 ;; visual feedback to some operations by highlighting portions
 ;; relating to the operations.
 (use-package volatile-highlights
-  :ensure t
+  :defer 0
   :diminish volatile-highlights-mode
   :config (volatile-highlights-mode t))
 
 ;; Visual undo tree
 (use-package undo-tree
-  :ensure t
+  :defer 0
   :diminish undo-tree-mode
 
   :config (global-undo-tree-mode t)
@@ -73,12 +72,9 @@
 
 ;; Choose and yank one of the last killed texts
 (use-package browse-kill-ring
-  :ensure t
   :bind ("M-y" . browse-kill-ring))
 
 (use-package multiple-cursors
-  :ensure t
-
   :bind
   ("C->" . mc/mark-next-like-this)
   ("C-<" . mc/mark-previous-like-this)
@@ -90,15 +86,13 @@
 (fringe-mode '(2 . 8))
 
 (use-package flycheck
-  :ensure t
-
   :diminish flycheck-mode
 
   :init
-  (setq flycheck-check-syntax-automatically '(mode-enabled save idle-change))
+  (setq flycheck-check-syntax-automatically '(mode-enabled save idle-change)
 
   ;; Setup flycheck to show on the right side of the buffer
-  (setq flycheck-indication-mode 'right-fringe)
+        flycheck-indication-mode 'right-fringe)
 
   :hook (prog-mode . flycheck-mode)
 
@@ -107,19 +101,22 @@
   ;; do it when emacs runs in a window, not terminal
   (when window-system
     (define-fringe-bitmap 'flycheck-fringe-bitmap-double-arrow
-      [0 24 24 24 24 24 24 0 0 24 24 0 0 0 0 0 0]))
-  )
+      [0 24 24 24 24 24 24 0 0 24 24 0 0 0 0 0 0])))
 
 ;; Git Gutter Use git-gutter-fringe if not in TTY, since it is
 ;; compatible with nlinum
 (use-package git-gutter
-  :ensure t
+  :defer 0
+  :diminish git-gutter-mode
 
-  :diminish
-  git-gutter-mode
+  :init
+  (setq git-gutter-fr:side 'right-fringe)
 
   :config
-  (setq git-gutter-fr:side 'right-fringe)
+  (when (display-graphic-p)
+    (use-package git-gutter-fringe))
+  (global-git-gutter-mode)
+
   (when (display-graphic-p)
     (fringe-helper-define 'git-gutter-fr:added nil
       "XXXXXXX"
@@ -183,29 +180,22 @@
       "XXXXXXX"
       "XXXXXXX"
       "XXXXXXX"
-      ))
-  :init
-  (when (display-graphic-p)
-    (use-package git-gutter-fringe
-      :ensure t))
-  (global-git-gutter-mode))
+      )))
 
 
 ;; Show whitespace
 (use-package whitespace
-:ensure t
-:diminish whitespace-mode
+  :diminish whitespace-mode
 
-:init
-(dolist (hook '(prog-mode-hook text-mode-hook))
+  :init
+  (dolist (hook '(prog-mode-hook text-mode-hook))
     (add-hook hook #'whitespace-mode))
-(add-hook 'before-save-hook #'whitespace-cleanup)
+  (add-hook 'before-save-hook #'whitespace-cleanup)
 
-:config
-(setq whitespace-style '(face tabs empty trailing lines-tail))
-(setq whitespace-line-column 80)
-(setq whitespace-line nil) ;; Don't style long lines
-)
+  :config
+  (setq whitespace-style '(face tabs empty trailing lines-tail)
+        whitespace-line-column 80
+        whitespace-line nil)) ;; Don't style long lines
 
 ;; Highlight tabs with same color as trailing whitespaces
 (add-hook 'font-lock-mode-hook (lambda ()
@@ -229,7 +219,6 @@
 
 ;; Drag stuff around.
 (use-package drag-stuff
-  :ensure t
   :diminish drag-stuff-mode
 
   :bind
@@ -242,9 +231,6 @@
 
 ;; Increase selected region by semantic units
 (use-package expand-region
-  :ensure t
-  :commands er/expand-region
-
   :bind
   ("C-=" . er/expand-region))
 
@@ -252,7 +238,7 @@
 ;; displays the key bindings following your
 ;; currently entered incomplete command (a prefix) in a popup
 (use-package which-key
-  :ensure t
+  :defer 0
   :diminish which-key-mode
   :config (which-key-mode t))
 
@@ -261,8 +247,7 @@
 ;; commonly used code templates into your buffer. Use it everywhere!
 ;; see https://joaotavora.github.io/yasnippet/
 (use-package yasnippet
-  :ensure t
-
+  :defer 0
   :diminish yas-minor-mode
 
   :config
@@ -277,16 +262,14 @@
 ;; (make sure to `apt install editorconfig` or `brew install editorconfig`)
 
 (use-package editorconfig
-  :ensure t
+  :defer 0
   :diminish editorconfig-mode
-  :config
-  (editorconfig-mode 1))
+  :config (editorconfig-mode 1))
 
 
 ;; Prettier
 
 (use-package prettier-js
-  :ensure t
   :diminish prettier-js-mode
 
   :hook ((js-mode . init-prettier)
@@ -296,8 +279,7 @@
          (css-mode . init-prettier)
          (scss-mode . init-prettier)
          (markdown-mode . init-prettier)
-         (yaml-mode . init-prettier))
-  )
+         (yaml-mode . init-prettier)))
 
 (defun init-prettier ()
   "Initialize Prettier mode, making sure the project-local version is used."
@@ -313,8 +295,7 @@
   (add-node-modules-path)
 
   ;; Enable formatting on save
-  (prettier-js-mode)
-  )
+  (prettier-js-mode))
 
 ;; enable y/n answers so you don't have to type 'yes' on 'no'
 ;; for everything
@@ -374,16 +355,13 @@
 
 ;; ripgrep search (install `cargo install ripgrep`)
 (use-package rg
-  :ensure t
+  :commands (rg rg-literal rg-project)
 
   :init
-  (setq rg-executable "/usr/local/bin/rg")
-  (setq rg-show-header nil)
+  (setq rg-executable "/usr/local/bin/rg"
+        rg-show-header nil)
 
-  :bind
-  ("C-S-f" . rg)
-
-  :commands (rg rg-literal rg-project))
+  :bind ("C-S-f" . rg))
 
 
 (provide 'initializer-editing)
