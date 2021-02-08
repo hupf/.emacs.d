@@ -22,23 +22,24 @@
 (require 'package)
 
 (setq package-enable-at-startup nil)
-(package-initialize)
+;; (package-initialize)
 
 (setq package-archives
-      '(("melpa-stable" . "https://stable.melpa.org/packages/")
+      '(;;("melpa-stable" . "https://stable.melpa.org/packages/")
         ("melpa" . "https://melpa.org/packages/")
         ("gnu" . "http://elpa.gnu.org/packages/"))
       package-archive-priorities
-      '(("melpa-stable" . 10)
+      '(;;("melpa-stable" . 10)
         ("melpa" . 5)
         ("gnu" . 0))
-      package-pinned-packages
-      '((default-text-scale . "melpa")
-        (centaur-tabs . "melpa")
-        (flycheck . "melpa")
-        (js2-mode . "melpa")
-        (nvm . "melpa")
-        (use-package . "melpa")))
+      ;; package-pinned-packages
+      ;; '((default-text-scale . "melpa")
+      ;;   (centaur-tabs . "melpa")
+      ;;   (flycheck . "melpa")
+      ;;   (js2-mode . "melpa")
+      ;;   (nvm . "melpa")
+      ;;   (use-package . "melpa"))
+)
 
 
 ;; Ensure diminish to be present to have use-package supporting it
@@ -86,9 +87,21 @@
 ;; customization UI into your `init.el'. Let's not do that.
 (setq custom-file (no-littering-expand-etc-file-name "custom.el"))
 
+(use-package f)
+
+;; Automatically update packages
+(use-package auto-package-update
+  :init
+
+  :custom
+  (auto-package-update-interval 7)
+  (auto-package-update-prompt-before-update t)
+  (auto-package-update-last-update-day-filename (f-join (file-relative-name no-littering-var-directory user-emacs-directory) "last-package-update-day"))
+
+  :config
+  (auto-package-update-maybe))
+
 ;; Setup directories and load initializers
-(use-package f
-  :ensure t)
 
 (defvar initializers-directory (f-join user-emacs-directory "initializers")
   "All .el files in this directory will be run.")
