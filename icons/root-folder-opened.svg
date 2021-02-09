@@ -13,11 +13,25 @@
    fill="none"
    version="1.1"
    id="svg8"
-   sodipodi:docname="root-folder.svg"
-   inkscape:export-filename="/home/mhofer/.emacs.d/icons/root-folder.png"
+   sodipodi:docname="root-folder-opened.svg"
+   inkscape:export-filename="/home/mhofer/.emacs.d/icons/root-folder-opened.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    inkscape:version="1.0.2 (1.0.2+r75+1)">
+  <metadata
+     id="metadata14">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs12" />
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -29,7 +43,7 @@
      inkscape:pageshadow="2"
      inkscape:window-width="1920"
      inkscape:window-height="1173"
-     id="namedview8"
+     id="namedview10"
      showgrid="false"
      inkscape:zoom="52.875"
      inkscape:cx="8"
@@ -38,42 +52,28 @@
      inkscape:window-y="27"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg8" />
-  <metadata
-     id="metadata14">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <defs
-     id="defs12" />
   <g
-     id="g836"
-     transform="matrix(1.0951667,0,0,1.0951667,-1.0951667,-0.7613336)"
-     style="stroke-width:0.913103">
+     id="g891"
+     transform="matrix(1.0951403,0,0,1.0951403,-1.0951403,-0.7611224)"
+     style="stroke-width:0.913125">
     <path
        fill-rule="evenodd"
        clip-rule="evenodd"
-       d="M 7.70996,3 H 14.5 l 0.51,0.5 V 9 13.5 L 14.51,14 H 8.74284 C 8.99647,13.6929 9.21739,13.3578 9.40029,13 H 13.99 V 11.49 L 14,7.48999 v -1.5 H 7.68994 L 7.67296,6.00697 C 7.39684,5.81162 7.10191,5.64108 6.79144,5.4986 L 7.14001,5.15002 7.48999,5 H 13.99 L 14,4.01001 H 7.5 L 7.14001,3.85999 6.29004,3.01001 H 2 v 2.5897 C 1.6461,5.78062 1.31438,5.99874 1.01001,6.24892 V 2.5 l 0.5,-0.5 h 5 l 0.34998,0.15002 z"
+       d="M 1,6.25721 V 2.5 L 1.5,2 h 5 L 6.84998,2.15002 7.70996,3 H 13.5 L 14,3.5 V 6 h 1.13 l 0.48,0.63 -2.63,7 L 12.5,14 H 8.7429 C 8.99653,13.6929 9.21745,13.3578 9.40035,13 H 12.13 L 14.5,7 H 8.7429 C 8.52568,6.73698 8.28448,6.49451 8.02265,6.27592 L 8.15002,6.15002 8.5,6 H 13 V 4 H 7.5 L 7.15002,3.84998 6.29004,3 H 2 L 2.0105,5.59439 C 1.64877,5.77833 1.31011,6.0011 1,6.25721 Z"
        fill="#C5C5C5"
        id="path2"
-       style="fill:#9b9e94;fill-opacity:1;stroke-width:0.833757" />
+       style="fill:#9b9e94;fill-opacity:1;stroke-width:0.838498" />
     <path
        d="M 6,10.5 C 6,11.3284 5.32843,12 4.5,12 3.67157,12 3,11.3284 3,10.5 3,9.67157 3.67157,9 4.5,9 5.32843,9 6,9.67157 6,10.5 Z"
        fill="#C5C5C5"
        id="path4"
-       style="fill:#9b9e94;fill-opacity:1;stroke-width:0.913103" />
+       style="fill:#9b9e94;fill-opacity:1;stroke-width:0.913125" />
     <path
        fill-rule="evenodd"
        clip-rule="evenodd"
        d="M 8,10.5 C 8,12.433 6.433,14 4.5,14 2.567,14 1,12.433 1,10.5 1,8.567 2.567,7 4.5,7 6.433,7 8,8.567 8,10.5 Z M 4.5,13 C 5.88071,13 7,11.8807 7,10.5 7,9.11929 5.88071,8 4.5,8 3.11929,8 2,9.11929 2,10.5 2,11.8807 3.11929,13 4.5,13 Z"
        fill="#C5C5C5"
        id="path6"
-       style="fill:#9b9e94;fill-opacity:1;stroke-width:0.833757" />
+       style="fill:#9b9e94;fill-opacity:1;stroke-width:0.838498" />
   </g>
 </svg>

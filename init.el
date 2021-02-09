@@ -11,7 +11,7 @@
 
 ;; Startup performance
 (defun display-startup-time ()
-  (message "⌛️ Emacs loaded in %s with %d garbage collections"
+  (message "⌛ Emacs loaded in %s with %d garbage collections"
            (format "%.2f seconds"
                    (float-time (time-subtract after-init-time before-init-time)))
            gcs-done))
@@ -23,6 +23,7 @@
 
 (setq package-enable-at-startup nil)
 ;; (package-initialize)
+;; -> will already be called by auto-package-update
 
 (setq package-archives
       '(;;("melpa-stable" . "https://stable.melpa.org/packages/")
@@ -89,7 +90,7 @@
 
 (use-package f)
 
-;; Automatically update packages
+;; Automatically check for package updates
 (use-package auto-package-update
   :init
 

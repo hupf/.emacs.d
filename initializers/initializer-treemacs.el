@@ -47,7 +47,7 @@
     ("C-<return>" . treemacs-natively-open-path-at-point))
 
   :config
-  (treemacs-follow-mode nil) ;; Allow to scroll freely
+  (treemacs-follow-mode -1) ;; Allow to scroll freely
   (treemacs-filewatch-mode)
   (treemacs-git-mode 'simple)
 
@@ -60,7 +60,9 @@
       ;; These icons have been taken from:
       ;; https://github.com/microsoft/vscode-icons/tree/master/icons/dark
       ;; They have been cropped (to elminate margin), resized to 16x16 and color adjusted to #9B9E94
-      (treemacs-create-icon :file "root-folder-lg.png" :extensions (root) :fallback "")
+      (treemacs-create-icon :file "root-folder.png" :extensions (root) :fallback "")
+      (treemacs-create-icon :file "root-folder.png" :extensions (root-closed) :fallback "")
+      (treemacs-create-icon :file "root-folder-opened.png" :extensions (root-open) :fallback "")
       (treemacs-create-icon :file "folder.png"    :extensions (dir-closed) :fallback (propertize "+ " 'face 'treemacs-term-node-face))
       (treemacs-create-icon :file "folder-opened.png" :extensions (dir-open) :fallback (propertize "- " 'face 'treemacs-term-node-face))
       (treemacs-create-icon :file "file.png" :extensions (fallback))

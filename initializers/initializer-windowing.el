@@ -49,7 +49,7 @@
   (set-face-background 'line-number-current-line (face-background 'default)))
 
 ;; Disable menu bar
-(menu-bar-mode nil)
+(menu-bar-mode -1)
 
 ;; Disable startup screen
 (setq inhibit-startup-screen t)
