@@ -18,10 +18,13 @@
 ;; always end files with newlines
 (setq require-final-newline t)
 
-;; setup smartparens to auto open and close pairs
+;; Auto open/close pairs of parenthesises or quotes
 (use-package smartparens
+  :defer 0
   :diminish smartparens-mode
-  :config (smartparens-global-mode t))
+  :config
+  (require 'smartparens-config) ;; Apply default config
+  (smartparens-global-mode t))
 
 ;; when you have a selection, typing text replaces it all.
 (delete-selection-mode t)
@@ -268,7 +271,6 @@
 
 
 ;; Prettier
-
 (use-package prettier-js
   :diminish prettier-js-mode
 
@@ -319,14 +321,14 @@
 (global-set-key (kbd "C-/") 'comment-or-uncomment-region-or-line)
 
 (defun delete-word (arg)
-  "Delete (not kill) word forward"
+  "Delete (not kill) word forward."
   (interactive "p")
   (delete-region (point) (progn (forward-word arg) (point))))
 (global-set-key (kbd "C-<delete>") 'delete-word)
 (global-set-key (kbd "C-<kp-delete>") 'delete-word)
 
 (defun backward-delete-word (arg)
-  "Delete (not kill) word backward"
+  "Delete (not kill) word backward."
   (interactive "p")
   (delete-word (- arg)))
 (global-set-key (kbd "C-<backspace>") 'backward-delete-word)
