@@ -16,6 +16,9 @@
   :init
   (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
 
+  :custom
+  (lsp-headerline-breadcrumb-enable nil)
+
   :config
   (lsp-enable-which-key-integration t))
 
