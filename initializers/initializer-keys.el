@@ -14,8 +14,6 @@
 (global-set-key (kbd "C-n") 'next-error)
 (global-set-key (kbd "C-p") 'previous-error)
 
-(global-set-key (kbd "C-S-t") 'projectile-find-file)
-
 ;; Joins the folloing line onto the current one (somehow, but not
 ;; really the opposite of M-j)
 (global-set-key (kbd "C-M-j")

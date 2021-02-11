@@ -9,17 +9,22 @@
 (use-package projectile
   :diminish projectile-mode
 
-  :init
-  ;; (setq projectile-indexing-method 'git)
-
+  :custom
   ;; Selectrum bases on default completing-read completion mechanism
-  (setq projectile-completion-system 'default)
+  (projectile-completion-system 'default)
+
+  ;; (projectile-indexing-method 'git)
+
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
+
+  :bind
+  ("C-S-t" . projectile-find-file)
 
   :config
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (projectile-mode t))
 
-;; TODO: remove?
+;; TODO: remove or open directory in treemacs?
 ;; go to project dir when selecting project
 ;; (custom-set-variables
 ;;  '(projectile-switch-project-action (quote projectile-dired)))
