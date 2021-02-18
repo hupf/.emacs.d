@@ -43,5 +43,12 @@
 
 (set-frame-font (concat frame-font-name " " (number-to-string frame-font-size)))
 
+
+;; Emojis
+(set-fontset-font t 'symbol "Noto Color Emoji")
+(set-fontset-font t 'symbol "Apple Color Emoji" nil 'append)
+(set-fontset-font t 'symbol "Segoe UI Emoji" nil 'append)
+(set-fontset-font t 'symbol "Symbola" nil 'append)
+
 (provide 'initializer-style)
 ;;; initializer-style.el ends here

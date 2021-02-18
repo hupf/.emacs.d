@@ -89,13 +89,14 @@
 (fringe-mode '(2 . 8))
 
 (use-package flycheck
-  :diminish flycheck-mode
+  ;; Don't diminish to make flycheck-status-emoji-mode working
+  ;; :diminish flycheck-mode
 
-  :init
-  (setq flycheck-check-syntax-automatically '(mode-enabled save idle-change)
+  :custom
+  ;; (flycheck-check-syntax-automatically '(mode-enabled save idle-change))
 
   ;; Setup flycheck to show on the right side of the buffer
-        flycheck-indication-mode 'right-fringe)
+  (flycheck-indication-mode 'right-fringe)
 
   :hook (prog-mode . flycheck-mode)
 
@@ -105,6 +106,10 @@
   (when window-system
     (define-fringe-bitmap 'flycheck-fringe-bitmap-double-arrow
       [0 24 24 24 24 24 24 0 0 24 24 0 0 0 0 0 0])))
+
+;; Display emoji with the flycheck status (replaces default flycheck modeline)
+(use-package flycheck-status-emoji
+  :hook (flycheck-mode . flycheck-status-emoji-mode))
 
 ;; Git Gutter Use git-gutter-fringe if not in TTY, since it is
 ;; compatible with nlinum
@@ -259,7 +264,6 @@
   (use-package yasnippet-snippets
 :ensure t)
   (yas-global-mode t))
-
 
 ;; Editorconfig
 ;; (make sure to `apt install editorconfig` or `brew install editorconfig`)

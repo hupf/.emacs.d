@@ -13,21 +13,19 @@
   ;; (prog-mode . lsp-deferred))
   ;; (prog-mode . setup-node-lsp)
 
-  :init
-  (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
-
   :custom
+  (lsp-keymap-prefix "C-c l")
   (lsp-headerline-breadcrumb-enable nil)
 
   :config
   (lsp-enable-which-key-integration t))
 
 (use-package lsp-ui
-  :hook
-  (lsp-mode . lsp-ui-mode)
+  :custom
+  (lsp-ui-doc-position 'bottom)
 
-  :config
-  (setq lsp-ui-doc-position 'bottom))
+  :hook
+  (lsp-mode . lsp-ui-mode))
 
 (defun setup-node-lsp ()
   "Initialize LSP after enabling local Node.js version."
