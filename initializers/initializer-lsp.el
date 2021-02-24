@@ -23,6 +23,7 @@
 (use-package lsp-ui
   :custom
   (lsp-ui-doc-position 'bottom)
+  (lsp-ui-sideline-enable nil) ;; Sideline is good for wide buffers, I prefer flycheck errors in echo area
 
   :hook
   (lsp-mode . lsp-ui-mode))
