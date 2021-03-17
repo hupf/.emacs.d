@@ -28,5 +28,8 @@
 (set-face-attribute 'mode-line nil :background "#21211d" :box '(:line-width 8 :color "#21211d") :overline nil :underline nil)
 (set-face-attribute 'mode-line-inactive nil :background "#252520" :box '(:line-width 8 :color "#252520"))
 
+;; Remove Git branch from modeline
+(setq mode-line-format (delq (assoc 'vc-mode mode-line-format) mode-line-format))
+
 (provide 'initializer-modeline)
 ;;; initializer-modeline.el ends here
