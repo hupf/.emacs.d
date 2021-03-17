@@ -5,8 +5,8 @@
 ;; (global-magit-file-mode 1)
 
   :bind
-  (("C-x g" . magit-status)
-   ("C-x M-g" . magit-dispatch-popup)))
+  (("C-c g" . magit-status)
+   ("C-c M-g" . magit-dispatch-popup)))
 
 ;; use diff-hl to add git diffs in gutter
 (use-package diff-hl
