@@ -1,11 +1,33 @@
-;;; initializer-web.el --- Setup HTML editing
+;;; initializer-web.el --- Setup web editing
 ;;;
 ;;; Commentary:
 ;;;
-;;; Modes and configurations for HTML/HAML editing
+;;; Modes and configurations for HTML/CSS editing
 ;;;
 ;;; Code:
 
+;; Cascading Stylesheets
+(use-package css-mode
+  :init (setq css-indent-offset 2)
+  :mode "\\.css\\'"
+  :hook (css-mode . setup-node-lsp))
+
+;; SASS
+(use-package scss-mode
+  :mode ("\\.scss\\'"
+         "\\.sass\\'")
+  :hook (scss-mode . setup-node-lsp)
+
+  :init
+  ;; Don't auto compile SASS files
+  (setq scss-compile-at-save nil))
+
+;; Color highlighting in stylesheet modes
+(use-package rainbow-mode
+  :diminish rainbow-mode
+  :hook (css-mode scss-mode))
+
+;; HTML
 (use-package web-mode
   :init
   (setq web-mode-markup-indent-offset 2
@@ -36,11 +58,9 @@
   :init (setq emmet-indentation 2)
   :hook (web-mode sgml-mode))
 
+;; HAML
 (use-package haml-mode
   :mode "\\.haml\\'")
-
-(use-package php-mode
-  :mode "\\.php\\'")
 
 (provide 'initializer-web)
 ;;; initializer-web.el ends here

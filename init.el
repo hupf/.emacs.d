@@ -124,13 +124,11 @@
 (require 'initializer-modeline)
 (require 'initializer-treemacs)
 
-;; different language modes
+;; Language-specific settings
 (require 'initializer-lsp)
+(require 'initializer-languages)
 (require 'initializer-web)
 (require 'initializer-javascript)
-(require 'initializer-css)
 (require 'initializer-ruby)
-(require 'initializer-yaml)
-(require 'initializer-doc)
 
 ;;; init.el ends here
