@@ -50,16 +50,8 @@
     (exec-path-from-shell-initialize)
     (setq exec-path-from-shell--initialized-p t)))
 
-;; OSX specific code
+;; OSX specifics
 (when (eq system-type 'darwin)
-
-  ;; On OS X Emacs doesn't use the shell PATH if it's not started from
-  ;; the shell. Let's fix that:
-  ;; (use-package exec-path-from-shell
-  ;;   :ensure t
-  ;;   :config
-  ;;   (exec-path-from-shell-initialize))
-
   ;; Fix keys
   (setq mac-control-modifier 'control)
   (setq mac-option-modifier 'none)
