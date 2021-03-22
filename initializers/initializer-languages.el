@@ -29,6 +29,7 @@
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
   (add-hook 'before-save-hook #'lsp-organize-imports t t)
 
+  (exec-path-from-shell-initialize-maybe)
   ;; Install gopls server: https://github.com/golang/tools/tree/master/gopls#installation
   (lsp-deferred))
 

@@ -13,10 +13,6 @@
 ;;;
 ;;; Code:
 
-;; forward function declarations eliminate warnings about whether a
-;; function is defined.
-;; (declare-function exec-path-from-shell-initialize "exec-path-from-shell.el")
-
 ;; reduce the frequency of garbage collection by making it happen on
 ;; each 100MB of allocated data (the default is on every 0.76MB)
 (setq gc-cons-threshold 100000000)
@@ -32,12 +28,27 @@
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
 
+;; When launching Emacs from GUI: determine `exec-path' & environment
+;; variables by starting an actual shell session
 (use-package exec-path-from-shell
-  :init
-  (setq exec-path-from-shell-arguments '("-l")) ;; Improve performance by not using interactive shell
+  :custom
+  ;; Environment variables to be copied from the shell
+  (exec-path-from-shell-variables '("PATH" "MANPATH" "GEM_PATH" "GOROOT"))
 
-  :config
-  (exec-path-from-shell-copy-env "GEM_PATH"))
+  ;; Since starting a shell session is quite time consuming
+  ;; (`exec-path-from-shell-initialize' slows down Emacs startup by a
+  ;; few seconds), call the custom
+  ;; `exec-path-from-shell-initialize-maybe' function below, before
+  ;; executing something that relies on it...
+  ;; :config (exec-path-from-shell-initialize)
+  )
+
+(setq exec-path-from-shell--initialized-p nil)
+(defun exec-path-from-shell-initialize-once ()
+  "Initialize 'exec-path', but only when called the first time."
+  (when (not exec-path-from-shell--initialized-p)
+    (exec-path-from-shell-initialize)
+    (setq exec-path-from-shell--initialized-p t)))
 
 ;; OSX specific code
 (when (eq system-type 'darwin)

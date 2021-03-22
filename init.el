@@ -92,8 +92,6 @@
 
 ;; Automatically check for package updates
 (use-package auto-package-update
-  :init
-
   :custom
   (auto-package-update-interval 7)
   (auto-package-update-prompt-before-update t)
