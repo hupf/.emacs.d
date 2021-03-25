@@ -44,6 +44,32 @@
 (set-frame-font (concat frame-font-name " " (number-to-string frame-font-size)))
 
 
+;; Ligatures
+(use-package ligature
+  :straight '(ligature :type git :host github :repo "mickeynp/ligature.el")
+  :config
+  ;; Enable the "www" ligature in every possible major mode
+  (ligature-set-ligatures 't '("www"))
+
+  ;; Enable all Victor Mono ligatures in programming modes
+  (ligature-set-ligatures 'prog-mode
+                          '("</" "</>" "/>" "~-" "-~" "~@"
+                            "<~" "<~>" "<~~" "~>" "~~" "~~>"
+                            ">=" "<=" "<!--" "##" "###" "####" "|-" "-|" "|->" "<-|" ">-|" "|-<"
+                            "|=" "|=>" ">-" "<-" "<--" "-->" "->" "-<"
+                            ">->" ">>-" "<<-" "<->" "->>" "-<<" "<-<"
+                            "==>" "=>" "=/=" "!==" "!=" "<=="
+                            ">>=" "=>>" ">=>" "<=>" "<=<" "<<=" "=<<"
+                            ".-" ".=" "=:=" "=!=" "==" "===" "::" ":=" ":>" ":<" ">:" ";;"
+                            "<|" "<|>" "|>" "<>"
+                            "<$" "<$>" "$>" "<+" "<+>" "+>"
+                            "?=" "/=" "/==" "/\\" "\\/" "__" "&&" "++" "+++"))
+
+  ;; Enable ligature checks globally in all buffers. You can also do it
+  ;; per mode with `ligature-mode'.
+  (global-ligature-mode t))
+
+
 ;; Emojis
 (set-fontset-font t 'symbol "Noto Color Emoji")
 (set-fontset-font t 'symbol "Apple Color Emoji" nil 'append)
