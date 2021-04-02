@@ -20,16 +20,36 @@
 (use-package yaml-mode
   :mode "\\.yml\\'")
 
+;; Haskell
+(defun setup-haskell-mode ()
+  "Initialize haskell-mode."
+  (setq-local tab-width 2)
+
+  (exec-path-from-shell-initialize-once)
+
+  ;; Install https://www.haskell.org/ghcup/ with language server
+  (use-package lsp-haskell)
+  (lsp-deferred))
+(use-package haskell-mode
+  :mode "\\.hs"
+
+  :config
+
+
+  :hook
+  (haskell-mode . setup-haskell-mode)
+  (haskell-literate-mode . setup-haskell-mode))
+
 ;; Go
 (defun setup-go-mode ()
-  "Initialize go-mode, when ready."
+  "Initialize go-mode."
   (setq-local tab-width 2)
 
   ;; Auto format and import on save
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
   (add-hook 'before-save-hook #'lsp-organize-imports t t)
 
-  (exec-path-from-shell-initialize-maybe)
+  (exec-path-from-shell-initialize-once)
   ;; Install gopls server: https://github.com/golang/tools/tree/master/gopls#installation
   (lsp-deferred))
 
