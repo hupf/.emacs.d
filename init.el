@@ -92,9 +92,12 @@
 
 ;; Automatically check for package updates
 (use-package auto-package-update
+  :straight '(auto-package-update :type git :host github :repo "hupf/auto-package-update.el" :branch "preview-updates")
+
   :custom
   (auto-package-update-interval 7)
   (auto-package-update-prompt-before-update t)
+  (auto-package-update-show-preview t)
   (auto-package-update-last-update-day-filename (f-join (file-relative-name no-littering-var-directory user-emacs-directory) "last-package-update-day"))
 
   :config
