@@ -25,7 +25,7 @@
 ;; Color highlighting in stylesheet modes
 (use-package rainbow-mode
   :diminish rainbow-mode
-  :hook (css-mode scss-mode))
+  :hook (css-mode scss-mode web-mode js-mode))
 
 ;; HTML
 (use-package web-mode
