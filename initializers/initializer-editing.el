@@ -34,6 +34,10 @@
       scroll-conservatively 100000
       scroll-preserve-screen-position 1)
 
+;; Scroll the display pixel-by-pixel, as opposed to only animating
+;; line-by-line scrolls.
+(pixel-scroll-precision-mode)
+
 ;; show matching paren
 (use-package paren
   :defer 0

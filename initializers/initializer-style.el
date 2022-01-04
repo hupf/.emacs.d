@@ -27,17 +27,17 @@
 
 ;; Fonts
 (setq frame-font-name "Victor Mono Light")
-(setq frame-font-size (if (eq window-system 'x)
+(setq frame-font-size (if (or (eq window-system 'x) (eq window-system 'pgtk))
     12 ; Smaller font on Linux
     14))
 
 (setq treemacs-font-name "IBM Plex Sans Light")
-(setq treemacs-font-size (if (eq window-system 'x)
+(setq treemacs-font-size (if (or (eq window-system 'x) (eq window-system 'pgtk))
     (- frame-font-size 1) ; Smaller font on Linux
     frame-font-size))
 
 (setq modeline-font-name "IBM Plex Sans")
-(setq modeline-font-size (if (eq window-system 'x)
+(setq modeline-font-size (if (or (eq window-system 'x) (eq window-system 'pgtk))
     (+ frame-font-size 1) ; Smaller font on Linux
     (+ frame-font-size 2)))
 

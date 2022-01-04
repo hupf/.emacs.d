@@ -28,6 +28,14 @@
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
 
+;; Whenever Emacs loads some elisp that is not compiled yet, compile it and load it
+(when (fboundp 'native-compile-async)
+  (setq comp-deferred-compilation t
+        comp-deferred-compilation-black-list '("/mu4e.*\\.el$")))
+
+;; Disable annoying warnings in native comp Emacs
+(setq native-comp-async-report-warnings-errors nil)
+
 ;; When launching Emacs from GUI: determine `exec-path' & environment
 ;; variables by starting an actual shell session
 (use-package exec-path-from-shell

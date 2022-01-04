@@ -62,7 +62,7 @@
 ;; (scroll-bar-mode -1)
 
 ;; Minimize scroll bar margin
-(when (eq window-system 'x)
+(when (or (eq window-system 'x) (eq window-system 'pgtk))
   (add-to-list 'default-frame-alist '(scroll-bar-width  . 9)))
 
 ;; Use super (cmd) + arrow keys to switch between visible buffers
