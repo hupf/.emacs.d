@@ -9,8 +9,15 @@
 ;; Minibuffer completion (ivy/ido alternative)
 (use-package vertico
   :defer 0
+
+  :custom
+  ;; Use grid mode for buffer switching
+  (vertico-multiform-commands
+   '((switch-to-buffer grid)))
+
   :init
   (vertico-mode)
+  (vertico-multiform-mode)
 
   ;; Different scroll margin
   ;; (setq vertico-scroll-margin 0)
