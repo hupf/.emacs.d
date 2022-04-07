@@ -373,6 +373,10 @@
 
   :bind ("C-S-f" . rg))
 
+;; SVGO
+(use-package svgo
+  :straight '(svgo :type git :host github :repo "hupf/svgo.el")
+  :hook ((nxml-mode . svgo-mode)))
 
 (provide 'initializer-editing)
 
