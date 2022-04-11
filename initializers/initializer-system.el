@@ -58,6 +58,9 @@
     (exec-path-from-shell-initialize)
     (setq exec-path-from-shell--initialized-p t)))
 
+;; Don't open new dired buffer when visiting directory in dired buffer
+(setq dired-kill-when-opening-new-dired-buffer t)
+
 ;; OSX specifics
 (when (eq system-type 'darwin)
   ;; Fix keys
