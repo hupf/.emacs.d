@@ -6,6 +6,13 @@
 ;;;
 ;;; Code:
 
+;; Window title (with dot after file name when unsafed)
+(setq frame-title-format
+      '((:eval (if (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name))
+                 "%b"))
+        (:eval (when (buffer-modified-p) " •")) "   GNU Emacs"))
+
 ;; TODO
 ;; ;; Split horizontally when opening a new window from a command
 ;; ;; whenever possible.
