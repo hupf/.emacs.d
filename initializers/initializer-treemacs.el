@@ -39,7 +39,7 @@
   :bind
   ("C-c t" . treemacs)
   (:map treemacs-mode-map
-    ;; Mouse click on file opens it in buffer
+    ;; Single click on directory should expand it, on file should open it
     ("<mouse-1>" . treemacs-single-click-expand-action)
 
     ;; Open with OS native browser/application
@@ -65,7 +65,10 @@
       (treemacs-create-icon :file "folder.png"    :extensions (dir-closed) :fallback (propertize "+ " 'face 'treemacs-term-node-face))
       (treemacs-create-icon :file "folder-opened.png" :extensions (dir-open) :fallback (propertize "- " 'face 'treemacs-term-node-face))
       (treemacs-create-icon :file "file.png" :extensions (fallback))
-      (treemacs-create-icon :file "file-media.png" :extensions ("jpg" "jpeg" "bmp" "svg" "png" "xpm" "gif")))))
+      (treemacs-create-icon :file "file-media.png" :extensions ("jpg" "jpeg" "bmp" "svg" "png" "xpm" "gif"))))
+
+  :hook
+  (treemacs-mode . treemacs-fix-single-click-root-expand))
 
 (use-package treemacs-projectile
   :after treemacs)
@@ -76,6 +79,10 @@
   (let ((command (if (eq system-type 'darwin) "open" "gio open"))
         (file (treemacs--prop-at-point :path)))
     (call-process-shell-command (concat command " " file) nil nil nil)))
+
+(defun treemacs-fix-single-click-root-expand ()
+  "Avoid a Mouse-2 action being performed when only clicking shortly on root nodes."
+  (set (make-local-variable 'mouse-1-click-follows-link) nil))
 
 (provide 'initializer-treemacs)
 ;;; initializer-treemacs.el ends here
