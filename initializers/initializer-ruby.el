@@ -63,7 +63,7 @@
     (rubocop-mode)
 
     ;; Enforce selecting of the ruby-rubocop checker
-    (setq-local flycheck-disabled-checkers '(ruby)) ;; Don't fall back to ruby checker
+    (setq-local flycheck-disabled-checkers '(ruby ruby-standard)) ;; Don't fall back to ruby or standard checker
     (setq-local flycheck-checker 'ruby-rubocop))
 
   ;; Activate the Standard linter/formatter
@@ -72,7 +72,7 @@
     (straight-use-package '(flycheck-standardrb :type git :host github :repo "julianrubisch/flycheck-standardrb"))
 
     ;; Enforce selecting of the ruby-standard checker
-    (setq-local flycheck-disabled-checkers '(ruby)) ;; Don't fall back to ruby checker
+    (setq-local flycheck-disabled-checkers '(ruby ruby-rubocop)) ;; Don't fall back to ruby or rubocop checker
     (setq-local flycheck-checker 'ruby-standard)))
 
 ;; Rubocop
