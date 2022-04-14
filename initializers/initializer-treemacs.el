@@ -25,9 +25,9 @@
     ;; Use custom-set-faces instead of use-package's :custom-face since
     ;; backquote expressions are working here
     (custom-set-faces
-     `(treemacs-root-face ((t (:inherit default :font ,treemacs-font :height 1.2 :weight demibold :foreground ,treemacs-foreground))))
-     `(treemacs-file-face ((t (:inherit default :font ,treemacs-font :foreground ,treemacs-foreground))))
-     `(treemacs-directory-face ((t (:inherit default :font ,treemacs-font :foreground ,treemacs-foreground))))
+     `(treemacs-root-face ((t (:inherit default :font ,treemacs-font :height 1.2 :weight light :foreground ,treemacs-foreground))))
+     `(treemacs-file-face ((t (:inherit default :font ,treemacs-font :weight light :foreground ,treemacs-foreground))))
+     `(treemacs-directory-face ((t (:inherit default :font ,treemacs-font :weight light :foreground ,treemacs-foreground))))
      `(treemacs-git-modified-face ((t (:inherit default :font ,treemacs-font :foreground ,monokai-yellow))))
      `(treemacs-git-renamed-face ((t (:inherit default :font ,treemacs-font :foreground ,monokai-cyan))))
      `(treemacs-git-ignored-face ((t (:inherit default :font ,treemacs-font :foreground ,monokai-gray))))

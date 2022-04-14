@@ -31,7 +31,7 @@
     12 ; Smaller font on Linux
     14))
 
-(setq treemacs-font-name "IBM Plex Sans Light")
+(setq treemacs-font-name "IBM Plex Sans")
 (setq treemacs-font-size (if (or (eq window-system 'x) (eq window-system 'pgtk))
     (- frame-font-size 1) ; Smaller font on Linux
     frame-font-size))

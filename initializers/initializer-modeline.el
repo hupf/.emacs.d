@@ -22,7 +22,7 @@
                mode-line-inactive)))
   (mapc
    (lambda (face)
-     (set-face-attribute face nil :font modeline-font)
+     (set-face-attribute face nil :font modeline-font :weight 'normal)
    )
    faces))
 (set-face-attribute 'mode-line nil :background "#21211d" :box '(:line-width 8 :color "#21211d") :overline nil :underline nil)
