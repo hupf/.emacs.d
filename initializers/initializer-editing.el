@@ -214,6 +214,21 @@
   (font-lock-add-keywords nil
     '(("\t" 0 'trailing-whitespace prepend)))))
 
+;; Use faster, C-implemented tree-sitter instead of regex-based
+;; font-lock-mode for syntax highlighting
+(use-package tree-sitter
+  :hook
+  (tree-sitter-after-on . tree-sitter-hl-mode)
+
+  :config
+  (global-tree-sitter-mode)
+
+  :diminish
+  tree-sitter-hl-mode)
+
+(use-package tree-sitter-langs
+  :after tree-sitterg)
+
 ;; Emacs creates lockfiles to recognize when someone else is already
 ;; editing the same file as you. Many JavaScript development servers
 ;; cannot handle these files in watch-mode so disable the lockfiles
