@@ -390,8 +390,9 @@
 
 ;; SVGO
 (use-package svgo
-  :straight '(svgo :type git :host github :repo "hupf/svgo.el")
-  :hook ((nxml-mode . svgo-mode)))
+  :hook
+  (nxml-mode . (lambda () (bind-key "M-o" 'svgo nxml-mode-map)))
+  (image-mode . (lambda () (bind-key "M-o" 'svgo image-mode-map))))
 
 (provide 'initializer-editing)
 
