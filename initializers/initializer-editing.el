@@ -383,7 +383,7 @@
   :commands (rg rg-literal rg-project)
 
   :init
-  (setq rg-executable "/usr/local/bin/rg"
+  (setq rg-executable (concat (getenv "HOME") "/.cargo/bin/rg")
         rg-show-header nil)
 
   :bind ("C-S-f" . rg))
