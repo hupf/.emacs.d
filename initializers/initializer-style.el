@@ -26,7 +26,7 @@
 
 
 ;; Fonts
-(setq frame-font-name "Victor Mono Light")
+(setq frame-font-name "VictorMono Nerd Font Light")
 (setq frame-font-size (if (or (eq window-system 'x) (eq window-system 'pgtk))
     12 ; Smaller font on Linux
     14))
