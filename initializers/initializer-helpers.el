@@ -18,5 +18,10 @@
         (path (locate-dominating-file current-directory file-name)))
     (> (length path) 0)))
 
+(defun copy-current-buffer-filename ()
+  "Copy the filename of the current buffer into clipboard."
+  (interactive)
+  (kill-new (buffer-file-name (current-buffer))))
+
 (provide 'initializer-helpers)
 ;;; initializer-helpers.el ends here
