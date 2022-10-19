@@ -25,7 +25,12 @@
 ;; Color highlighting in stylesheet modes
 (use-package rainbow-mode
   :diminish rainbow-mode
-  :hook (css-mode scss-mode web-mode js-mode))
+
+  :hook (css-mode scss-mode web-mode js-mode typescript-mode)
+
+  :config
+  (add-to-list 'rainbow-html-colors-major-mode-list 'scss-mode)
+  (add-to-list 'rainbow-html-colors-major-mode-list 'typescript-mode))
 
 ;; HTML
 (use-package web-mode
