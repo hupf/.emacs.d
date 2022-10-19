@@ -62,5 +62,19 @@
 (use-package php-mode
   :mode "\\.php\\'")
 
+;; Elm
+;; Make sure to have elm installed: https://guide.elm-lang.org/install/elm.html
+;; And elm-format via `npm i -g elm-format`
+(use-package elm-mode
+  :mode "\\.elm\\'"
+  :hook
+  (elm-mode . elm-format-on-save-mode)
+  (elm-mode . setup-node-lsp))
+
+;; (use-package flycheck-elm
+;;   :after elm-mode flycheck
+;;   :hook
+;;   (mode-hook . #'flycheck-elm-setup))
+
 (provide 'initializer-languages)
 ;;; initializer-languages.el ends here
