@@ -46,6 +46,9 @@
   ;; Active correct Ruby version for current buffer
   (rvm-activate-corresponding-ruby)
 
+  ;; Enable language server
+  (lsp)
+
   ;; TODO: what's the benefit?
   ;; enable a REPL process loaded with your
   ;; ruby project that provides lots of code insight.
@@ -81,15 +84,6 @@
 
   :init
   (setq rubocop-autocorrect-on-save 1))
-
-;; Robe
-(use-package robe
-  :config
-  (defadvice inf-ruby-console-auto
-    (before activate-rvm-for-robe activate)
-    (rvm-activate-corresponding-ruby))
-
-  :hook ((enh-ruby-mode . robe-mode)))
 
 ;; ;; Look up symbols in ruby `ri' to using yari.
 ;; (define-key 'help-command (kbd "R") 'yari)
