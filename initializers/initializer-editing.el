@@ -227,7 +227,7 @@
   tree-sitter-hl-mode)
 
 (use-package tree-sitter-langs
-  :after tree-sitterg)
+  :after tree-sitter)
 
 ;; Emacs creates lockfiles to recognize when someone else is already
 ;; editing the same file as you. Many JavaScript development servers
