@@ -36,6 +36,16 @@
   ;; Allow to access project's eslint
   (add-node-modules-path)
 
+  ;; Somehow the Angular language server cannot be found, so explcitly
+  ;; define its server command here
+  (setq lsp-clients-angular-language-server-command
+        (let ((node-modules-path (concat (cadr nvm-current-version) "/lib/node_modules")))
+          `("node"
+            ,(concat node-modules-path "/@angular/language-server")
+            "--ngProbeLocations" ,node-modules-path
+            "--tsProbeLocations" ,node-modules-path
+            "--stdio")))
+
   ;; Enable lsp-mode once buffer is visible
   ;; (lsp-deferred)
 
