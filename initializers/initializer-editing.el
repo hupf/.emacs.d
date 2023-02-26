@@ -309,14 +309,7 @@
 (use-package prettier-js
   :diminish prettier-js-mode
 
-  :hook ((js-mode . init-prettier)
-         (typescript-mode . init-prettier)
-         (json-mode . init-prettier)
-         (web-mode . init-prettier)
-         (css-mode . init-prettier)
-         (scss-mode . init-prettier)
-         (markdown-mode . init-prettier)
-         (yaml-mode . init-prettier)))
+  :hook (((js-mode typescript-mode json-mode web-mode css-mode scss-mode markdown-mode yaml-mode) . init-prettier)))
 
 (defun init-prettier ()
   "Initialize Prettier mode, making sure the project-local version is used."
