@@ -49,7 +49,8 @@
          "\\.mustache\\'"
          "\\.djhtml\\'"
          "\\.html?\\'"
-         "\\.hbs\\'")
+         "\\.hbs\\'"
+         "\\.astro\\'")
 
   :hook (web-mode . setup-node-lsp)
 
