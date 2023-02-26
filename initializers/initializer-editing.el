@@ -217,17 +217,29 @@
 ;; Use faster, C-implemented tree-sitter instead of regex-based
 ;; font-lock-mode for syntax highlighting
 (use-package tree-sitter
-  :hook
-  (tree-sitter-after-on . tree-sitter-hl-mode)
+  ;; :init
+  ;; (add-to-list 'tree-sitter-major-mode-language-alist '(emacs-lisp-mode . elisp))
 
   :config
+  (use-package tree-sitter-langs)
   (global-tree-sitter-mode)
+
+  :hook
+  (typescript-mode . tree-sitter-hl-mode)
+  ;; TODO: enable generically
+  ;; (prog-mode . setup-tree-sitter-highlighting)
 
   :diminish
   tree-sitter-hl-mode)
 
-(use-package tree-sitter-langs
-  :after tree-sitter)
+;; TODO: how to avoid the void variable error?
+;; (defun setup-tree-sitter-highlighting ()
+;;   "Enable syntax highlighting with tree-sitter if current major-mode is supported."
+;;   (message "setup-tree-sitter-highlighting %s" (member major-mode (mapcar #'car (or tree-sitter-major-mode-language-alist '()))))
+;;   (when (member major-mode (mapcar #'car (or tree-sitter-major-mode-language-alist '()))) (tree-sitter-hl-mode) (message "tree-sitter highlighting enabled")))
+
+;; (use-package tree-sitter-langs
+;;   :after tree-sitter)
 
 ;; Emacs creates lockfiles to recognize when someone else is already
 ;; editing the same file as you. Many JavaScript development servers
