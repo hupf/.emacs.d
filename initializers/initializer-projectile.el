@@ -10,10 +10,8 @@
   :diminish projectile-mode
 
   :custom
-  ;; Selectrum bases on default completing-read completion mechanism
+  ;; Vertico bases on default completing-read completion mechanism
   (projectile-completion-system 'default)
-
-  ;; (projectile-indexing-method 'git)
 
   :bind-keymap
   ("C-c p" . projectile-command-map)
