@@ -268,6 +268,14 @@
   (drag-stuff-global-mode))
 
 
+(use-package cycle-quotes
+  :commands
+  (cycle-quotes)
+
+  :bind
+  ("C-S-q" . cycle-quotes))
+
+
 ;; Increase selected region by semantic units
 (use-package expand-region
   :bind
