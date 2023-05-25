@@ -19,6 +19,12 @@ If buffer is not visiting a file, do nothing."
       (error (message "%s" err)))))
 
 (use-package add-node-modules-path
+
+  :custom
+  ;; Workaround for removed `npm bin' command in npm v9
+  ;; (see https://github.com/codesuki/add-node-modules-path/issues/23)
+  (add-node-modules-path-command "echo \"$(npm root)/.bin\"")
+
   :commands (add-node-modules-path))
 
 
