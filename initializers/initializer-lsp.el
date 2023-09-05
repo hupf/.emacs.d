@@ -18,7 +18,12 @@
   (lsp-headerline-breadcrumb-enable nil)
 
   :config
-  (lsp-enable-which-key-integration t))
+  (lsp-enable-which-key-integration t)
+
+  ;; Add custom language configurations where not working per default
+  (setq lsp-language-id-configuration (append lsp-language-id-configuration '(
+    (web-mode . "html") ;; Make sure the html server is used for .hbs templates
+  ))))
 
 (use-package lsp-ui
   :custom
