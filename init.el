@@ -82,7 +82,10 @@
   :config
   ;; No-littering does not change auto saves directory, change it to var directory
   (setq auto-save-file-name-transforms
-      `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
+        `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
+
+;; Avoid backup files everywhere
+(no-littering-theme-backups)
 
 ;; By default Emacs poops all customizations set through the
 ;; customization UI into your `init.el'. Let's not do that.
