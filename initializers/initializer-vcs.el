@@ -3,7 +3,10 @@
 
   :bind
   (("C-c g" . magit-status-with-node)
-   ("C-c M-g" . magit-dispatch)))
+   ("C-c M-g" . magit-dispatch))
+
+  :init
+  (setq smerge-command-prefix (kbd "C-c m")))
 
 (defun magit-status-with-node ()
   "Configure project's Node.js and node_modules for Git hook commands to be working in Magit"
