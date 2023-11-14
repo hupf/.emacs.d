@@ -8,7 +8,7 @@
 
 ;; Minibuffer completion (ivy/ido alternative)
 (use-package vertico
-  :defer 0
+  :after orderless
 
   :custom
   ;; Use grid mode for buffer switching
@@ -39,6 +39,8 @@
 ;; Multiple files can be opened at once with `find-file' if you enter a
 ;; wildcard. You may also give the `initials' completion style a try.
 (use-package orderless
+  :defer 0
+
   :init
   ;; Configure a custom style dispatcher (see the Consult wiki)
   ;; (setq orderless-style-dispatchers '(+orderless-dispatch)
@@ -85,6 +87,67 @@
   (marginalia-mode))
 
 
+;; ;; Autocomplete
+;; (use-package company
+;;   :defer 0
+;;   :diminish company-mode
+
+;;   :init
+;;   (setq company-idle-delay 0.2
+;;         company-tooltip-limit 10
+;;         company-minimum-prefix-length 2
+;;         ;; invert the navigation direction if the the completion
+;;         ;; popup-isearch-match is displayed on top (happens near the
+;;         ;; bottom of windows)
+;;         company-tooltip-flip-when-above t
+
+;;         ;; Align annotations to the right tooltip border
+;;         company-tooltip-align-annotations t)
+
+;;   :config
+;;   (global-company-mode t))
+
+;; ;; Fancy company dialog with icons
+;; (use-package company-box
+;;   :diminish
+;;   :hook (company-mode . company-box-mode))
+
+(use-package corfu
+  :after orderless
+
+  :custom
+  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  (corfu-auto t)                 ;; Enable auto completion
+  ;; (corfu-separator ?\s)          ;; Orderless field separator
+  ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
+  ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
+  ;; (corfu-preview-current nil)    ;; Disable current candidate preview
+  ;; (corfu-preselect 'prompt)      ;; Preselect the prompt
+  ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
+  ;; (corfu-scroll-margin 5)        ;; Use scroll margin
+
+  :init
+  ;; Recommended: Enable Corfu globally.  This is recommended since Dabbrev can
+  ;; be used globally (M-/).  See also the customization variable
+  ;; `global-corfu-modes' to exclude certain modes.
+  (global-corfu-mode))
+
+;; A few more useful configurations...
+(use-package emacs
+  :init
+  ;; TAB cycle if there are only few candidates
+  ;; (setq completion-cycle-threshold 3)
+
+  ;; Emacs 28: Hide commands in M-x which do not apply to the current mode.
+  ;; Corfu commands are hidden, since they are not supposed to be used via M-x.
+  ;; (setq read-extended-command-predicate
+  ;;       #'command-completion-default-include-p)
+
+  ;; Enable indentation+completion using the TAB key.
+  ;; `completion-at-point' is often bound to M-TAB.
+  (setq tab-always-indent 'complete))
+
+
 ;; Improved C-s search (isearch/swiper alternative)
 (use-package ctrlf
   :disabled
@@ -129,30 +192,6 @@
   (run-at-time nil nil 'kill-whole-line)
   (exit-minibuffer))
 
-;; Autocomplete
-(use-package company
-  :defer 0
-  :diminish company-mode
-
-  :init
-  (setq company-idle-delay 0.2
-        company-tooltip-limit 10
-        company-minimum-prefix-length 2
-        ;; invert the navigation direction if the the completion
-        ;; popup-isearch-match is displayed on top (happens near the
-        ;; bottom of windows)
-        company-tooltip-flip-when-above t
-
-        ;; Align annotations to the right tooltip border
-        company-tooltip-align-annotations t)
-
-  :config
-  (global-company-mode t))
-
-;; Fancy company dialog with icons
-(use-package company-box
-  :diminish
-  :hook (company-mode . company-box-mode))
 
 (provide 'initializer-completion)
 ;;; initializer-completion.el ends here

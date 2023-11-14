@@ -16,6 +16,7 @@
   :custom
   (lsp-keymap-prefix "C-c l")
   (lsp-headerline-breadcrumb-enable nil)
+  (lsp-completion-provider :none) ;; Disable company to use corfu
 
   :config
   (lsp-enable-which-key-integration t)
@@ -23,7 +24,15 @@
   ;; Add custom language configurations where not working per default
   (setq lsp-language-id-configuration (append lsp-language-id-configuration '(
     (web-mode . "html") ;; Make sure the html server is used for .hbs templates
-  ))))
+    )))
+
+  :init
+  (defun my/lsp-mode-setup-completion ()
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          '(orderless)))
+
+  :hook
+  (lsp-completion-mode . my/lsp-mode-setup-completion))
 
 (use-package lsp-ui
   :custom
