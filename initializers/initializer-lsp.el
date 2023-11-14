@@ -63,5 +63,9 @@
 ;; TODO: Auto install `npm install -g @angular/language-service@next typescript @angular/language-server` if not present?
 ;; TODO: does not work yet, configure lsp-clients-angular-language-server-command? -> with correct node directory?
 
+(use-package lsp-tailwindcss
+  :custom
+  (lsp-tailwindcss-add-on-mode t))
+
 (provide 'initializer-lsp)
 ;;; initializer-lsp.el ends here
