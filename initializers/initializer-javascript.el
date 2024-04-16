@@ -137,6 +137,15 @@ If buffer is not visiting a file, do nothing."
   :init
   (setq typescript-indent-level 2))
 
+;; (use-package tsx-mode
+;;   :straight '(tsx-mode :type git :host github :repo "orzechowskid/tsx-mode.el")
+
+;;   :mode
+;;   ("\\.ts\\'" "\\.tsx\\'")
+
+;;   :hook
+;;   (tsx-mode . setup-javascript-lsp))
+
 (defun setup-javascript-lsp ()
   "Initialize LSP and enable the ESLint checker."
   (setup-node-lsp)
