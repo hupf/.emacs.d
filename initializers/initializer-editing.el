@@ -18,13 +18,12 @@
 ;; always end files with newlines
 (setq require-final-newline t)
 
-;; Auto open/close pairs of parenthesises or quotes
-(use-package smartparens
-  :defer 0
-  :diminish smartparens-mode
+;; Auto open/close pairs of parenthesises or quotes with built-in
+;; electric-pair-mode
+(use-package electric
+  :diminish electric-pair-mode
   :config
-  (require 'smartparens-config) ;; Apply default config
-  (smartparens-global-mode t))
+  (electric-pair-mode t))
 
 ;; when you have a selection, typing text replaces it all.
 (delete-selection-mode t)
