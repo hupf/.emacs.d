@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 ;;; initializer-projectile.el --- Setup Projectile
 ;;;
 ;;; Commentary:

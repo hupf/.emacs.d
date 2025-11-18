@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 ;;; initializer-ruby.el --- Setup Ruby editing
 ;;;
 ;;; Commentary:

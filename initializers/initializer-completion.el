@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 ;;; initializer-completion --- Setup completion
 ;;;
 ;;; Commentary:

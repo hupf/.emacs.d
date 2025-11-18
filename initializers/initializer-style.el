@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 ;;; initializer-style.el --- Setup how Emacs looks.
 ;;;
 ;;; Commentary:

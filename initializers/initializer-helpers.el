@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 ;;; initializer-helpers.el --- Helper functions
 ;;;
 ;;; Commentary:

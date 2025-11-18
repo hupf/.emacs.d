@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 ;;; initializer-system.el --- System level tuning
 ;;;
 ;;; Commentary:
