@@ -1,5 +1,4 @@
-;; -*- lexical-binding: t -*-
-;;; initializer-editing.el --- What happens when I edit things?
+;;; initializer-editing.el --- What happens when I edit things? -*- lexical-binding: t; -*-
 ;;;
 ;;; Commentary:
 ;;;

@@ -1,5 +1,4 @@
-;; -*- lexical-binding: t -*-
-;;; initializer-javascript.el --- Setup JavaScript editing
+;;; initializer-javascript.el --- Setup JavaScript editing -*- lexical-binding: t; -*-
 ;;;
 ;;; Commentary:
 ;;;

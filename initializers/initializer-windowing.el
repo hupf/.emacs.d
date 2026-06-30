@@ -1,5 +1,4 @@
-;; -*- lexical-binding: t -*-
-;;; initializer-windowing.el --- Windowing
+;;; initializer-windowing.el --- Windowing -*- lexical-binding: t; -*-
 ;;;
 ;;; Commentary:
 ;;;

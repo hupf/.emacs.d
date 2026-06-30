@@ -1,5 +1,4 @@
-;; -*- lexical-binding: t -*-
-;;; init.el --- Configuration and storage.
+;;; init.el --- Configuration and storage. -*- lexical-binding: t; -*-
 ;;;
 ;;; Commentary:
 ;;;

@@ -1,5 +1,4 @@
-;; -*- lexical-binding: t -*-
-;;; initializer-keys.el --- Global key bindings
+;;; initializer-keys.el --- Global key bindings -*- lexical-binding: t; -*-
 ;;;
 ;;; Commentary:
 ;;;

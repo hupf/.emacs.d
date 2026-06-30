@@ -1,5 +1,4 @@
-;; -*- lexical-binding: t -*-
-;;; initializer-languages.el --- Setup various languages
+;;; initializer-languages.el --- Setup various languages -*- lexical-binding: t; -*-
 ;;;
 ;;; Commentary:
 ;;;

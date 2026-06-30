@@ -1,5 +1,4 @@
-;; -*- lexical-binding: t -*-
-;;; initializer-lsp --- Setup modeline
+;;; initializer-lsp --- Setup modeline -*- lexical-binding: t; -*-
 ;;;
 ;;; Commentary:
 ;;;

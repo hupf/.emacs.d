@@ -1,5 +1,4 @@
-;; -*- lexical-binding: t -*-
-;;; initializer-treemacs.el --- Setup Treemacs
+;;; initializer-treemacs.el --- Setup Treemacs -*- lexical-binding: t; -*-
 ;;;
 ;;; Commentary:
 ;;;

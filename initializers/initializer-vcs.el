@@ -1,4 +1,10 @@
-;; -*- lexical-binding: t -*-
+;;; initializer-vcs.el --- Version control tools -*- lexical-binding: t; -*-
+;;; Commentary:
+;;;
+;;; Utilities and tools for version control
+;;;
+;;; Code:
+
 (use-package magit
   :defer 0
 

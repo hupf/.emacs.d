@@ -1,5 +1,4 @@
-;; -*- lexical-binding: t -*-
-;;; initializer-web.el --- Setup web editing
+;;; initializer-web.el --- Setup web editing -*- lexical-binding: t; -*-
 ;;;
 ;;; Commentary:
 ;;;

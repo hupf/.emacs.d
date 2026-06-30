@@ -1,5 +1,4 @@
-;; -*- lexical-binding: t -*-
-;;; initializer-lsp --- Setup LSP
+;;; initializer-lsp --- Setup LSP -*- lexical-binding: t; -*-
 ;;;
 ;;; Commentary:
 ;;;
