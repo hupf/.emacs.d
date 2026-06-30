@@ -124,7 +124,7 @@
   "Kill current buffer, but only if not dedicated."
   (interactive)
   (unless (window-dedicated-p (selected-window))
-    (kill-this-buffer)))
+    (kill-current-buffer)))
 (global-set-key (kbd "C-x k") 'kill-this-buffer-unless-dedicated)
 
 (defun kill-all-buffers ()
