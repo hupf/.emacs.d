@@ -321,12 +321,8 @@
 (defun init-prettier ()
   "Initialize Prettier mode, making sure the project-local version is used."
 
-  ;; Don't install Prettier globally. Install a pinned Prettier
-  ;; version in the projects you'd like formatting to be enabled.
-
-  ;; Activate the project's Node version (you may want to add a .npmrc
-  ;; file with the desired Node version to your project directory)
-  (nvm-use-for-buffer)
+  ;; Don't install Prettier globally, install a Prettier version in
+  ;; the projects you'd like formatting to be enabled.
 
   ;; Make sure the project-local ./node_modules/.bin/prettier is found
   (add-node-modules-path)

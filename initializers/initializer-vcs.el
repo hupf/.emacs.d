@@ -16,9 +16,8 @@
   (setq smerge-command-prefix (kbd "C-c m")))
 
 (defun magit-status-with-node ()
-  "Configure project's Node.js and node_modules for Git hook commands to be working in Magit"
+  "Configure project's node_modules for Git hook commands to be working in Magit."
   (interactive)
-  (nvm-use-for (magit-toplevel))
   (add-node-modules-path)
   (magit-status-setup-buffer))
 

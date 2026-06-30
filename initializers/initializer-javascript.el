@@ -6,17 +6,9 @@
 ;;;
 ;;; Code:
 
-;; Node version management
-(use-package nvm
-  :commands (nvm-use nvm-use-for))
-
-(defun nvm-use-for-buffer ()
-  "Activate Node based on an .nvmrc for the current file.
-If buffer is not visiting a file, do nothing."
-  (when buffer-file-name
-    (condition-case err
-        (nvm-use-for buffer-file-name)
-      (error (message "%s" err)))))
+;; Mise version manager
+(use-package mise
+  :hook (after-init . global-mise-mode))
 
 (use-package add-node-modules-path
 

@@ -38,7 +38,6 @@
       ;;   (centaur-tabs . "melpa")
       ;;   (flycheck . "melpa")
       ;;   (js2-mode . "melpa")
-      ;;   (nvm . "melpa")
       ;;   (use-package . "melpa"))
 )
 
@@ -127,6 +126,7 @@
 (require 'initializer-keys)
 (require 'initializer-modeline)
 (require 'initializer-treemacs)
+(require 'initializer-org)
 
 ;; Language-specific settings
 (require 'initializer-lsp)
