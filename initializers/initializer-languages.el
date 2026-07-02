@@ -21,42 +21,61 @@
   :mode "\\.yml\\'")
 
 ;; Haskell
-(defun setup-haskell-mode ()
-  "Initialize haskell-mode."
-  (setq-local tab-width 2)
+;; (defun setup-haskell-mode ()
+;;   "Initialize haskell-mode."
+;;   (setq-local tab-width 2)
 
-  (exec-path-from-shell-initialize-once)
+;;   (exec-path-from-shell-initialize-once)
 
-  ;; Install https://www.haskell.org/ghcup/ with language server
-  (use-package lsp-haskell)
-  (lsp-deferred))
-(use-package haskell-mode
-  :mode "\\.hs"
+;;   ;; Install https://www.haskell.org/ghcup/ with language server
+;;   (use-package lsp-haskell)
+;;   (lsp-deferred))
+;; (use-package haskell-mode
+;;   :mode "\\.hs"
 
-  :config
+;;   :config
 
 
-  :hook
-  (haskell-mode . setup-haskell-mode)
-  (haskell-literate-mode . setup-haskell-mode))
+;;   :hook
+;;   (haskell-mode . setup-haskell-mode)
+;;   (haskell-literate-mode . setup-haskell-mode))
 
 ;; Go
-(defun setup-go-mode ()
-  "Initialize go-mode."
-  (setq-local tab-width 2)
+;; (defun setup-go-mode ()
+;;   "Initialize go-mode."
+;;   (setq-local tab-width 2)
 
-  ;; Auto format and import on save
-  (add-hook 'before-save-hook #'lsp-format-buffer t t)
-  (add-hook 'before-save-hook #'lsp-organize-imports t t)
+;;   ;; Auto format and import on save
+;;   (add-hook 'before-save-hook #'lsp-format-buffer t t)
+;;   (add-hook 'before-save-hook #'lsp-organize-imports t t)
 
-  (exec-path-from-shell-initialize-once)
-  ;; Install gopls server: https://github.com/golang/tools/tree/master/gopls#installation
-  (lsp-deferred))
+;;   (exec-path-from-shell-initialize-once)
+;;   ;; Install gopls server: https://github.com/golang/tools/tree/master/gopls#installation
+;;   (lsp-deferred))
 
-(use-package go-mode
-  :mode ("\\.go\\'")
-  :mode ("\\.mod\\'")
-  :hook (go-mode . setup-go-mode))
+;; (use-package go-mode
+;;   :mode ("\\.go\\'")
+;;   :mode ("\\.mod\\'")
+;;   :hook (go-mode . setup-go-mode))
+
+;; Rust
+;; (use-package rustic
+
+;;   :config
+;;   (setq rustic-rustfmt-bin "/home/mhofer/.cargo/bin/rustfmt") ;; TODO: how to make dynamic? why isn't it working with exec-path-from-shell?
+;;   (setq rustic-cargo-bin "/home/mhofer/.cargo/bin/cargo") ;; TODO: how to make dynamic? why isn't it working with exec-path-from-shell?
+;;   (setq rustic-format-on-save 1)
+
+;;   :hook
+;;   (rustic . setup-rustic-mode))
+
+;; (defun setup-rustic-mode ()
+;;   (exec-path-from-shell-initialize-once))
+
+;; Vala
+;; (use-package vala-mode
+;;   :mode ("\\.vala'")
+;;   :mode ("\\.vapi'"))
 
 ;; PHP
 (use-package php-mode
