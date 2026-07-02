@@ -28,12 +28,15 @@ lists the location, the issue, and the recommendation.
   `fringe-helper` packages remain installed under `elpa/` but are unreferenced; safe to
   `package-delete` whenever convenient.
 
-### 1.2 Obsolete native-comp variables
+### 1.2 Obsolete native-comp variables ⚠️ — **done**
 - `initializer-system.el:32-34`: `comp-deferred-compilation` and
   `comp-deferred-compilation-black-list` were renamed and are **obsolete since Emacs 28**.
-- **Recommendation:** use `native-comp-jit-compilation` (t by default) and
-  `native-comp-jit-compilation-deny-list`. The `(when (fboundp 'native-compile-async) ...)`
-  guard is also unneeded on this build.
+- **Resolution:** dropped the whole block. `native-comp-jit-compilation` already defaults
+  to `t`, so setting it was redundant; the `(when (fboundp 'native-compile-async) ...)`
+  guard is unneeded on this build. The `mu4e*.el` deny-list entry was dropped rather than
+  ported: this config has no mu4e setup (added in commit `262d522`, likely copied from
+  another config as a workaround for early native-comp/mu4e crashes), so it was dead
+  weight.
 
 ### 1.3 Deprecated `cl` library + `remove-if`
 - `initializer-windowing.el:133-134` (`kill-all-buffers`): `(require 'cl)` and `remove-if`
@@ -171,8 +174,8 @@ These are all legitimate current tools too — migrate only to lean on built-ins
 
 ## Suggested priority order
 
-1. **Do now (Tier 1):** ~~duplicate git-gutter~~ (done, 1.1), obsolete comp vars, `cl`/`remove-if`,
-   `defadvice`/`goto-line`, `use-short-answers`.
+1. **Do now (Tier 1):** ~~duplicate git-gutter~~ (done, 1.1), ~~obsolete comp vars~~ (done, 1.2),
+   `cl`/`remove-if`, `defadvice`/`goto-line`, `use-short-answers`.
 2. **Easy wins (Tier 2):** drop use-package bootstrap; built-in `treesit`; `vundo`+`undo-fu`;
    add `consult`+`embark`; `apheleia`.
 3. **When there's appetite (Tier 3):** project.el, `*-ts-mode` — per language, testing each.

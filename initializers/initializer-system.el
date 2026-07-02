@@ -28,11 +28,6 @@
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
 
-;; Whenever Emacs loads some elisp that is not compiled yet, compile it and load it
-(when (fboundp 'native-compile-async)
-  (setq comp-deferred-compilation t
-        comp-deferred-compilation-black-list '("/mu4e.*\\.el$")))
-
 ;; Disable annoying warnings in native comp Emacs
 (setq native-comp-async-report-warnings-errors nil)
 
