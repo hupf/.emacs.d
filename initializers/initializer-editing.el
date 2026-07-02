@@ -66,16 +66,17 @@
         ("C-/" . nil))) ;; Remove mapping
 
 ;; Keep region when undoing in region
-(defadvice undo-tree-undo (around keep-region activate)
+(defun undo-tree-undo--keep-region (orig-fn &rest args)
   (if (use-region-p)
       (let ((m (set-marker (make-marker) (mark)))
             (p (set-marker (make-marker) (point))))
-        ad-do-it
+        (apply orig-fn args)
         (goto-char p)
         (set-mark m)
         (set-marker p nil)
         (set-marker m nil))
-    ad-do-it))
+    (apply orig-fn args)))
+(advice-add 'undo-tree-undo :around #'undo-tree-undo--keep-region)
 
 ;; Choose and yank one of the last killed texts
 (use-package browse-kill-ring
@@ -294,17 +295,6 @@
   "Convert DOS CRs to Unix LFs."
   (interactive)
   (set-buffer-file-coding-system 'unix 't))
-
-
-;; rgrep
-(defun delete-grep-header ()
-  (save-excursion
-    (with-current-buffer grep-last-buffer
-      (goto-line 5)
-      (narrow-to-region (point) (point-max)))))
-
-(defadvice grep (after delete-grep-header activate) (delete-grep-header))
-(defadvice rgrep (after delete-grep-header activate) (delete-grep-header))
 
 
 ;; ripgrep search (install `cargo install ripgrep`)

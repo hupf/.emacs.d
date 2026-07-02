@@ -47,11 +47,16 @@ lists the location, the issue, and the recommendation.
   actually matched buffer names like `*scratch*` as intended. Now `"^\\*.*\\*$"` produces
   the correct regex.
 
-### 1.4 Legacy advice & `goto-line` in Lisp
-- `initializer-editing.el:69` (`undo-tree-undo` keep-region), `386-387` (`grep`/`rgrep`
-  header): use the legacy **`defadvice`**; modern equivalent is `advice-add`.
-- `initializer-editing.el:383`: `goto-line` inside Lisp — byte-compiler warns; use
+### 1.4 Legacy advice & `goto-line` in Lisp — **done**
+- `initializer-editing.el:69` (`undo-tree-undo` keep-region), `306-307` (`grep`/`rgrep`
+  header): used the legacy **`defadvice`**; modern equivalent is `advice-add`.
+- `initializer-editing.el:303`: `goto-line` inside Lisp — byte-compiler warns; use
   `(forward-line 4)` after `(goto-char (point-min))`.
+- **Resolution:** the `undo-tree-undo` keep-region advice is now a named function
+  `undo-tree-undo--keep-region` installed via `(advice-add 'undo-tree-undo :around ...)`.
+  The `grep`/`rgrep` header-trim advice (`delete-grep-header` + its two `advice-add` calls)
+  was removed outright instead of modernized — `rg` (bound to `C-S-f`) is the ripgrep
+  entry point in actual use, and plain `grep`/`rgrep` are no longer used.
 
 ### 1.5 `yes-or-no-p` alias
 - `initializer-editing.el:336`: `(fset 'yes-or-no-p 'y-or-n-p)` → replace with the built-in
