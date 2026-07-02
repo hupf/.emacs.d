@@ -73,6 +73,7 @@
 ;; TODO: does not work yet, configure lsp-clients-angular-language-server-command? -> with correct node directory?
 
 (use-package lsp-tailwindcss
+  :ensure nil
   :custom
   (lsp-tailwindcss-add-on-mode t))
 
