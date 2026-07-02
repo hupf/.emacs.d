@@ -45,6 +45,7 @@
 
 ;; highlight current line
 (global-hl-line-mode t)
+(make-variable-buffer-local 'global-hl-line-mode) ;; Allow to locally disable using (setq global-hl-line-mode nil)
 
 ;; visual feedback to some operations by highlighting portions
 ;; relating to the operations.
