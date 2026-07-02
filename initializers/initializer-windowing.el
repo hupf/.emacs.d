@@ -130,8 +130,9 @@
 (defun kill-all-buffers ()
   "Kill all buffers except internal ones with * (e.g. *scratch*)."
   (interactive)
-  (require 'cl)
-  (mapc 'kill-buffer (remove-if (lambda (name) (string-match "^\*.*\*$" (string-trim name))) (mapcar (function buffer-name) (buffer-list)))))
+  (mapc #'kill-buffer
+        (seq-remove (lambda (name) (string-match "^\\*.*\\*$" (string-trim name)))
+                    (mapcar #'buffer-name (buffer-list)))))
 (global-set-key (kbd "C-x a k") 'kill-all-buffers)
 
 (provide 'initializer-windowing)

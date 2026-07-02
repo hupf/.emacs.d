@@ -38,10 +38,14 @@ lists the location, the issue, and the recommendation.
   another config as a workaround for early native-comp/mu4e crashes), so it was dead
   weight.
 
-### 1.3 Deprecated `cl` library + `remove-if`
+### 1.3 Deprecated `cl` library + `remove-if` ⚠️ — **done**
 - `initializer-windowing.el:133-134` (`kill-all-buffers`): `(require 'cl)` and `remove-if`
-  are deprecated and emit warnings.
-- **Recommendation:** use `seq-remove` (no require needed) or `cl-lib` + `cl-remove-if`.
+  were deprecated and emitted warnings.
+- **Resolution:** switched to `seq-remove` (built-in, no `require` needed). Also fixed a
+  latent escaping bug found along the way: the regex literal `"^\*.*\*$"` collapsed to
+  `"^*.**$"` at read time (`\*` is not a recognized Elisp string escape), so it never
+  actually matched buffer names like `*scratch*` as intended. Now `"^\\*.*\\*$"` produces
+  the correct regex.
 
 ### 1.4 Legacy advice & `goto-line` in Lisp
 - `initializer-editing.el:69` (`undo-tree-undo` keep-region), `386-387` (`grep`/`rgrep`
@@ -175,7 +179,7 @@ These are all legitimate current tools too — migrate only to lean on built-ins
 ## Suggested priority order
 
 1. **Do now (Tier 1):** ~~duplicate git-gutter~~ (done, 1.1), ~~obsolete comp vars~~ (done, 1.2),
-   `cl`/`remove-if`, `defadvice`/`goto-line`, `use-short-answers`.
+   ~~`cl`/`remove-if`~~ (done, 1.3), `defadvice`/`goto-line`, `use-short-answers`.
 2. **Easy wins (Tier 2):** drop use-package bootstrap; built-in `treesit`; `vundo`+`undo-fu`;
    add `consult`+`embark`; `apheleia`.
 3. **When there's appetite (Tier 3):** project.el, `*-ts-mode` — per language, testing each.
