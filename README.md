@@ -1,3 +1,3 @@
 # .emacs.d
 
-My Emacs configuration, heavily inspired by Frontmacs
+My carefully curated Emacs configuration
