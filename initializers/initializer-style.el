@@ -13,9 +13,6 @@
 
 ;; Theme
 (use-package monokai-theme
-  :init
-  (setq custom--inhibit-theme-enable nil) ;; Required for Emacs 27 to be able to customize theme faces below
-
   :config
   (load-theme 'monokai t)
 

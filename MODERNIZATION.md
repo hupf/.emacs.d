@@ -62,9 +62,11 @@ lists the location, the issue, and the recommendation.
 - `initializer-editing.el:257`: `(fset 'yes-or-no-p 'y-or-n-p)` → replaced with the built-in
   `(setq use-short-answers t)` (Emacs 28+).
 
-### 1.6 Stale Emacs-27 workaround / comments
+### 1.6 Stale Emacs-27 workaround ⚠️ — **done**
 - `initializer-style.el:16-17`: `custom--inhibit-theme-enable` "Required for Emacs 27" — no
   longer needed on 30.
+- **Resolution:** dropped the `(setq custom--inhibit-theme-enable nil)` line from the
+  `monokai-theme` `:init` block; `load-theme` + `custom-theme-set-faces` work fine without it.
 - `init.el:24-26` + `95-106`: the `(package-initialize)` line is commented out with a note
   that `auto-package-update` will call it — fragile ordering; worth revisiting (see 4.1).
 
