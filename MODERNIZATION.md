@@ -17,14 +17,16 @@ lists the location, the issue, and the recommendation.
 
 ## Tier 1 — Bugs & obsolete symbols (fix regardless of taste)
 
-### 1.1 Two git-gutter packages enabled at once ⚠️
-- `initializer-editing.el:120-195` enables **`git-gutter`** (`global-git-gutter-mode`, plus
+### 1.1 Two git-gutter packages enabled at once ⚠️ — **done**
+- `initializer-editing.el:120-195` enabled **`git-gutter`** (`global-git-gutter-mode`, plus
   `git-gutter-fringe` bitmaps).
 - `initializer-vcs.el:26-37` enables **`diff-hl`** (`global-diff-hl-mode` + `diff-hl-flydiff-mode`).
-- Both draw diff indicators in the fringe — two overlapping systems are running.
-- **Recommendation:** keep **`diff-hl`** (better Magit integration, already wired to
-  `magit-post-refresh-hook`), drop the whole `git-gutter`/`git-gutter-fringe` block. This
-  also removes the large manual `fringe-helper-define` bitmaps.
+- Both drew diff indicators in the fringe — two overlapping systems were running.
+- **Resolution:** kept **`diff-hl`** (better Magit integration, already wired to
+  `magit-post-refresh-hook`), dropped the whole `git-gutter`/`git-gutter-fringe` block,
+  including the manual `fringe-helper-define` bitmaps. The `git-gutter`/`git-gutter-fringe`/
+  `fringe-helper` packages remain installed under `elpa/` but are unreferenced; safe to
+  `package-delete` whenever convenient.
 
 ### 1.2 Obsolete native-comp variables
 - `initializer-system.el:32-34`: `comp-deferred-compilation` and
@@ -169,7 +171,7 @@ These are all legitimate current tools too — migrate only to lean on built-ins
 
 ## Suggested priority order
 
-1. **Do now (Tier 1):** duplicate git-gutter, obsolete comp vars, `cl`/`remove-if`,
+1. **Do now (Tier 1):** ~~duplicate git-gutter~~ (done, 1.1), obsolete comp vars, `cl`/`remove-if`,
    `defadvice`/`goto-line`, `use-short-answers`.
 2. **Easy wins (Tier 2):** drop use-package bootstrap; built-in `treesit`; `vundo`+`undo-fu`;
    add `consult`+`embark`; `apheleia`.
