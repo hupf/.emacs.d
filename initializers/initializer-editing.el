@@ -254,7 +254,7 @@
 
 ;; enable y/n answers so you don't have to type 'yes' on 'no'
 ;; for everything
-(fset 'yes-or-no-p 'y-or-n-p)
+(setq use-short-answers t)
 
 ;; ;; This makes indenting region and untabifying region work on the entire
 ;; ;; buffer if no region is selected

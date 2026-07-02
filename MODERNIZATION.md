@@ -58,8 +58,8 @@ lists the location, the issue, and the recommendation.
   was removed outright instead of modernized — `rg` (bound to `C-S-f`) is the ripgrep
   entry point in actual use, and plain `grep`/`rgrep` are no longer used.
 
-### 1.5 `yes-or-no-p` alias
-- `initializer-editing.el:336`: `(fset 'yes-or-no-p 'y-or-n-p)` → replace with the built-in
+### 1.5 `yes-or-no-p` alias — **done**
+- `initializer-editing.el:257`: `(fset 'yes-or-no-p 'y-or-n-p)` → replaced with the built-in
   `(setq use-short-answers t)` (Emacs 28+).
 
 ### 1.6 Stale Emacs-27 workaround / comments
