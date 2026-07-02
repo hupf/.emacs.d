@@ -17,6 +17,7 @@
   (lsp-keymap-prefix "C-c l")
   (lsp-headerline-breadcrumb-enable nil)
   (lsp-completion-provider :none) ;; Disable company to use corfu
+  (lsp-clients-typescript-prefer-use-project-ts-server t)
 
   :config
   (lsp-enable-which-key-integration t)
