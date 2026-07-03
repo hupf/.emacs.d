@@ -58,6 +58,9 @@
 
 ;; OSX specifics
 (when (eq system-type 'darwin)
+  ;; Homebrew installs binaries here; not inherited when Emacs is launched as a GUI app
+  (add-to-list 'exec-path "/opt/homebrew/bin")
+
   ;; Fix keys
   (setq mac-control-modifier 'control)
   (setq mac-option-modifier 'none)
