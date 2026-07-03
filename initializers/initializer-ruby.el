@@ -10,15 +10,12 @@
 (use-package rvm
   :commands (rvm-use rvm-use-default rvm-activate-corresponding-ruby))
 
-;; Enhanced Ruby Mode (uses Ruby's Ripper class instead of regular
-;; expressions to parse source files)
-(use-package enh-ruby-mode
+;; Ruby (built-in tree-sitter mode)
+(use-package ruby-ts-mode
+  :ensure nil
   :init
   ;; We never want to edit Rubinius bytecode
   (add-to-list 'completion-ignored-extensions ".rbc")
-
-  ;; Don't add utf-8 comment
-  (setq enh-ruby-add-encoding-comment-on-save nil)
 
   :mode ("\\.rb\\'"
          "\\.rake\\'"
@@ -40,9 +37,9 @@
          "Berksfile\\'"
          "Appraisals\\'")
 
-  :hook ((enh-ruby-mode . setup-enh-ruby)))
+  :hook ((ruby-ts-mode . setup-ruby-ts)))
 
-(defun setup-enh-ruby ()
+(defun setup-ruby-ts ()
   ;; Active correct Ruby version for current buffer
   (rvm-activate-corresponding-ruby)
 

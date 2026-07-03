@@ -135,32 +135,25 @@
   (font-lock-add-keywords nil
     '(("\t" 0 'trailing-whitespace prepend)))))
 
-;; Use faster, C-implemented tree-sitter instead of regex-based
-;; font-lock-mode for syntax highlighting
-(use-package tree-sitter
-  ;; :init
-  ;; (add-to-list 'tree-sitter-major-mode-language-alist '(emacs-lisp-mode . elisp))
+;; Tree-sitter grammars for the `*-ts-mode' major modes configured
+;; throughout this config. Run `M-x my/treesit-install-all-grammars'
+;; once (and again after Emacs upgrades) to (re)compile them.
+(setq treesit-language-source-alist
+      '((typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src"))
+        (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src"))
+        (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript"))
+        (json . ("https://github.com/tree-sitter/tree-sitter-json"))
+        (yaml . ("https://github.com/tree-sitter-grammars/tree-sitter-yaml"))
+        (css . ("https://github.com/tree-sitter/tree-sitter-css"))
+        (ruby . ("https://github.com/tree-sitter/tree-sitter-ruby"))
+        (php . ("https://github.com/tree-sitter/tree-sitter-php" "v0.23.11" "php/src"))
+        (phpdoc . ("https://github.com/claytonrcarter/tree-sitter-phpdoc"))))
 
-  :config
-  (use-package tree-sitter-langs)
-  (global-tree-sitter-mode)
-
-  :hook
-  (typescript-mode . tree-sitter-hl-mode)
-  ;; TODO: enable generically
-  ;; (prog-mode . setup-tree-sitter-highlighting)
-
-  :diminish
-  tree-sitter-hl-mode)
-
-;; TODO: how to avoid the void variable error?
-;; (defun setup-tree-sitter-highlighting ()
-;;   "Enable syntax highlighting with tree-sitter if current major-mode is supported."
-;;   (message "setup-tree-sitter-highlighting %s" (member major-mode (mapcar #'car (or tree-sitter-major-mode-language-alist '()))))
-;;   (when (member major-mode (mapcar #'car (or tree-sitter-major-mode-language-alist '()))) (tree-sitter-hl-mode) (message "tree-sitter highlighting enabled")))
-
-;; (use-package tree-sitter-langs
-;;   :after tree-sitter)
+(defun my/treesit-install-all-grammars ()
+  "Install every grammar listed in `treesit-language-source-alist'."
+  (interactive)
+  (dolist (lang (mapcar #'car treesit-language-source-alist))
+    (treesit-install-language-grammar lang)))
 
 ;; Emacs creates lockfiles to recognize when someone else is already
 ;; editing the same file as you. Many JavaScript development servers
@@ -238,7 +231,7 @@
 (use-package prettier-js
   :diminish prettier-js-mode
 
-  :hook (((js-mode typescript-mode json-mode web-mode css-mode scss-mode markdown-mode yaml-mode) . init-prettier)))
+  :hook (((js-ts-mode typescript-ts-mode tsx-ts-mode json-ts-mode web-mode css-ts-mode scss-mode markdown-mode yaml-ts-mode) . init-prettier)))
 
 (defun init-prettier ()
   "Initialize Prettier mode, making sure the project-local version is used."

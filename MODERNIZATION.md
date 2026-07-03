@@ -79,15 +79,25 @@ lists the location, the issue, and the recommendation.
   into Emacs 29+**; only `(require 'use-package)` (or nothing) is needed. `diminish` still
   needs installing if `:diminish` is used.
 
-### 2.2 Third-party tree-sitter → built-in `treesit`
-- `initializer-editing.el:219-233`: uses the **`tree-sitter` / `tree-sitter-langs`**
-  packages (the old `emacs-tree-sitter` project), and only enables highlighting for
+### 2.2 Third-party tree-sitter → built-in `treesit` ⚠️ — **done**
+- `initializer-editing.el:138-154` used the **`tree-sitter` / `tree-sitter-langs`**
+  packages (the old `emacs-tree-sitter` project), and only enabled highlighting for
   `typescript-mode`.
 - Emacs 29+ ships **built-in `treesit`** with `*-ts-mode` major modes; the third-party
-  package is effectively superseded and unmaintained.
-- **Recommendation:** drop `tree-sitter`/`tree-sitter-langs`; use `treesit-install-language-grammar`
-  and the built-in `treesit`. Ties into 3.x language-mode changes below. (The existing
-  `tree-sitter/` grammar dir is likely from the old package.)
+  package was effectively superseded and unmaintained.
+- **Resolution:** dropped the `tree-sitter`/`tree-sitter-langs` block entirely. Added
+  a `treesit-language-source-alist` + `my/treesit-install-all-grammars` helper in
+  `initializer-editing.el` covering typescript, tsx, javascript, json, yaml, css, ruby,
+  php, and phpdoc — grammars are now compiled into `~/.emacs.d/tree-sitter/` via
+  `treesit-install-language-grammar` instead of downloaded as a prebuilt bundle. Ties
+  directly into the 3.4 per-language mode swaps below, since built-in treesit
+  highlighting only activates through the `*-ts-mode` major modes, not as a minor mode
+  layered on the old ones.
+- Note: the upstream `tree-sitter/tree-sitter-yaml` repo (used in early tree-sitter-langs
+  bundles) has been removed/renamed on GitHub; the working recipe is
+  `tree-sitter-grammars/tree-sitter-yaml`. `php-ts-mode` additionally requires a
+  companion `phpdoc` grammar (`claytonrcarter/tree-sitter-phpdoc`) alongside `php`,
+  pinned to the same tag (`v0.23.11`) php-ts-mode.el itself uses internally.
 
 ### 2.3 `undo-tree` → `vundo` + `undo-fu`
 - `initializer-editing.el:57-78`: `undo-tree` is heavy, persists undo-history files, and has
@@ -139,13 +149,33 @@ These are all legitimate current tools too — migrate only to lean on built-ins
   Projectile still has richer commands. With consult (2.4), `consult-project-buffer` etc.
   cover most daily use. Medium effort — independent of the lsp-mode decision.
 
-### 3.4 Per-language: dedicated modes → built-in `*-ts-mode` (with 2.2)
+### 3.4 Per-language: dedicated modes → built-in `*-ts-mode` (with 2.2) ⚠️ — **done (mostly)**
 - `initializer-javascript.el`: `typescript-mode` → **`typescript-ts-mode`/`tsx-ts-mode`**;
   `js-mode` → `js-ts-mode`. `typescript-mode` is essentially frozen upstream.
 - `initializer-ruby.el:15`: `enh-ruby-mode` → built-in **`ruby-ts-mode`** (Emacs 30).
-- `initializer-web.el`, `initializer-languages.el`: `json-mode` → built-in `json-ts-mode`;
-  `yaml-mode` → `yaml-ts-mode`; CSS → `css-ts-mode`. `web-mode` has no built-in equivalent
-  for templating and should stay.
+  `enh-ruby-add-encoding-comment-on-save` was dropped (enh-ruby-mode-specific, no
+  equivalent needed); `ruby-indent-level` (already 2) is shared with `ruby-ts-mode`.
+- `initializer-languages.el`: `json-mode` → built-in `json-ts-mode`; `yaml-mode` →
+  `yaml-ts-mode`; `php-mode` → `php-ts-mode` (not in the original findings — turned out
+  to also be built in on this Emacs 30.2 build).
+- `initializer-web.el`: `css-mode` → `css-ts-mode`. `scss-mode` **stays as-is** — there is
+  no `scss-ts-mode`; `css-ts-mode` only parses plain CSS syntax, not SCSS's
+  `@mixin`/`&`/nesting.
+- All of the above share their indentation variable with the old mode
+  (`js-indent-level`, `css-indent-offset`, `ruby-indent-level` — verified none of the new
+  `*-ts-mode`s introduce a separate `-indent-offset` variable), so existing indent
+  settings kept working unchanged.
+- **3.4.1 `web-mode` → `html-ts-mode` — _to discuss, not migrated_**: `web-mode` handles
+  `.phtml`/`.erb`/`.hbs`/`.astro`/JSP/ASP templating (`initializer-web.el:36-59`) where a
+  single buffer mixes HTML with embedded PHP/Ruby/JS. Built-in `html-ts-mode` exists on
+  this Emacs 30.2 build, but it's unclear whether it handles multi-language embedded
+  templating the way `web-mode` does, or would need per-template-language experimentation
+  (treesit's parser-embedding support, similar to how `php-ts-mode` embeds `phpdoc`).
+  Left as a decision for later — no code changed here.
+- `coffee-mode` was **removed entirely** (no longer used) rather than migrated — there is
+  no CoffeeScript tree-sitter grammar/mode in Emacs core anyway. The `coffee-mode`
+  package remains installed under `elpa/` but is unreferenced now, same as the
+  `git-gutter` cleanup in 1.1; safe to `package-delete` whenever convenient.
 
 ---
 
@@ -173,8 +203,9 @@ These are all legitimate current tools too — migrate only to lean on built-ins
 - **4.7 Theme/modeline (pure taste)**: `monokai-theme` + hand-rolled modeline faces
   (`initializer-modeline.el`) are fine. Modern options if ever wanted: built-in
   **`modus-themes`** / `ef-themes` (no install needed) and `doom-modeline`.
-- **4.8 `coffee-mode`, `php-mode`, `adoc-mode`, `haml-mode`**: legacy-language modes — keep
-  only what is actually edited.
+- **4.8 `adoc-mode`, `haml-mode`**: legacy-language modes with no built-in tree-sitter
+  equivalent — keep only what is actually edited. (`coffee-mode` was removed per 3.4;
+  `php-mode` was migrated to `php-ts-mode` per 3.4.)
 - **4.9 ripgrep executable resolution** (`initializer-editing.el:391-397`) — _to discuss_:
   the hardcoded `rg-executable` (`~/.cargo/bin/rg`) was removed (commit 3c10f9c), so `rg` now
   relies on being found on `PATH`. Open question for later: is `rg` reliably on `PATH` in the
@@ -187,10 +218,11 @@ These are all legitimate current tools too — migrate only to lean on built-ins
 
 1. **Do now (Tier 1):** ~~duplicate git-gutter~~ (done, 1.1), ~~obsolete comp vars~~ (done, 1.2),
    ~~`cl`/`remove-if`~~ (done, 1.3), `defadvice`/`goto-line`, `use-short-answers`.
-2. **Easy wins (Tier 2):** drop use-package bootstrap; built-in `treesit`; `vundo`+`undo-fu`;
-   add `consult`+`embark`; `apheleia`.
-3. **When there's appetite (Tier 3):** project.el, `*-ts-mode` — per language, testing each.
-   (lsp-mode + flycheck are kept — see 3.1/3.2.)
+2. **Easy wins (Tier 2):** drop use-package bootstrap; ~~built-in `treesit`~~ (done, 2.2);
+   `vundo`+`undo-fu`; add `consult`+`embark`; `apheleia`.
+3. **When there's appetite (Tier 3):** project.el; ~~`*-ts-mode` — per language~~ (done, 3.4,
+   except `web-mode`/`html-ts-mode` — deferred, see 3.4.1). (lsp-mode + flycheck are
+   kept — see 3.1/3.2.)
 4. **Cleanup (Tier 4):** consolidate to one package manager; prune dead code and unused modes.
 
 ## Verification (if/when any of these are applied)
@@ -201,3 +233,7 @@ These are all legitimate current tools too — migrate only to lean on built-ins
 - Per language changed in Tier 3: open a real project file, confirm LSP connects
   (`M-x lsp`), diagnostics appear, format-on-save works, and Treemacs/project navigation
   still resolves the project root.
+- After 2.2/3.4: run `M-x my/treesit-install-all-grammars` once per machine (needs `git`
+  + a C compiler on `PATH`) before opening `.ts`/`.tsx`/.`js`/`.json`/`.yml`/`.css`/`.rb`/
+  `.php` files — without a compiled grammar, the corresponding `*-ts-mode` throws a hard
+  error instead of falling back gracefully.

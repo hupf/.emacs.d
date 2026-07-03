@@ -17,7 +17,8 @@
   :mode (("\\.adoc\\'" . adoc-mode)))
 
 ;; YAML
-(use-package yaml-mode
+(use-package yaml-ts-mode
+  :ensure nil
   :mode "\\.yml\\'")
 
 ;; Haskell
@@ -78,7 +79,8 @@
 ;;   :mode ("\\.vapi'"))
 
 ;; PHP
-(use-package php-mode
+(use-package php-ts-mode
+  :ensure nil
   :mode "\\.php\\'")
 
 ;; Elm

@@ -7,10 +7,11 @@
 ;;; Code:
 
 ;; Cascading Stylesheets
-(use-package css-mode
+(use-package css-ts-mode
+  :ensure nil
   :init (setq css-indent-offset 2)
   :mode "\\.css\\'"
-  :hook (css-mode . setup-node-lsp))
+  :hook (css-ts-mode . setup-node-lsp))
 
 ;; SASS
 (use-package scss-mode
@@ -26,11 +27,12 @@
 (use-package rainbow-mode
   :diminish rainbow-mode
 
-  :hook (css-mode scss-mode web-mode js-mode typescript-mode)
+  :hook (css-ts-mode scss-mode web-mode js-ts-mode typescript-ts-mode tsx-ts-mode)
 
   :config
   (add-to-list 'rainbow-html-colors-major-mode-list 'scss-mode)
-  (add-to-list 'rainbow-html-colors-major-mode-list 'typescript-mode))
+  (add-to-list 'rainbow-html-colors-major-mode-list 'typescript-ts-mode)
+  (add-to-list 'rainbow-html-colors-major-mode-list 'tsx-ts-mode))
 
 ;; HTML
 (use-package web-mode
