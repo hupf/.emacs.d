@@ -39,10 +39,6 @@ items have been removed from this doc; see git history for what changed and why.
   (prettier, rubocop, gofmt, …). Would also unify with Ruby (`rubocop-autocorrect-on-save`)
   and could replace `elm-format-on-save-mode`.
 
-### 2.6 `default-text-scale`
-- `initializer-windowing.el:95`: still fine, but Emacs 29+ has `global-text-scale-adjust`
-  (`C-x C-M-+` / `-`). Optional built-in replacement.
-
 ---
 
 ## Tier 3 — Big migrations (state-of-the-art, but change muscle memory / need re-testing)
@@ -109,7 +105,7 @@ These are all legitimate current tools too — migrate only to lean on built-ins
 
 ## Suggested priority order
 
-1. **Easy wins (Tier 2):** `vundo`+`undo-fu`; add `consult`+`embark`; `apheleia`.
+1. **Easy wins (Tier 2 remaining):** `vundo`+`undo-fu`; add `consult`+`embark`; `apheleia`.
 2. **When there's appetite (Tier 3):** project.el; `web-mode`→`html-ts-mode` (3.4.1,
    deferred). (lsp-mode + flycheck are kept — see 3.1/3.2.)
 3. **Cleanup (Tier 4):** prune dead code and unused modes.

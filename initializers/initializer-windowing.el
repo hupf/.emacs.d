@@ -91,18 +91,30 @@
 (setq uniquify-buffer-name-style 'forward)
 (setq uniquify-ignore-buffers-re "^\\*") ;; Don't muck with special buffers
 
-;; Allow to globally change the font-size
-(use-package default-text-scale
-  :config
-  (setq default-text-scale-amount 8)
+;; Allow to globally change the font-size with the usual keys
+;; global-text-scale-adjust infers direction from the literal key that
+;; invoked it (see its `pcase' on `last-command-event' in face-remap.el),
+;; not from INCREMENT's sign, so forge the expected key for each binding.
+(defun my/global-text-scale-increase ()
+  (interactive)
+  (let ((last-command-event ?+))
+    (global-text-scale-adjust 1)))
+(defun my/global-text-scale-decrease ()
+  (interactive)
+  (let ((last-command-event ?-))
+    (global-text-scale-adjust 1)))
+(defun my/global-text-scale-reset ()
+  (interactive)
+  (let ((last-command-event ?0))
+    (global-text-scale-adjust 1)))
 
-  :bind (("C-+" . default-text-scale-increase)
-         ("<C-mouse-4>" . default-text-scale-increase) ;; Linux
-         ("<C-wheel-up>" . default-text-scale-increase) ;; Mac/Windows
-         ("C--" . default-text-scale-decrease)
-         ("<C-mouse-5>" . default-text-scale-decrease) ;; Linux
-         ("<C-wheel-down>" . default-text-scale-decrease) ;; Mac/Windows
-         ("C-0" . default-text-scale-reset)))
+(bind-keys ("C-+" . my/global-text-scale-increase)
+           ("<C-mouse-4>" . my/global-text-scale-increase) ;; Linux
+           ("<C-wheel-up>" . my/global-text-scale-increase) ;; Mac/Windows
+           ("C--" . my/global-text-scale-decrease)
+           ("<C-mouse-5>" . my/global-text-scale-decrease) ;; Linux
+           ("<C-wheel-down>" . my/global-text-scale-decrease) ;; Mac/Windows
+           ("C-0" . my/global-text-scale-reset))
 
 ;; Tabs
 ;; (use-package centaur-tabs
