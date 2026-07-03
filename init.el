@@ -86,6 +86,12 @@
 ;; Avoid backup files everywhere
 (no-littering-theme-backups)
 
+;; Redirect transient's (used by Magit etc.) state files into the var
+;; directory too, since no-littering doesn't cover it out of the box
+(setq transient-levels-file (no-littering-expand-var-file-name "transient/levels.el")
+      transient-values-file (no-littering-expand-var-file-name "transient/values.el")
+      transient-history-file (no-littering-expand-var-file-name "transient/history.el"))
+
 ;; By default Emacs poops all customizations set through the
 ;; customization UI into your `init.el'. Let's not do that.
 (setq custom-file (no-littering-expand-etc-file-name "custom.el"))
