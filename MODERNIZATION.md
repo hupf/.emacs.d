@@ -191,11 +191,28 @@ These are all legitimate current tools too — migrate only to lean on built-ins
   `hupf/auto-package-update.el` `preview-updates` branch via straight — a maintenance
   burden. Emacs 30 has no direct built-in equivalent, but consider upstream
   `auto-package-update` or manual `package-upgrade-all` (Emacs 29+).
-- **4.2 Consolidate package managers**: straight.el is used for only 3 active packages
-  (`ligature`, `flycheck-standardrb`, `auto-package-update` fork) — see
-  `initializer-style.el:49`, `initializer-ruby.el:75`, `init.el:97`. Everything else is
-  `package.el`. Emacs 30's **`package-vc-install` / `:vc` in use-package** can fetch
-  Git-only packages, letting straight.el be dropped entirely.
+### 4.2 Consolidate package managers — **done**
+- straight.el was used for only 3 active packages (`ligature`, `flycheck-standardrb`,
+  `auto-package-update` fork) — see former `initializer-style.el:46`,
+  `initializer-ruby.el:72`, `init.el:97`. Everything else was already `package.el`.
+- **Resolution:** dropped the straight.el bootstrap block from `init.el` entirely
+  (`/straight` also removed from `.gitignore`). `ligature` turned out to already be on
+  MELPA (confirmed via `melpa.org/packages/archive-contents`), so it needed no special
+  handling — dropping `:straight` was enough for `use-package`'s existing
+  `use-package-always-ensure` to fetch it normally. The `hupf/auto-package-update.el`
+  fork is still Git-only, so it now uses Emacs 30's built-in **`:vc` use-package
+  keyword** (`:vc (:url "..." :branch "...")`), backed by `package-vc-install`.
+  `flycheck-standardrb` stayed as a manual, conditional install inside
+  `setup-ruby-ts` rather than a top-level `use-package :vc` — the `:vc` keyword's
+  install call runs whenever its `use-package` form is evaluated (i.e. unconditionally
+  at startup, since `:defer`/`:commands` only gate *loading*, not the `:vc` install
+  step), which would have regressed the original "only install when a project
+  actually has `.standard.yml`" behavior. It now calls `(package-vc-install '(...))`
+  directly, guarded by `(unless (package-installed-p 'flycheck-standardrb) ...)` —
+  the same install-on-first-need behavior as before, just via `package-vc.el` instead
+  of straight.el. `package-vc-install` also re-prompts to overwrite an existing
+  checkout if called again without that guard, so the check is load-bearing, not
+  just an optimization.
 - **4.3 `rvm`** (`initializer-ruby.el:10`): fine if RVM is in use; most have moved to
   chruby/rbenv/mise. mise is already used for Node (`initializer-javascript.el:10`) — mise
   can manage Ruby too, which would unify version management.
@@ -229,7 +246,8 @@ These are all legitimate current tools too — migrate only to lean on built-ins
 3. **When there's appetite (Tier 3):** project.el; ~~`*-ts-mode` — per language~~ (done, 3.4,
    except `web-mode`/`html-ts-mode` — deferred, see 3.4.1). (lsp-mode + flycheck are
    kept — see 3.1/3.2.)
-4. **Cleanup (Tier 4):** consolidate to one package manager; prune dead code and unused modes.
+4. **Cleanup (Tier 4):** ~~consolidate to one package manager~~ (done, 4.2); prune dead
+   code and unused modes.
 
 ## Verification (if/when any of these are applied)
 

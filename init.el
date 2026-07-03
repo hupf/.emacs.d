@@ -52,20 +52,6 @@
 (setq use-package-always-ensure t)
 ;; (setq use-package-verbose t) ;; Debug package loading
 
-;; Bootstrap the `straight` package manager
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
 ;; Keep ~/.emacs.d clean, by putting config files into ~/.emacs.d/etc
 ;; and temporary files (including backup and auto-save files) into
 ;; ~/.emacs.d/var
@@ -94,7 +80,7 @@
 
 ;; Automatically check for package updates
 (use-package auto-package-update
-  :straight '(auto-package-update :type git :host github :repo "hupf/auto-package-update.el" :branch "preview-updates")
+  :vc (:url "https://github.com/hupf/auto-package-update.el" :branch "preview-updates")
 
   :custom
   (auto-package-update-interval 7)

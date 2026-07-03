@@ -69,7 +69,8 @@
   ;; Activate the Standard linter/formatter
   (when (buffer-file-has-ancestor ".standard.yml")
     ;; Fetch from GitHub repo (not a MELPA package)
-    (straight-use-package '(flycheck-standardrb :type git :host github :repo "julianrubisch/flycheck-standardrb"))
+    (unless (package-installed-p 'flycheck-standardrb)
+      (package-vc-install '(flycheck-standardrb :url "https://github.com/julianrubisch/flycheck-standardrb")))
 
     ;; Enforce selecting of the ruby-standard checker
     (setq-local flycheck-disabled-checkers '(ruby ruby-rubocop)) ;; Don't fall back to ruby or rubocop checker

@@ -43,7 +43,6 @@
 
 ;; Ligatures
 (use-package ligature
-  :straight '(ligature :type git :host github :repo "mickeynp/ligature.el")
   :config
   ;; Enable the "www" ligature in every possible major mode
   (ligature-set-ligatures 't '("www"))
