@@ -54,19 +54,13 @@
   :diminish volatile-highlights-mode
   :config (volatile-highlights-mode t))
 
-;; Visual undo tree
-(use-package undo-tree
-  :defer 0
-  :diminish undo-tree-mode
-
-  :config (global-undo-tree-mode t)
-
-  :bind
-  (:map undo-tree-map
-        ("C-/" . nil))) ;; Remove mapping
+;; Visual undo tree (on-demand visualization, works on top of built-in
+;; undo)
+(use-package vundo
+  :bind ("C-c u" . vundo))
 
 ;; Keep region when undoing in region
-(defun undo-tree-undo--keep-region (orig-fn &rest args)
+(defun undo--keep-region (orig-fn &rest args)
   (if (use-region-p)
       (let ((m (set-marker (make-marker) (mark)))
             (p (set-marker (make-marker) (point))))
@@ -76,7 +70,7 @@
         (set-marker p nil)
         (set-marker m nil))
     (apply orig-fn args)))
-(advice-add 'undo-tree-undo :around #'undo-tree-undo--keep-region)
+(advice-add 'undo :around #'undo--keep-region)
 
 ;; Choose and yank one of the last killed texts
 (use-package browse-kill-ring

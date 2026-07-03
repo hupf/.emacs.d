@@ -17,24 +17,18 @@ items have been removed from this doc; see git history for what changed and why.
 
 ## Tier 2 — Safe modern swaps (little/no workflow change)
 
-### 2.3 `undo-tree` → `vundo` + `undo-fu`
-- `initializer-editing.el:57-78`: `undo-tree` is heavy, persists undo-history files, and has
-  a history of perf/corruption issues.
-- **Recommendation:** `undo-fu` (linear undo/redo) + `vundo` (on-demand visual tree). Modern,
-  lightweight, no global mode. The keep-region `defadvice` becomes unnecessary.
-
 ### 2.4 Complete the Vertico stack with `consult` + `embark`
 - Already present: `vertico` + `orderless` + `marginalia` + `savehist`
   (`initializer-completion.el`) — an excellent, current stack — but **missing `consult` and
   `embark`**, its natural companions. Adding them lets several older packages retire:
   - `ctrlf` (`initializer-completion.el:152` — already `:disabled`) → `consult-line`.
-  - `browse-kill-ring` (`initializer-editing.el:81`) → `consult-yank-pop`.
-  - the `rg` package (`initializer-editing.el:391`) → `consult-ripgrep`.
+  - `browse-kill-ring` (`initializer-editing.el:76`) → `consult-yank-pop`.
+  - the `rg` package (`initializer-editing.el:288`) → `consult-ripgrep`.
   - `embark` + `embark-consult` add act-on-candidate (the modern replacement for many
     bespoke bindings).
 
 ### 2.5 `prettier-js` → `apheleia`
-- `initializer-editing.el:317-332`: `prettier-js` works but is single-formatter.
+- `initializer-editing.el:225-240`: `prettier-js` works but is single-formatter.
 - **`apheleia`** is the current standard: async format-on-save, cursor-stable, multi-language
   (prettier, rubocop, gofmt, …). Would also unify with Ruby (`rubocop-autocorrect-on-save`)
   and could replace `elm-format-on-save-mode`.
@@ -51,7 +45,7 @@ These are all legitimate current tools too — migrate only to lean on built-ins
   server-path setup as-is. No migration. Consequence: `flycheck` also stays (see 3.2).
 
 ### 3.2 `flycheck` → built-in **`flymake`** — de-prioritized (lsp-mode kept)
-- `initializer-editing.el:95-116` + the eslint chaining in `initializer-javascript.el:141-151`
+- `initializer-editing.el:90-108` + the eslint chaining in `initializer-javascript.el:141-151`
   and rubocop/standard selection in `initializer-ruby.el`. Flymake's main draw was native
   integration with eglot; since `lsp-mode` is being kept (3.1), **keep `flycheck`** — it's the
   better-integrated pairing for `lsp-mode` and preserves the eslint chaining and
@@ -86,7 +80,7 @@ These are all legitimate current tools too — migrate only to lean on built-ins
 - **4.4 `add-node-modules-path` npm-bin workaround** (`initializer-javascript.el:16-18`):
   the `npm v9` shim comment — recent versions of the package handle this; the custom
   `add-node-modules-path-command` override may be removable.
-- **4.5 `volatile-highlights`** (`initializer-editing.el:52`): lightly maintained; low
+- **4.5 `volatile-highlights`** (`initializer-editing.el:52-55`): lightly maintained; low
   priority, still works.
 - **4.6 `exec-path-from-shell-initialize-once`** (`initializer-system.el:54-59`): defined but
   its only callers are commented-out (Haskell/Go/Rust). Effectively dead code now.
@@ -95,7 +89,7 @@ These are all legitimate current tools too — migrate only to lean on built-ins
   **`modus-themes`** / `ef-themes` (no install needed) and `doom-modeline`.
 - **4.8 `adoc-mode`, `haml-mode`**: legacy-language modes with no built-in tree-sitter
   equivalent — keep only what is actually edited.
-- **4.9 ripgrep executable resolution** (`initializer-editing.el:391-397`) — _to discuss_:
+- **4.9 ripgrep executable resolution** (`initializer-editing.el:287-294`) — _to discuss_:
   the hardcoded `rg-executable` (`~/.cargo/bin/rg`) was removed (commit 3c10f9c), so `rg` now
   relies on being found on `PATH`. Open question for later: is `rg` reliably on `PATH` in the
   GUI Emacs environment (via `exec-path-from-shell` / mise), or does it need explicit setup?
@@ -105,7 +99,7 @@ These are all legitimate current tools too — migrate only to lean on built-ins
 
 ## Suggested priority order
 
-1. **Easy wins (Tier 2 remaining):** `vundo`+`undo-fu`; add `consult`+`embark`; `apheleia`.
+1. **Easy wins (Tier 2 remaining):** add `consult`+`embark`; `apheleia`.
 2. **When there's appetite (Tier 3):** project.el; `web-mode`→`html-ts-mode` (3.4.1,
    deferred). (lsp-mode + flycheck are kept — see 3.1/3.2.)
 3. **Cleanup (Tier 4):** prune dead code and unused modes.
