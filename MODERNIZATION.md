@@ -74,10 +74,16 @@ lists the location, the issue, and the recommendation.
 
 ## Tier 2 — Safe modern swaps (little/no workflow change)
 
-### 2.1 `use-package` bootstrap is redundant
-- `init.el:45-59`: manually installs `diminish` + `use-package`. **`use-package` is built
+### 2.1 `use-package` bootstrap is redundant — **done**
+- `init.el:45-59`: manually installed `diminish` + `use-package`. **`use-package` is built
   into Emacs 29+**; only `(require 'use-package)` (or nothing) is needed. `diminish` still
   needs installing if `:diminish` is used.
+- **Resolution:** dropped the `package-installed-p`/`package-refresh-contents`/
+  `package-install` bootstrap block and the `eval-when-compile` wrapper for `use-package`
+  — replaced with a plain `(require 'use-package)`. Verified `(package-installed-p
+  'use-package)` returns `t` and `(locate-library "use-package")` resolves to the
+  bundled `.elc` inside `Emacs.app` on this build, confirming it's preloaded/built-in.
+  The `diminish` bootstrap (lines 45-48) is untouched — it's still a third-party package.
 
 ### 2.2 Third-party tree-sitter → built-in `treesit` ⚠️ — **done**
 - `initializer-editing.el:138-154` used the **`tree-sitter` / `tree-sitter-langs`**
@@ -218,8 +224,8 @@ These are all legitimate current tools too — migrate only to lean on built-ins
 
 1. **Do now (Tier 1):** ~~duplicate git-gutter~~ (done, 1.1), ~~obsolete comp vars~~ (done, 1.2),
    ~~`cl`/`remove-if`~~ (done, 1.3), `defadvice`/`goto-line`, `use-short-answers`.
-2. **Easy wins (Tier 2):** drop use-package bootstrap; ~~built-in `treesit`~~ (done, 2.2);
-   `vundo`+`undo-fu`; add `consult`+`embark`; `apheleia`.
+2. **Easy wins (Tier 2):** ~~drop use-package bootstrap~~ (done, 2.1); ~~built-in `treesit`~~
+   (done, 2.2); `vundo`+`undo-fu`; add `consult`+`embark`; `apheleia`.
 3. **When there's appetite (Tier 3):** project.el; ~~`*-ts-mode` — per language~~ (done, 3.4,
    except `web-mode`/`html-ts-mode` — deferred, see 3.4.1). (lsp-mode + flycheck are
    kept — see 3.1/3.2.)
