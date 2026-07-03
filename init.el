@@ -127,6 +127,7 @@
 (require 'initializer-modeline)
 (require 'initializer-treemacs)
 (require 'initializer-org)
+(require 'initializer-ai)
 
 ;; Language-specific settings
 (require 'initializer-lsp)
