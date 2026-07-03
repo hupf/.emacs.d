@@ -7,103 +7,15 @@ A review of this `~/.emacs.d` config to find packages/settings that are **outdat
 
 Target: **GNU Emacs 30.2.50** (a 30.x pretest build), so every Emacs 29/30 built-in feature
 is available. The config is small and clean (~2000 lines across `init.el` + 18
-`initializers/*.el`), uses `use-package` throughout, and a **mixed `package.el` +
-`straight.el`** setup.
+`initializers/*.el`), uses `use-package` throughout, on **`package.el`** (straight.el was
+consolidated away — see git history).
 
-Findings are grouped from low-risk to invasive so they can be picked off per item. Each item
-lists the location, the issue, and the recommendation.
-
----
-
-## Tier 1 — Bugs & obsolete symbols (fix regardless of taste)
-
-### 1.1 Two git-gutter packages enabled at once ⚠️ — **done**
-- `initializer-editing.el:120-195` enabled **`git-gutter`** (`global-git-gutter-mode`, plus
-  `git-gutter-fringe` bitmaps).
-- `initializer-vcs.el:26-37` enables **`diff-hl`** (`global-diff-hl-mode` + `diff-hl-flydiff-mode`).
-- Both drew diff indicators in the fringe — two overlapping systems were running.
-- **Resolution:** kept **`diff-hl`** (better Magit integration, already wired to
-  `magit-post-refresh-hook`), dropped the whole `git-gutter`/`git-gutter-fringe` block,
-  including the manual `fringe-helper-define` bitmaps. The `git-gutter`/`git-gutter-fringe`/
-  `fringe-helper` packages remain installed under `elpa/` but are unreferenced; safe to
-  `package-delete` whenever convenient.
-
-### 1.2 Obsolete native-comp variables ⚠️ — **done**
-- `initializer-system.el:32-34`: `comp-deferred-compilation` and
-  `comp-deferred-compilation-black-list` were renamed and are **obsolete since Emacs 28**.
-- **Resolution:** dropped the whole block. `native-comp-jit-compilation` already defaults
-  to `t`, so setting it was redundant; the `(when (fboundp 'native-compile-async) ...)`
-  guard is unneeded on this build. The `mu4e*.el` deny-list entry was dropped rather than
-  ported: this config has no mu4e setup (added in commit `262d522`, likely copied from
-  another config as a workaround for early native-comp/mu4e crashes), so it was dead
-  weight.
-
-### 1.3 Deprecated `cl` library + `remove-if` ⚠️ — **done**
-- `initializer-windowing.el:133-134` (`kill-all-buffers`): `(require 'cl)` and `remove-if`
-  were deprecated and emitted warnings.
-- **Resolution:** switched to `seq-remove` (built-in, no `require` needed). Also fixed a
-  latent escaping bug found along the way: the regex literal `"^\*.*\*$"` collapsed to
-  `"^*.**$"` at read time (`\*` is not a recognized Elisp string escape), so it never
-  actually matched buffer names like `*scratch*` as intended. Now `"^\\*.*\\*$"` produces
-  the correct regex.
-
-### 1.4 Legacy advice & `goto-line` in Lisp — **done**
-- `initializer-editing.el:69` (`undo-tree-undo` keep-region), `306-307` (`grep`/`rgrep`
-  header): used the legacy **`defadvice`**; modern equivalent is `advice-add`.
-- `initializer-editing.el:303`: `goto-line` inside Lisp — byte-compiler warns; use
-  `(forward-line 4)` after `(goto-char (point-min))`.
-- **Resolution:** the `undo-tree-undo` keep-region advice is now a named function
-  `undo-tree-undo--keep-region` installed via `(advice-add 'undo-tree-undo :around ...)`.
-  The `grep`/`rgrep` header-trim advice (`delete-grep-header` + its two `advice-add` calls)
-  was removed outright instead of modernized — `rg` (bound to `C-S-f`) is the ripgrep
-  entry point in actual use, and plain `grep`/`rgrep` are no longer used.
-
-### 1.5 `yes-or-no-p` alias — **done**
-- `initializer-editing.el:257`: `(fset 'yes-or-no-p 'y-or-n-p)` → replaced with the built-in
-  `(setq use-short-answers t)` (Emacs 28+).
-
-### 1.6 Stale Emacs-27 workaround ⚠️ — **done**
-- `initializer-style.el:16-17`: `custom--inhibit-theme-enable` "Required for Emacs 27" — no
-  longer needed on 30.
-- **Resolution:** dropped the `(setq custom--inhibit-theme-enable nil)` line from the
-  `monokai-theme` `:init` block; `load-theme` + `custom-theme-set-faces` work fine without it.
-- `init.el:24-26` + `95-106`: the `(package-initialize)` line is commented out with a note
-  that `auto-package-update` will call it — fragile ordering; worth revisiting (see 4.1).
+Findings are grouped from low-risk to invasive so they can be picked off per item. Completed
+items have been removed from this doc; see git history for what changed and why.
 
 ---
 
 ## Tier 2 — Safe modern swaps (little/no workflow change)
-
-### 2.1 `use-package` bootstrap is redundant — **done**
-- `init.el:45-59`: manually installed `diminish` + `use-package`. **`use-package` is built
-  into Emacs 29+**; only `(require 'use-package)` (or nothing) is needed. `diminish` still
-  needs installing if `:diminish` is used.
-- **Resolution:** dropped the `package-installed-p`/`package-refresh-contents`/
-  `package-install` bootstrap block and the `eval-when-compile` wrapper for `use-package`
-  — replaced with a plain `(require 'use-package)`. Verified `(package-installed-p
-  'use-package)` returns `t` and `(locate-library "use-package")` resolves to the
-  bundled `.elc` inside `Emacs.app` on this build, confirming it's preloaded/built-in.
-  The `diminish` bootstrap (lines 45-48) is untouched — it's still a third-party package.
-
-### 2.2 Third-party tree-sitter → built-in `treesit` ⚠️ — **done**
-- `initializer-editing.el:138-154` used the **`tree-sitter` / `tree-sitter-langs`**
-  packages (the old `emacs-tree-sitter` project), and only enabled highlighting for
-  `typescript-mode`.
-- Emacs 29+ ships **built-in `treesit`** with `*-ts-mode` major modes; the third-party
-  package was effectively superseded and unmaintained.
-- **Resolution:** dropped the `tree-sitter`/`tree-sitter-langs` block entirely. Added
-  a `treesit-language-source-alist` + `my/treesit-install-all-grammars` helper in
-  `initializer-editing.el` covering typescript, tsx, javascript, json, yaml, css, ruby,
-  php, and phpdoc — grammars are now compiled into `~/.emacs.d/tree-sitter/` via
-  `treesit-install-language-grammar` instead of downloaded as a prebuilt bundle. Ties
-  directly into the 3.4 per-language mode swaps below, since built-in treesit
-  highlighting only activates through the `*-ts-mode` major modes, not as a minor mode
-  layered on the old ones.
-- Note: the upstream `tree-sitter/tree-sitter-yaml` repo (used in early tree-sitter-langs
-  bundles) has been removed/renamed on GitHub; the working recipe is
-  `tree-sitter-grammars/tree-sitter-yaml`. `php-ts-mode` additionally requires a
-  companion `phpdoc` grammar (`claytonrcarter/tree-sitter-phpdoc`) alongside `php`,
-  pinned to the same tag (`v0.23.11`) php-ts-mode.el itself uses internally.
 
 ### 2.3 `undo-tree` → `vundo` + `undo-fu`
 - `initializer-editing.el:57-78`: `undo-tree` is heavy, persists undo-history files, and has
@@ -155,64 +67,23 @@ These are all legitimate current tools too — migrate only to lean on built-ins
   Projectile still has richer commands. With consult (2.4), `consult-project-buffer` etc.
   cover most daily use. Medium effort — independent of the lsp-mode decision.
 
-### 3.4 Per-language: dedicated modes → built-in `*-ts-mode` (with 2.2) ⚠️ — **done (mostly)**
-- `initializer-javascript.el`: `typescript-mode` → **`typescript-ts-mode`/`tsx-ts-mode`**;
-  `js-mode` → `js-ts-mode`. `typescript-mode` is essentially frozen upstream.
-- `initializer-ruby.el:15`: `enh-ruby-mode` → built-in **`ruby-ts-mode`** (Emacs 30).
-  `enh-ruby-add-encoding-comment-on-save` was dropped (enh-ruby-mode-specific, no
-  equivalent needed); `ruby-indent-level` (already 2) is shared with `ruby-ts-mode`.
-- `initializer-languages.el`: `json-mode` → built-in `json-ts-mode`; `yaml-mode` →
-  `yaml-ts-mode`; `php-mode` → `php-ts-mode` (not in the original findings — turned out
-  to also be built in on this Emacs 30.2 build).
-- `initializer-web.el`: `css-mode` → `css-ts-mode`. `scss-mode` **stays as-is** — there is
-  no `scss-ts-mode`; `css-ts-mode` only parses plain CSS syntax, not SCSS's
-  `@mixin`/`&`/nesting.
-- All of the above share their indentation variable with the old mode
-  (`js-indent-level`, `css-indent-offset`, `ruby-indent-level` — verified none of the new
-  `*-ts-mode`s introduce a separate `-indent-offset` variable), so existing indent
-  settings kept working unchanged.
-- **3.4.1 `web-mode` → `html-ts-mode` — _to discuss, not migrated_**: `web-mode` handles
-  `.phtml`/`.erb`/`.hbs`/`.astro`/JSP/ASP templating (`initializer-web.el:36-59`) where a
-  single buffer mixes HTML with embedded PHP/Ruby/JS. Built-in `html-ts-mode` exists on
-  this Emacs 30.2 build, but it's unclear whether it handles multi-language embedded
-  templating the way `web-mode` does, or would need per-template-language experimentation
-  (treesit's parser-embedding support, similar to how `php-ts-mode` embeds `phpdoc`).
-  Left as a decision for later — no code changed here.
-- `coffee-mode` was **removed entirely** (no longer used) rather than migrated — there is
-  no CoffeeScript tree-sitter grammar/mode in Emacs core anyway. The `coffee-mode`
-  package remains installed under `elpa/` but is unreferenced now, same as the
-  `git-gutter` cleanup in 1.1; safe to `package-delete` whenever convenient.
+### 3.4.1 `web-mode` → `html-ts-mode` — _to discuss, not migrated_
+- `web-mode` handles `.phtml`/`.erb`/`.hbs`/`.astro`/JSP/ASP templating
+  (`initializer-web.el:36-59`) where a single buffer mixes HTML with embedded PHP/Ruby/JS.
+  Built-in `html-ts-mode` exists on this Emacs 30.2 build, but it's unclear whether it
+  handles multi-language embedded templating the way `web-mode` does, or would need
+  per-template-language experimentation (treesit's parser-embedding support, similar to how
+  `php-ts-mode` embeds `phpdoc`). Left as a decision for later — no code changed here. (The
+  rest of the per-language `*-ts-mode` migration is done.)
 
 ---
 
 ## Tier 4 — Minor / cosmetic / taste
 
 - **4.1 `auto-package-update` fork** (`init.el:96-106`): pinned to a personal
-  `hupf/auto-package-update.el` `preview-updates` branch via straight — a maintenance
-  burden. Emacs 30 has no direct built-in equivalent, but consider upstream
-  `auto-package-update` or manual `package-upgrade-all` (Emacs 29+).
-### 4.2 Consolidate package managers — **done**
-- straight.el was used for only 3 active packages (`ligature`, `flycheck-standardrb`,
-  `auto-package-update` fork) — see former `initializer-style.el:46`,
-  `initializer-ruby.el:72`, `init.el:97`. Everything else was already `package.el`.
-- **Resolution:** dropped the straight.el bootstrap block from `init.el` entirely
-  (`/straight` also removed from `.gitignore`). `ligature` turned out to already be on
-  MELPA (confirmed via `melpa.org/packages/archive-contents`), so it needed no special
-  handling — dropping `:straight` was enough for `use-package`'s existing
-  `use-package-always-ensure` to fetch it normally. The `hupf/auto-package-update.el`
-  fork is still Git-only, so it now uses Emacs 30's built-in **`:vc` use-package
-  keyword** (`:vc (:url "..." :branch "...")`), backed by `package-vc-install`.
-  `flycheck-standardrb` stayed as a manual, conditional install inside
-  `setup-ruby-ts` rather than a top-level `use-package :vc` — the `:vc` keyword's
-  install call runs whenever its `use-package` form is evaluated (i.e. unconditionally
-  at startup, since `:defer`/`:commands` only gate *loading*, not the `:vc` install
-  step), which would have regressed the original "only install when a project
-  actually has `.standard.yml`" behavior. It now calls `(package-vc-install '(...))`
-  directly, guarded by `(unless (package-installed-p 'flycheck-standardrb) ...)` —
-  the same install-on-first-need behavior as before, just via `package-vc.el` instead
-  of straight.el. `package-vc-install` also re-prompts to overwrite an existing
-  checkout if called again without that guard, so the check is load-bearing, not
-  just an optimization.
+  `hupf/auto-package-update.el` `preview-updates` branch (now via the built-in `:vc`
+  use-package keyword) — a maintenance burden. Emacs 30 has no direct built-in equivalent,
+  but consider upstream `auto-package-update` or manual `package-upgrade-all` (Emacs 29+).
 - **4.3 `rvm`** (`initializer-ruby.el:10`): fine if RVM is in use; most have moved to
   chruby/rbenv/mise. mise is already used for Node (`initializer-javascript.el:10`) — mise
   can manage Ruby too, which would unify version management.
@@ -227,8 +98,7 @@ These are all legitimate current tools too — migrate only to lean on built-ins
   (`initializer-modeline.el`) are fine. Modern options if ever wanted: built-in
   **`modus-themes`** / `ef-themes` (no install needed) and `doom-modeline`.
 - **4.8 `adoc-mode`, `haml-mode`**: legacy-language modes with no built-in tree-sitter
-  equivalent — keep only what is actually edited. (`coffee-mode` was removed per 3.4;
-  `php-mode` was migrated to `php-ts-mode` per 3.4.)
+  equivalent — keep only what is actually edited.
 - **4.9 ripgrep executable resolution** (`initializer-editing.el:391-397`) — _to discuss_:
   the hardcoded `rg-executable` (`~/.cargo/bin/rg`) was removed (commit 3c10f9c), so `rg` now
   relies on being found on `PATH`. Open question for later: is `rg` reliably on `PATH` in the
@@ -239,25 +109,19 @@ These are all legitimate current tools too — migrate only to lean on built-ins
 
 ## Suggested priority order
 
-1. **Do now (Tier 1):** ~~duplicate git-gutter~~ (done, 1.1), ~~obsolete comp vars~~ (done, 1.2),
-   ~~`cl`/`remove-if`~~ (done, 1.3), `defadvice`/`goto-line`, `use-short-answers`.
-2. **Easy wins (Tier 2):** ~~drop use-package bootstrap~~ (done, 2.1); ~~built-in `treesit`~~
-   (done, 2.2); `vundo`+`undo-fu`; add `consult`+`embark`; `apheleia`.
-3. **When there's appetite (Tier 3):** project.el; ~~`*-ts-mode` — per language~~ (done, 3.4,
-   except `web-mode`/`html-ts-mode` — deferred, see 3.4.1). (lsp-mode + flycheck are
-   kept — see 3.1/3.2.)
-4. **Cleanup (Tier 4):** ~~consolidate to one package manager~~ (done, 4.2); prune dead
-   code and unused modes.
+1. **Easy wins (Tier 2):** `vundo`+`undo-fu`; add `consult`+`embark`; `apheleia`.
+2. **When there's appetite (Tier 3):** project.el; `web-mode`→`html-ts-mode` (3.4.1,
+   deferred). (lsp-mode + flycheck are kept — see 3.1/3.2.)
+3. **Cleanup (Tier 4):** prune dead code and unused modes.
 
 ## Verification (if/when any of these are applied)
 
 - Start clean: `emacs -Q --debug-init` then load, or restart Emacs and watch `*Messages*` and
   the startup-time line for byte-compile/obsoletion warnings.
-- `M-x package-lint` / check `*Warnings*` for remaining obsolete-symbol warnings (Tier 1).
 - Per language changed in Tier 3: open a real project file, confirm LSP connects
   (`M-x lsp`), diagnostics appear, format-on-save works, and Treemacs/project navigation
   still resolves the project root.
-- After 2.2/3.4: run `M-x my/treesit-install-all-grammars` once per machine (needs `git`
-  + a C compiler on `PATH`) before opening `.ts`/`.tsx`/.`js`/`.json`/`.yml`/`.css`/`.rb`/
-  `.php` files — without a compiled grammar, the corresponding `*-ts-mode` throws a hard
-  error instead of falling back gracefully.
+- If working on tree-sitter-related items: run `M-x my/treesit-install-all-grammars` once per
+  machine (needs `git` + a C compiler on `PATH`) before opening `.ts`/`.tsx`/`.js`/`.json`/
+  `.yml`/`.css`/`.rb`/`.php` files — without a compiled grammar, the corresponding
+  `*-ts-mode` throws a hard error instead of falling back gracefully.
