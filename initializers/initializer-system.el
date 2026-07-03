@@ -58,8 +58,13 @@
 
 ;; OSX specifics
 (when (eq system-type 'darwin)
-  ;; Homebrew installs binaries here; not inherited when Emacs is launched as a GUI app
+  ;; Homebrew installs binaries here; not inherited when Emacs is launched as a
+  ;; GUI app. `exec-path' only affects how Emacs itself locates a binary; the
+  ;; PATH env var also needs it so that subprocesses (e.g. the native-comp
+  ;; async batch process invoking libgccjit, which shells out to gcc/as/ld)
+  ;; can find Homebrew's toolchain too.
   (add-to-list 'exec-path "/opt/homebrew/bin")
+  (setenv "PATH" (concat "/opt/homebrew/bin" path-separator (getenv "PATH")))
 
   ;; Fix keys
   (setq mac-control-modifier 'control)
