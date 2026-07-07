@@ -86,10 +86,11 @@
 ;; Elm
 ;; Make sure to have elm installed: https://guide.elm-lang.org/install/elm.html
 ;; And elm-format via `npm i -g elm-format`
+;; Formatting on save is handled by Apheleia's built-in elm-format formatter.
 (use-package elm-mode
   :mode "\\.elm\\'"
   :hook
-  (elm-mode . elm-format-on-save-mode)
+  (elm-mode . apheleia-mode)
   (elm-mode . setup-node-lsp))
 
 ;; (use-package flycheck-elm

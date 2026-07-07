@@ -15,16 +15,6 @@ items have been removed from this doc; see git history for what changed and why.
 
 ---
 
-## Tier 2 — Safe modern swaps (little/no workflow change)
-
-### 2.5 `prettier-js` → `apheleia`
-- `initializer-editing.el:225-240`: `prettier-js` works but is single-formatter.
-- **`apheleia`** is the current standard: async format-on-save, cursor-stable, multi-language
-  (prettier, rubocop, gofmt, …). Would also unify with Ruby (`rubocop-autocorrect-on-save`)
-  and could replace `elm-format-on-save-mode`.
-
----
-
 ## Tier 3 — Big migrations (state-of-the-art, but change muscle memory / need re-testing)
 
 These are all legitimate current tools too — migrate only to lean on built-ins.
@@ -83,10 +73,9 @@ These are all legitimate current tools too — migrate only to lean on built-ins
 
 ## Suggested priority order
 
-1. **Easy wins (Tier 2 remaining):** `apheleia`.
-2. **When there's appetite (Tier 3):** `web-mode`→`html-ts-mode` (3.4.1, deferred). (lsp-mode +
+1. **When there's appetite (Tier 3):** `web-mode`→`html-ts-mode` (3.4.1, deferred). (lsp-mode +
    flycheck are kept — see 3.1/3.2.)
-3. **Cleanup (Tier 4):** prune dead code and unused modes.
+2. **Cleanup (Tier 4):** prune dead code and unused modes.
 
 ## Verification (if/when any of these are applied)
 

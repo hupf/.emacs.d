@@ -59,8 +59,11 @@
 
   ;; Activate the Rubocop linter/formatter
   (when (buffer-file-has-ancestor ".rubocop.yml")
-    ;; Enable mode for autocorrecting on save and keybindings
+    ;; Enable mode for manual Rubocop commands/keybindings; formatting
+    ;; on save is handled by Apheleia (see initializer-editing.el)
     (rubocop-mode)
+    (setq-local apheleia-formatter 'rubocop)
+    (apheleia-mode)
 
     ;; Enforce selecting of the ruby-rubocop checker
     (setq-local flycheck-disabled-checkers '(ruby ruby-standard)) ;; Don't fall back to ruby or standard checker
@@ -78,10 +81,7 @@
 
 ;; Rubocop
 (use-package rubocop
-  :commands (rubocop-mode)
-
-  :init
-  (setq rubocop-autocorrect-on-save 1))
+  :commands (rubocop-mode))
 
 ;; ;; Look up symbols in ruby `ri' to using yari.
 ;; (define-key 'help-command (kbd "R") 'yari)

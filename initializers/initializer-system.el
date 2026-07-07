@@ -66,6 +66,16 @@
   (add-to-list 'exec-path "/opt/homebrew/bin")
   (setenv "PATH" (concat "/opt/homebrew/bin" path-separator (getenv "PATH")))
 
+  ;; The gcc driver invoked by libgccjit also needs LIBRARY_PATH to
+  ;; find Homebrew gcc's support libraries when linking a native-comp
+  ;; trampoline. Not inherited when Emacs is launched as a GUI app,
+  ;; same as PATH above.
+  (when-let* ((gcc-lib-dirs (file-expand-wildcards "/opt/homebrew/opt/gcc/lib/gcc/current/gcc/*/*")))
+    (setenv "LIBRARY_PATH"
+            (mapconcat #'identity
+                       (append gcc-lib-dirs '("/opt/homebrew/lib/gcc/current" "/opt/homebrew/lib"))
+                       path-separator)))
+
   ;; Fix keys
   (setq mac-control-modifier 'control)
   (setq mac-option-modifier 'none)

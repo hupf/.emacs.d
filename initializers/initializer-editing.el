@@ -217,23 +217,19 @@
   :config (editorconfig-mode 1))
 
 
-;; Prettier
-(use-package prettier-js
-  :diminish prettier-js-mode
+;; Apheleia (async, cursor-stable format-on-save; also used by
+;; initializer-ruby.el for Rubocop and initializer-languages.el for Elm)
+;; Prettier is resolved from the project-local ./node_modules/.bin
+;; automatically, falling back to npx.
+(use-package apheleia
+  :diminish apheleia-mode
 
-  :hook (((js-ts-mode typescript-ts-mode tsx-ts-mode json-ts-mode web-mode css-ts-mode scss-mode markdown-mode yaml-ts-mode) . init-prettier)))
+  :hook (((js-ts-mode typescript-ts-mode tsx-ts-mode json-ts-mode web-mode css-ts-mode scss-mode markdown-mode yaml-ts-mode) . apheleia-mode))
 
-(defun init-prettier ()
-  "Initialize Prettier mode, making sure the project-local version is used."
-
-  ;; Don't install Prettier globally, install a Prettier version in
-  ;; the projects you'd like formatting to be enabled.
-
-  ;; Make sure the project-local ./node_modules/.bin/prettier is found
-  (add-node-modules-path)
-
-  ;; Enable formatting on save
-  (prettier-js-mode))
+  :config
+  ;; Apheleia omits markdown-mode from its defaults (formatting style
+  ;; varies too much across projects); we always want Prettier here.
+  (add-to-list 'apheleia-mode-alist '(markdown-mode . prettier-markdown)))
 
 ;; enable y/n answers so you don't have to type 'yes' on 'no'
 ;; for everything
