@@ -18,8 +18,14 @@
 (defun magit-status-with-node ()
   "Configure project's node_modules for Git hook commands to be working in Magit."
   (interactive)
-  (add-node-modules-path)
-  (magit-status-setup-buffer))
+  ;; `project-switch-project' only overrides `project-current-directory-override',
+  ;; not `default-directory', so resolve the root via `project-current' to also
+  ;; work when invoked from its dispatch menu (C-c p p)
+  (let ((default-directory (if-let ((pr (project-current)))
+                                (project-root pr)
+                              default-directory)))
+    (add-node-modules-path)
+    (magit-status-setup-buffer)))
 
 
 ;; use diff-hl to add git diffs in gutter

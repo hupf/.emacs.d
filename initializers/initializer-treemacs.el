@@ -70,8 +70,9 @@
   :hook
   (treemacs-mode . treemacs-fix-single-click-root-expand))
 
-(use-package treemacs-projectile
-  :after treemacs)
+;; Auto-track the current project.el project in Treemacs, so a file
+;; can be opened directly without adding its project first
+(treemacs-project-follow-mode)
 
 (defun treemacs-natively-open-path-at-point ()
   "Open path at point with native browser/application."

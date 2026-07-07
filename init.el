@@ -105,7 +105,7 @@
 (require 'initializer-style)
 (require 'initializer-system)
 (require 'initializer-completion)
-(require 'initializer-projectile)
+(require 'initializer-project)
 (require 'initializer-vcs)
 (require 'initializer-windowing)
 (require 'initializer-editing)

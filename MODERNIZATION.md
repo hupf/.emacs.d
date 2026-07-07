@@ -41,12 +41,6 @@ These are all legitimate current tools too — migrate only to lean on built-ins
   better-integrated pairing for `lsp-mode` and preserves the eslint chaining and
   `flycheck-status-emoji`. Leave as-is.
 
-### 3.3 `projectile` → built-in **`project.el`**
-- `initializer-projectile.el`, plus `treemacs-projectile` (`initializer-treemacs.el:73`) and
-  the `projectile-find-file` binding. `project.el` is what the consult ecosystem assumes, but
-  Projectile still has richer commands. With `consult` now in place, `consult-project-buffer`
-  etc. cover most daily use. Medium effort — independent of the lsp-mode decision.
-
 ### 3.4.1 `web-mode` → `html-ts-mode` — _to discuss, not migrated_
 - `web-mode` handles `.phtml`/`.erb`/`.hbs`/`.astro`/JSP/ASP templating
   (`initializer-web.el:36-59`) where a single buffer mixes HTML with embedded PHP/Ruby/JS.
@@ -90,8 +84,8 @@ These are all legitimate current tools too — migrate only to lean on built-ins
 ## Suggested priority order
 
 1. **Easy wins (Tier 2 remaining):** `apheleia`.
-2. **When there's appetite (Tier 3):** project.el; `web-mode`→`html-ts-mode` (3.4.1,
-   deferred). (lsp-mode + flycheck are kept — see 3.1/3.2.)
+2. **When there's appetite (Tier 3):** `web-mode`→`html-ts-mode` (3.4.1, deferred). (lsp-mode +
+   flycheck are kept — see 3.1/3.2.)
 3. **Cleanup (Tier 4):** prune dead code and unused modes.
 
 ## Verification (if/when any of these are applied)
