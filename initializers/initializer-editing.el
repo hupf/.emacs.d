@@ -72,10 +72,6 @@
     (apply orig-fn args)))
 (advice-add 'undo :around #'undo--keep-region)
 
-;; Choose and yank one of the last killed texts
-(use-package browse-kill-ring
-  :bind ("M-y" . browse-kill-ring))
-
 (use-package multiple-cursors
   :bind
   ("C->" . mc/mark-next-like-this)

@@ -17,16 +17,6 @@ items have been removed from this doc; see git history for what changed and why.
 
 ## Tier 2 — Safe modern swaps (little/no workflow change)
 
-### 2.4 Complete the Vertico stack with `consult` + `embark`
-- Already present: `vertico` + `orderless` + `marginalia` + `savehist`
-  (`initializer-completion.el`) — an excellent, current stack — but **missing `consult` and
-  `embark`**, its natural companions. Adding them lets several older packages retire:
-  - `ctrlf` (`initializer-completion.el:152` — already `:disabled`) → `consult-line`.
-  - `browse-kill-ring` (`initializer-editing.el:76`) → `consult-yank-pop`.
-  - the `rg` package (`initializer-editing.el:288`) → `consult-ripgrep`.
-  - `embark` + `embark-consult` add act-on-candidate (the modern replacement for many
-    bespoke bindings).
-
 ### 2.5 `prettier-js` → `apheleia`
 - `initializer-editing.el:225-240`: `prettier-js` works but is single-formatter.
 - **`apheleia`** is the current standard: async format-on-save, cursor-stable, multi-language
@@ -54,8 +44,8 @@ These are all legitimate current tools too — migrate only to lean on built-ins
 ### 3.3 `projectile` → built-in **`project.el`**
 - `initializer-projectile.el`, plus `treemacs-projectile` (`initializer-treemacs.el:73`) and
   the `projectile-find-file` binding. `project.el` is what the consult ecosystem assumes, but
-  Projectile still has richer commands. With consult (2.4), `consult-project-buffer` etc.
-  cover most daily use. Medium effort — independent of the lsp-mode decision.
+  Projectile still has richer commands. With `consult` now in place, `consult-project-buffer`
+  etc. cover most daily use. Medium effort — independent of the lsp-mode decision.
 
 ### 3.4.1 `web-mode` → `html-ts-mode` — _to discuss, not migrated_
 - `web-mode` handles `.phtml`/`.erb`/`.hbs`/`.astro`/JSP/ASP templating
@@ -89,17 +79,17 @@ These are all legitimate current tools too — migrate only to lean on built-ins
   **`modus-themes`** / `ef-themes` (no install needed) and `doom-modeline`.
 - **4.8 `adoc-mode`, `haml-mode`**: legacy-language modes with no built-in tree-sitter
   equivalent — keep only what is actually edited.
-- **4.9 ripgrep executable resolution** (`initializer-editing.el:287-294`) — _to discuss_:
-  the hardcoded `rg-executable` (`~/.cargo/bin/rg`) was removed (commit 3c10f9c), so `rg` now
-  relies on being found on `PATH`. Open question for later: is `rg` reliably on `PATH` in the
-  GUI Emacs environment (via `exec-path-from-shell` / mise), or does it need explicit setup?
-  Also relevant if 2.4 lands — `consult-ripgrep` has the same executable dependency.
+- **4.9 ripgrep executable resolution** (`initializer-completion.el`) — _to discuss_: the
+  hardcoded `rg-executable` (`~/.cargo/bin/rg`) was removed (commit 3c10f9c) back when the
+  `rg` package was still in use; now `consult-ripgrep` relies on the `rg` binary being found on
+  `PATH`. Open question for later: is `rg` reliably on `PATH` in the GUI Emacs environment (via
+  `exec-path-from-shell` / mise), or does it need explicit setup?
 
 ---
 
 ## Suggested priority order
 
-1. **Easy wins (Tier 2 remaining):** add `consult`+`embark`; `apheleia`.
+1. **Easy wins (Tier 2 remaining):** `apheleia`.
 2. **When there's appetite (Tier 3):** project.el; `web-mode`→`html-ts-mode` (3.4.1,
    deferred). (lsp-mode + flycheck are kept — see 3.1/3.2.)
 3. **Cleanup (Tier 4):** prune dead code and unused modes.

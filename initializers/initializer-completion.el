@@ -72,6 +72,30 @@
   (setq enable-recursive-minibuffers t))
 
 
+;; Enhanced completing-read commands (find/grep/search/yank through
+;; the same Vertico UI)
+(use-package consult
+  :bind
+  ;; ("C-S-f" . consult-ripgrep)
+  ("M-y" . consult-yank-pop)
+  ("M-s l" . consult-line))
+
+;; Act on the thing at point, or on the candidate under the cursor in
+;; any Vertico/Consult minibuffer list
+(use-package embark
+  :bind
+  ("C-." . embark-act)
+  ("C-;" . embark-dwim)
+
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command))
+
+;; Let Embark and Consult work together, e.g. `embark-export' on
+;; `consult-ripgrep' results into an editable grep buffer
+(use-package embark-consult
+  :after (embark consult)
+  :hook (embark-collect-mode . consult-preview-at-point-mode))
+
 ;; Enable richer minibuffer annotations
 (use-package marginalia
   ;; Either bind `marginalia-cycle` globally or only in the minibuffer
